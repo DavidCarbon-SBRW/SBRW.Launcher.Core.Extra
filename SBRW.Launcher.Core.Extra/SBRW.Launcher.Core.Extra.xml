@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SBRW.Launcher.Core.Extra</name>
+    </assembly>
+    <members>
+        <member name="T:SBRW.Launcher.Core.Extra.File_.Save_Account">
+            <summary>
+            Global Account Save System
+            </summary>
+            <remarks>Used to set Values and Save them</remarks>
+        </member>
+        <member name="F:SBRW.Launcher.Core.Extra.File_.Save_Account.Live_Data">
+            <summary>Account Format Information In Live Memory</summary>
+        </member>
+        <member name="F:SBRW.Launcher.Core.Extra.File_.Save_Account.AccountFile">
+            <value>Account File Information on Disk</value>
+        </member>
+        <member name="F:SBRW.Launcher.Core.Extra.File_.Save_Account.SaveLoginInformation">
+            <value>Used to Save Login Information when Remember me is Checked Marked</value>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.File_.Save_Account.NullSafe">
+            <summary>
+            Null Safe Values Checker
+            </summary>
+            <remarks>Used to create, update, or remove Values before Critical Launcher Checks</remarks>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.File_.Save_Account.Save">
+            <summary>
+            Account Information Saver
+            </summary>
+            <remarks>Used to create, update, or remove Values after a successful login</remarks>
+        </member>
+        <member name="T:SBRW.Launcher.Core.Extra.File_.Save_Settings">
+            <summary>
+            Global Settings Save System
+            </summary>
+            <remarks>Used to set Values and Save them</remarks>
+        </member>
+        <member name="F:SBRW.Launcher.Core.Extra.File_.Save_Settings.Live_Data">
+            <summary>Settings Format Information In Live Memory</summary>
+        </member>
+        <member name="F:SBRW.Launcher.Core.Extra.File_.Save_Settings.SettingFile">
+            <value>Settings File Information on Disk</value>s
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.File_.Save_Settings.LiveStreamingSupport">
+            <summary>Launcher Streaming Support [Saved Live Value]</summary>
+            <remarks>Allows Video Capture Natively</remarks>
+            <returns>True or False</returns>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.File_.Save_Settings.NullSafe">
+            <summary>Creates all the NullSafe Values for Settings.ini</summary>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.File_.Save_Settings.SaveSettings">
+            <summary>Saves all Current Values</summary>
+        </member>
+        <member name="T:SBRW.Launcher.Core.Extra.Ini_.Ini_File">
+            <summary>
+            Ini File Class
+            </summary>
+        </member>
+        <member name="P:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Index_Header">
+            <summary>
+            Index Header for the Ini File
+            </summary>
+        </member>
+        <member name="P:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Conversion_Failure">
+            <summary>
+            Conversion Failure Number to indicate if a value conversion had failed
+            </summary>
+            <remarks>Default Number: -2017</remarks>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.Ini_.Ini_File.#ctor(System.String)">
+            <summary>
+            Loads Ini File
+            </summary>
+            <param name="Ini_Path">Ini Full File Path</param>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Key_Read(System.String)">
+            <summary>
+            Read a Key Entry inside the Ini File
+            </summary>
+            <param name="Key_Index">String Index Key</param>
+            <returns>String Inside Key Index</returns>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Key_Write(System.String,System.String)">
+            <summary>
+            Creates a Key Entry inside the Ini File
+            </summary>
+            <param name="Key_Index">String Index Key</param>
+            <param name="Index_Data">String Key Data</param>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Key_Delete(System.String)">
+            <summary>
+            Deletes a Key Entry from the Ini File
+            </summary>
+            <param name="Key_Index">String Index Key</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Key_Exists(System.String)">
+            <summary>
+            Checks the Ini File for an Existing Key Entry
+            </summary>
+            <param name="Key_Index">String Index Key</param>
+            <returns>True if found; otherwise, False</returns>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Key_Read_Int(System.String)">
+            <summary>
+            Converts the specified Boolean value to the equivalent 32-bit signed integer.
+            </summary>
+            <param name="Key_Index">The String value to convert.</param>
+            <returns>The number if value was converted successfully; otherwise, -2017 to indicate conversion failure.</returns>
+            <remarks><b><i>Make Sure to Set a Value that be checked for conversion failure</i></b></remarks>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Key_Read_Int_Check(System.String)">
+            <summary>
+            Converts the specified Boolean value to the equivalent 32-bit signed integer.
+            </summary>
+            <param name="Key_Index">The String value to convert.</param>
+            <returns>True if value was converted successfully; otherwise, False.</returns>
+        </member>
+        <member name="M:SBRW.Launcher.Core.Extra.Ini_.Ini_File.Key_Delete_Section(System.String)">
+            <summary>
+            Deletes a Section of Ini File Section
+            </summary>
+            <param name="Key_Section">Section Key</param>
+            <remarks><b><i>Documentation is still ongoing</i></b></remarks>
+        </member>
+        <member name="T:SBRW.Launcher.Core.Extra.Ini_.Ini_Location">
+            <summary>
+            Ini Location and Name Class
+            </summary>
+        </member>
+        <member name="P:SBRW.Launcher.Core.Extra.Ini_.Ini_Location.Name_Settings_Ini">
+            <summary>
+            Name of the Settings File (Ini)
+            </summary>
+        </member>
+        <member name="P:SBRW.Launcher.Core.Extra.Ini_.Ini_Location.Name_Account_Ini">
+            <summary>
+            Name of the Account File (Ini)
+            </summary>
+        </member>
+        <member name="P:SBRW.Launcher.Core.Extra.Ini_.Ini_Location.Launcher_Settings">
+            <summary>
+            Launcher Settings (Ini) Full File Path
+            </summary>
+        </member>
+        <member name="P:SBRW.Launcher.Core.Extra.Ini_.Ini_Location.RoamingAppDataFolder">
+            <summary>
+            Roaming App Data Folder Location
+            </summary>
+        </member>
+        <member name="P:SBRW.Launcher.Core.Extra.Ini_.Ini_Location.RoamingAppDataFolder_Launcher">
+            <summary>
+            Roaming App Data Launcher Folder Location
+            </summary>
+        </member>
+        <member name="P:SBRW.Launcher.Core.Extra.Ini_.Ini_Location.Launcher_Account">
+            <summary>
+            Launcher Account (Ini) Full File Path
+            </summary>
+        </member>
+    </members>
+</doc>

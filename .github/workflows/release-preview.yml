@@ -1,0 +1,31 @@
+on:
+  push:
+    tags:
+    - "v[0-9]+.[0-9]+.[0-9]+-preview[0-9][0-9][0-9]"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Branch Checkout
+      uses: actions/checkout@v2.4.0
+    - name: Set VERSION variable from tag
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV 
+    - name: Set Custom NuGet Packages
+      run: |
+        dotnet nuget add source ${PrivateNuGetUrl} -n "SBRW Launcher Libraries" -u ${GHUserName} -p ${Password} --store-password-in-clear-text
+      env:
+        PrivateNuGetUrl: ${{ secrets.SBRW_LIBRARIES_LAUNCHER_NUGET_URL }}
+        GHUserName: ${{ secrets.SBRW_LIBRARIES_LAUNCHER_USERNAME }}
+        Password: ${{ secrets.SBRW_LIBRARIES_LAUNCHER_OUTHTOKEN }}
+    - name: Restore Custom NuGet Packages
+      run: dotnet restore --ignore-failed-sources
+    - name: Build
+      run: dotnet build --configuration Release /p:Version=${VERSION}      
+    - name: Pack
+      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
+    - name: Push
+      run: dotnet nuget push SBRW.Launcher.Core.Extra.${VERSION}.nupkg --source ${NUGET_URL} --api-key ${GITHUB_TOKEN}
+      env:
+        NUGET_URL: ${{ secrets.SBRW_LIBRARIES_LAUNCHER_NUGET_URL }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461;net472</TargetFrameworks>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.0001</Version>
+    <Authors>Soapbox Race World - Launcher Division</Authors>
+    <Company>Soapbox Race World</Company>
+    <Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
+    <Copyright>© Soapbox Race World</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Ini</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RepositoryUrl>https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Extra</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Extra</PackageProjectUrl>
+    <PackageIcon>Logo-Full-Size.png</PackageIcon>
+    <PackageIconUrl />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DocumentationFile>F:\GitHub Projects\SBRW.Launcher.Core.Extra\SBRW.Launcher.Core.Extra\SBRW.Launcher.Core.Extra.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <DocumentationFile>F:\GitHub Projects\SBRW.Launcher.Core.Extra\SBRW.Launcher.Core.Extra\SBRW.Launcher.Core.Extra.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ini-parser" Version="2.5.2" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.18" />
+    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.7" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Icon\Logo-Full-Size.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
