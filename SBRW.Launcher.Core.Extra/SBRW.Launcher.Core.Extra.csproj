@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="ini-parser" Version="2.5.2" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.18" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.19" />
     <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.8" />
     <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.4" />
   </ItemGroup>
