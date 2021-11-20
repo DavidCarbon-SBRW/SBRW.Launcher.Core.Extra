@@ -7,14 +7,14 @@ namespace SBRW.Launcher.Core.Extra.File_
     /// Global Account Save System
     /// </summary>
     /// <remarks>Used to set Values and Save them</remarks>
-    class Save_Account
+    public class Save_Account
     {
         /// <summary>Account Format Information In Live Memory</summary>
-        public static Format_Account Live_Data = new Format_Account();
+        public static Format_Account Live_Data { get; set; } = new Format_Account();
         ///<value>Account File Information on Disk</value>
-        private static Ini_File AccountFile;
+        private static Ini_File AccountFile { get; set; }
         ///<value>Used to Save Login Information when Remember me is Checked Marked</value>
-        public static bool SaveLoginInformation = false;
+        public static bool SaveLoginInformation { get; set; }
         /// <summary>
         /// Null Safe Values Checker
         /// </summary>

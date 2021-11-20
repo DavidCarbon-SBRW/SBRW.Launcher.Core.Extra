@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net461;net472</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.0002</Version>
+    <Version>0.0.0003</Version>
     <Authors>Soapbox Race World - Launcher Division</Authors>
     <Company>Soapbox Race World</Company>
     <Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
@@ -30,7 +30,7 @@
     <PackageReference Include="ini-parser" Version="2.5.2" />
     <PackageReference Include="SBRW.Launcher.Core" Version="0.0.19" />
     <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.8" />
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.5" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.6" />
   </ItemGroup>
 
   <ItemGroup>

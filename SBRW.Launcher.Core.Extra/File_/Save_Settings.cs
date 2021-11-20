@@ -15,9 +15,9 @@ namespace SBRW.Launcher.Core.Extra.File_
     public class Save_Settings
     {
         /// <summary>Settings Format Information In Live Memory</summary>
-        public static Format_Settings Live_Data = new Format_Settings();
+        public static Format_Settings Live_Data { get; set; } = new Format_Settings();
         ///<value>Settings File Information on Disk</value>s
-        private static Ini_File SettingFile;
+        private static Ini_File SettingFile { get; set; }
         ///<summary>Launcher Streaming Support [Saved Live Value]</summary>
         ///<remarks>Allows Video Capture Natively</remarks>
         ///<returns>True or False</returns>
@@ -352,7 +352,7 @@ namespace SBRW.Launcher.Core.Extra.File_
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
         }
         /// <summary>Saves all Current Values</summary>
-        public static void SaveSettings()
+        public static void Save()
         {
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
 
