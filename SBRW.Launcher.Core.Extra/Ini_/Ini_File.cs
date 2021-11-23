@@ -1,6 +1,6 @@
-﻿using IniParser;
-using IniParser.Model;
-using SBRW.Launcher.Core.Classes.Extension.Logging_;
+﻿using SBRW.Ini.Parser;
+using SBRW.Ini.Parser.Model;
+using SBRW.Launcher.Core.Extension.Logging_;
 using System;
 using System.IO;
 using System.Text;

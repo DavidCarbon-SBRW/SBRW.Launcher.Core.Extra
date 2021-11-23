@@ -1,6 +1,6 @@
-﻿using SBRW.Launcher.Core.Classes.Cache;
-using SBRW.Launcher.Core.Classes.Extension.Security_;
-using SBRW.Launcher.Core.Classes.Required.System.Windows_;
+﻿using SBRW.Launcher.Core.Cache;
+using SBRW.Launcher.Core.Extension.Security_;
+using SBRW.Launcher.Core.Required.System.Windows_;
 using SBRW.Launcher.Core.Extra.File_;
 
 namespace SBRW.Launcher.Core.Extra.Conversion_

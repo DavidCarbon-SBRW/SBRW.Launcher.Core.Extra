@@ -1,3 +1,4 @@
+name: Build Status - Preview
 on:
   push:
     tags:

@@ -1,4 +1,4 @@
-﻿using SBRW.Launcher.Core.Classes.Reference.Ini_;
+﻿using SBRW.Launcher.Core.Reference.Ini_;
 using SBRW.Launcher.Core.Extra.Ini_;
 
 namespace SBRW.Launcher.Core.Extra.File_

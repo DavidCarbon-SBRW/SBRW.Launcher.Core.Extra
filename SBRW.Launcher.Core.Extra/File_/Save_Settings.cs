@@ -1,7 +1,7 @@
-﻿using SBRW.Launcher.Core.Classes.Cache;
-using SBRW.Launcher.Core.Classes.Extension.Logging_;
-using SBRW.Launcher.Core.Classes.Reference.Ini_;
-using SBRW.Launcher.Core.Classes.Required.System.Windows_;
+﻿using SBRW.Launcher.Core.Cache;
+using SBRW.Launcher.Core.Extension.Logging_;
+using SBRW.Launcher.Core.Reference.Ini_;
+using SBRW.Launcher.Core.Required.System.Windows_;
 using SBRW.Launcher.Core.Discord.RPC_;
 using SBRW.Launcher.Core.Extra.Ini_;
 using SBRW.Launcher.Core.Proxy.Nancy_;
