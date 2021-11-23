@@ -1,10 +1,11 @@
+name: Build Status - Development
 on:
   push:
     branches:
-    - release
+    - development
   pull_request:
     branches:
-    - release
+    - development
 jobs:
   build:
     runs-on: ubuntu-latest

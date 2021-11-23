@@ -1,5 +1,5 @@
-﻿using SBRW.Launcher.Core.Classes.Cache;
-using SBRW.Launcher.Core.Classes.Extension.Logging_;
+﻿using SBRW.Launcher.Core.Cache;
+using SBRW.Launcher.Core.Extension.Logging_;
 using System;
 using System.IO;
 

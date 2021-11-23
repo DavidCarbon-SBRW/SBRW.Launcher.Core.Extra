@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net461;net472</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.0003</Version>
+    <Version>0.0.0004</Version>
     <Authors>Soapbox Race World - Launcher Division</Authors>
     <Company>Soapbox Race World</Company>
     <Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
@@ -14,27 +14,23 @@
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Extra</RepositoryUrl>
     <PackageProjectUrl>https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Extra</PackageProjectUrl>
-    <PackageIcon>Logo-Full-Size.png</PackageIcon>
+    <PackageIcon>Logo_512.png</PackageIcon>
     <PackageIconUrl />
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DocumentationFile>F:\GitHub Projects\SBRW.Launcher.Core.Extra\SBRW.Launcher.Core.Extra\SBRW.Launcher.Core.Extra.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>F:\GitHub Projects\SBRW.Launcher.Core.Extra\SBRW.Launcher.Core.Extra\SBRW.Launcher.Core.Extra.xml</DocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ini-parser" Version="2.5.2" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.19" />
-    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.8" />
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.6" />
+    <PackageReference Include="SBRW.Ini.Parser" Version="2.6.0" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.20" />
+    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.10" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.8" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Resources\Icon\Logo-Full-Size.png">
+    <None Include="Resources\Icon\Logo_512.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

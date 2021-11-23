@@ -1,3 +1,4 @@
+name: Build Status - Release
 on:
   push:
     tags:
