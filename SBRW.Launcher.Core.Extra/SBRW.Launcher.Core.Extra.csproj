@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net461;net472</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.6</Version>
+    <Version>0.0.7</Version>
     <Authors>Soapbox Race World - Launcher Division</Authors>
     <Company>Soapbox Race World</Company>
     <Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
@@ -18,15 +18,23 @@
     <PackageIconUrl />
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <DebugType>embedded</DebugType>
+    <!-- Required: Full Debugging -->
+    <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <!-- Required: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Required: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- Required: Include symbols files if Self-Hosted Nuget Feed does not support symbol packages -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SBRW.Ini.Parser" Version="2.6.2" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.21" />
-    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.11" />
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.9" />
+    <PackageReference Include="SBRW.Ini.Parser" Version="2.6.3" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.22" />
+    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.12" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.10" />
   </ItemGroup>
 
   <ItemGroup>
