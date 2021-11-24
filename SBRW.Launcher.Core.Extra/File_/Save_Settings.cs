@@ -144,6 +144,7 @@ namespace SBRW.Launcher.Core.Extra.File_
                 {
                     /* Now that Settings has been Loaded, Lets Stop RPC */
                     Presence_Launcher.Stop("Close");
+                    Presence_Settings.Disable_RPC_Startup = true;
                 }
             }
             else
