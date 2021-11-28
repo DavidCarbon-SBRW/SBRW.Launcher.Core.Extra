@@ -5,6 +5,7 @@ using SBRW.Launcher.Core.Required.System.Windows_;
 using SBRW.Launcher.Core.Discord.RPC_;
 using SBRW.Launcher.Core.Extra.Ini_;
 using SBRW.Launcher.Core.Proxy.Nancy_;
+using SBRW.Launcher.Core.Recommended.Time_;
 
 namespace SBRW.Launcher.Core.Extra.File_
 {
@@ -18,10 +19,6 @@ namespace SBRW.Launcher.Core.Extra.File_
         public static Format_Settings Live_Data { get; set; } = new Format_Settings();
         ///<value>Settings File Information on Disk</value>s
         private static Ini_File SettingFile { get; set; }
-        ///<summary>Launcher Streaming Support [Saved Live Value]</summary>
-        ///<remarks>Allows Video Capture Natively</remarks>
-        ///<returns>True or False</returns>
-        public static bool LiveStreamingSupport() => Live_Data.Launcher_Streaming_Support == "1";
         /// <summary>Creates all the NullSafe Values for Settings.ini</summary>
         public static void NullSafe()
         {
@@ -225,6 +222,7 @@ namespace SBRW.Launcher.Core.Extra.File_
             else if ((SettingFile.Key_Read("StreamingSupport") == "0") || (SettingFile.Key_Read("StreamingSupport") == "1"))
             {
                 Live_Data.Launcher_Streaming_Support = SettingFile.Key_Read("StreamingSupport");
+                Time_Window.Live_Stream = Live_Data.Launcher_Streaming_Support == "1";
             }
             else
             {
