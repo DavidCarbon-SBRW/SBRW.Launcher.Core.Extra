@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;net472</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0-windows;net461;net472</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.8</Version>
+    <Version>0.0.9</Version>
     <Authors>Soapbox Race World - Launcher Division</Authors>
     <Company>Soapbox Race World</Company>
     <Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
@@ -31,10 +31,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SBRW.Ini.Parser" Version="2.6.3" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.24" />
-    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.14" />
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.12" />
+    <PackageReference Include="SBRW.Ini.Parser" Version="2.6.5" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.29-preview001" />
+    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.15" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,5 +43,9 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if &quot;$(Configuration)&quot; == &quot;Release&quot; (&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetPath)&quot;)&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x86\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetDir)*.dll&quot;)&#xD;&#xA;)&#xD;&#xA;" />
+  </Target>	
 
 </Project>

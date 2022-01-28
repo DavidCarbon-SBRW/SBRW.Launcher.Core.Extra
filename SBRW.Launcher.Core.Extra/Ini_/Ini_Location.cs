@@ -21,18 +21,42 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         /// <summary>
         /// Launcher Settings (Ini) Full File Path
         /// </summary>
-        public static string Launcher_Settings { get; set; } = Launcher_Value.System_Unix ? Name_Settings_Ini : Path.Combine(Log_Location.LauncherFolder, Name_Settings_Ini);
+        public static string Launcher_Settings 
+        {
+            get
+            {
+                return Launcher_Value.System_Unix ? Name_Settings_Ini : Path.Combine(Log_Location.LauncherFolder, Name_Settings_Ini);
+            }
+        }
         /// <summary>
         /// Roaming App Data Folder Location
         /// </summary>
-        public static string RoamingAppDataFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string RoamingAppDataFolder 
+        { 
+            get 
+            { 
+                return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            } 
+        }
         /// <summary>
         /// Roaming App Data Launcher Folder Location
         /// </summary>
-        public static string RoamingAppDataFolder_Launcher { get; set; } = Path.Combine(RoamingAppDataFolder, "Soapbox Race World", "Launcher");
+        public static string RoamingAppDataFolder_Launcher 
+        {
+            get
+            {
+                return Path.Combine(RoamingAppDataFolder, "Soapbox Race World", "Launcher");
+            }
+        }
         /// <summary>
         /// Launcher Account (Ini) Full File Path
         /// </summary>
-        public static string Launcher_Account { get; set; } = Launcher_Value.System_Unix ? Name_Account_Ini : Path.Combine(RoamingAppDataFolder_Launcher, Name_Account_Ini);
+        public static string Launcher_Account 
+        {
+            get
+            {
+                return Launcher_Value.System_Unix ? Name_Account_Ini : Path.Combine(RoamingAppDataFolder_Launcher, Name_Account_Ini);
+            }
+        }
     }
 }

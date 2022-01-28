@@ -22,9 +22,15 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         /// </summary>
         /// <remarks>Default Number: -2017</remarks>
         public static int Conversion_Failure { get; set; } = -2017;
-        internal FileIniDataParser File_Parser;
-        internal IniData File_Data;
-        internal UTF8Encoding UTF8 = new UTF8Encoding(false);
+        internal FileIniDataParser File_Parser { get; set; }
+        internal IniData File_Data { get; set; }
+        internal UTF8Encoding UTF8
+        {
+            get 
+            { 
+                return new UTF8Encoding(false); 
+            }
+        }
         /// <summary>
         /// Loads Ini File
         /// </summary>
