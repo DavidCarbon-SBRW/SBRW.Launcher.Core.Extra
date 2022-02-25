@@ -5,6 +5,7 @@ using SBRW.Launcher.Core.Required.System.Windows_;
 using SBRW.Launcher.Core.Discord.RPC_;
 using SBRW.Launcher.Core.Extra.Ini_;
 using SBRW.Launcher.Core.Proxy.Nancy_;
+using SBRW.Launcher.Core.Recommended.Time_;
 
 namespace SBRW.Launcher.Core.Extra.File_
 {
@@ -18,10 +19,6 @@ namespace SBRW.Launcher.Core.Extra.File_
         public static Format_Settings Live_Data { get; set; } = new Format_Settings();
         ///<value>Settings File Information on Disk</value>s
         private static Ini_File SettingFile { get; set; }
-        ///<summary>Launcher Streaming Support [Saved Live Value]</summary>
-        ///<remarks>Allows Video Capture Natively</remarks>
-        ///<returns>True or False</returns>
-        public static bool LiveStreamingSupport() => Live_Data.Launcher_Streaming_Support == "1";
         /// <summary>Creates all the NullSafe Values for Settings.ini</summary>
         public static void NullSafe()
         {
@@ -218,19 +215,6 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("ThemeSupport", Live_Data.Launcher_Theme_Support = "0");
             }
 
-            if (!SettingFile.Key_Exists("StreamingSupport") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("StreamingSupport")))
-            {
-                SettingFile.Key_Write("StreamingSupport", Live_Data.Launcher_Streaming_Support = "0");
-            }
-            else if ((SettingFile.Key_Read("StreamingSupport") == "0") || (SettingFile.Key_Read("StreamingSupport") == "1"))
-            {
-                Live_Data.Launcher_Streaming_Support = SettingFile.Key_Read("StreamingSupport");
-            }
-            else
-            {
-                SettingFile.Key_Write("StreamingSupport", Live_Data.Launcher_Streaming_Support = "0");
-            }
-            
             if (!SettingFile.Key_Exists("Insider") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("Insider")))
             {
                 SettingFile.Key_Write("Insider", Live_Data.Launcher_Insider = "0");
@@ -244,6 +228,33 @@ namespace SBRW.Launcher.Core.Extra.File_
             else
             {
                 SettingFile.Key_Write("Insider", Live_Data.Launcher_Insider = "0");
+            }
+
+            if (!SettingFile.Key_Exists("LegacyTimer") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LegacyTimer")))
+            {
+                SettingFile.Key_Write("LegacyTimer", Live_Data.Launcher_Legacy_Timer = "0");
+            }
+            else if ((SettingFile.Key_Read("LegacyTimer") == "0") || (SettingFile.Key_Read("LegacyTimer") == "1"))
+            {
+                Live_Data.Launcher_Legacy_Timer = SettingFile.Key_Read("LegacyTimer");
+                Time_Window.Legacy = Live_Data.Launcher_Legacy_Timer == "1";
+            }
+            else
+            {
+                SettingFile.Key_Write("LegacyTimer", Live_Data.Launcher_Legacy_Timer = "0");
+            }
+
+            if (!SettingFile.Key_Exists("LzmaDownloader") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LzmaDownloader")))
+            {
+                SettingFile.Key_Write("LzmaDownloader", Live_Data.Launcher_LZMA_Downloader = "0");
+            }
+            else if ((SettingFile.Key_Read("LzmaDownloader") == "0") || (SettingFile.Key_Read("LzmaDownloader") == "1"))
+            {
+                Live_Data.Launcher_LZMA_Downloader = SettingFile.Key_Read("LzmaDownloader");
+            }
+            else
+            {
+                SettingFile.Key_Write("LzmaDownloader", Live_Data.Launcher_LZMA_Downloader = "0");
             }
 
             if (!Launcher_Value.System_Unix)
@@ -350,6 +361,11 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Delete("ModNetZip");
             }
 
+            if (SettingFile.Key_Exists("StreamingSupport"))
+            {
+                SettingFile.Key_Delete("StreamingSupport");
+            }
+
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
         }
         /// <summary>Saves all Current Values</summary>
@@ -414,14 +430,19 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("ThemeSupport", Live_Data.Launcher_Theme_Support);
             }
 
-            if (SettingFile.Key_Read("StreamingSupport") != Live_Data.Launcher_Streaming_Support)
-            {
-                SettingFile.Key_Write("StreamingSupport", Live_Data.Launcher_Streaming_Support);
-            }
-
             if (SettingFile.Key_Read("Insider") != Live_Data.Launcher_Insider)
             {
                 SettingFile.Key_Write("Insider", Live_Data.Launcher_Insider);
+            }
+
+            if (SettingFile.Key_Read("LegacyTimer") != Live_Data.Launcher_Legacy_Timer)
+            {
+                SettingFile.Key_Write("LegacyTimer", Live_Data.Launcher_Legacy_Timer);
+            }
+
+            if (SettingFile.Key_Read("LzmaDownloader") != Live_Data.Launcher_LZMA_Downloader)
+            {
+                SettingFile.Key_Write("LzmaDownloader", Live_Data.Launcher_LZMA_Downloader);
             }
 
             if (!Launcher_Value.System_Unix)
