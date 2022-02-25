@@ -15,7 +15,10 @@ namespace SBRW.Launcher.Core.Extra.XML_
     public class XML_File
     {
         private static XmlDocument UserSettingsFile { get; set; } = new XmlDocument();
-        private static Format_Settings_Game XML_Settings_Data { get; set; } = new Format_Settings_Game();
+        /// <summary>
+        /// Settings Data Format
+        /// </summary>
+        public static Format_Settings_Game XML_Settings_Data { get; set; } = new Format_Settings_Game();
         /// <summary>
         /// Loads and Reads the XML (Settings File)
         /// </summary>
