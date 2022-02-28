@@ -257,6 +257,19 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("LzmaDownloader", Live_Data.Launcher_LZMA_Downloader = "0");
             }
 
+            if (!SettingFile.Key_Exists("JSONFrequencyUpdateCache") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("JSONFrequencyUpdateCache")))
+            {
+                SettingFile.Key_Write("JSONFrequencyUpdateCache", Live_Data.Launcher_JSON_Frequency_Update_Cache = "0");
+            }
+            else if ((SettingFile.Key_Read("JSONFrequencyUpdateCache") == "0") || (SettingFile.Key_Read("JSONFrequencyUpdateCache") == "1"))
+            {
+                Live_Data.Launcher_JSON_Frequency_Update_Cache = SettingFile.Key_Read("JSONFrequencyUpdateCache");
+            }
+            else
+            {
+                SettingFile.Key_Write("JSONFrequencyUpdateCache", Live_Data.Launcher_JSON_Frequency_Update_Cache = "0");
+            }
+
             if (!Launcher_Value.System_Unix)
             {
                 if (!SettingFile.Key_Exists("FirewallLauncher") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("FirewallLauncher")))
@@ -443,6 +456,11 @@ namespace SBRW.Launcher.Core.Extra.File_
             if (SettingFile.Key_Read("LzmaDownloader") != Live_Data.Launcher_LZMA_Downloader)
             {
                 SettingFile.Key_Write("LzmaDownloader", Live_Data.Launcher_LZMA_Downloader);
+            }
+
+            if (SettingFile.Key_Read("JSONFrequencyUpdateCache") != Live_Data.Launcher_JSON_Frequency_Update_Cache)
+            {
+                SettingFile.Key_Write("JSONFrequencyUpdateCache", Live_Data.Launcher_JSON_Frequency_Update_Cache);
             }
 
             if (!Launcher_Value.System_Unix)
