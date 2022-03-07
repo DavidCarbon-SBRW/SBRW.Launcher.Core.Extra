@@ -1,5 +1,5 @@
 ﻿using SBRW.Launcher.Core.Cache;
-using SBRW.Launcher.Core.Downloader.LZMA;
+using SBRW.Launcher.Core.Downloader.LZMA_;
 using SBRW.Launcher.Core.Extension.Logging_;
 using SBRW.Launcher.Core.Extension.String_;
 using SBRW.Launcher.Core.Reference.XML_;
