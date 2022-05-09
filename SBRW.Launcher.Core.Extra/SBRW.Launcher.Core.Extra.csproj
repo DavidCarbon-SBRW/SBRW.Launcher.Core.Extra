@@ -43,7 +43,7 @@
     <PackageReference Include="SBRW.Launcher.Core" Version="0.0.42" />
     <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.20" />
     <PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.1.2" />
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.20" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.21" />
   </ItemGroup>
 
   <ItemGroup>
