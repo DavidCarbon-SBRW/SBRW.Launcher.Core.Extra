@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net6.0-windows;net461;net472</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.14</Version>
+    <Version>0.0.15</Version>
     <Authors>Soapbox Race World - Launcher Division</Authors>
     <Company>Soapbox Race World</Company>
     <Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
@@ -31,19 +31,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Reference_\XML\UserSettings.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Reference_\XML\UserSettings.xml" />
+    <Compile Remove="Reference\XML\**" />
+    <EmbeddedResource Remove="Reference\XML\**" />
+    <None Remove="Reference\XML\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SBRW.Ini.Parser" Version="2.6.5" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.42" />
-    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.20" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.44" />
+    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.25" />
     <PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.1.2" />
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.20" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.22" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,7 +10,7 @@ namespace SBRW.Launcher.Core.Extra.Conversion_
         /// <summary>
         /// At Compilee Time Constant Static String File
         /// </summary>
-        internal const string USXML = "SBRW.Launcher.Core.Extra.Reference_.XML.UserSettings.xml";
+        internal const string USXML = "SBRW.Launcher.Core.Extra.Reference.XML_.UserSettings.xml";
         /// <summary>
         /// User Settings File
         /// </summary>

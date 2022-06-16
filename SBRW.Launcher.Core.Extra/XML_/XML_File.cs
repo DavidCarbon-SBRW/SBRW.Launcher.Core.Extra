@@ -2,7 +2,7 @@
 using SBRW.Launcher.Core.Downloader.LZMA_;
 using SBRW.Launcher.Core.Extension.Logging_;
 using SBRW.Launcher.Core.Extension.String_;
-using SBRW.Launcher.Core.Reference.XML_;
+using SBRW.Launcher.Core.Extra.Reference.XML_;
 using System;
 using System.IO;
 using System.Xml;
