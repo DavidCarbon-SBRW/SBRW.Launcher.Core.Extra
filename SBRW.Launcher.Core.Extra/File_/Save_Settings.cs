@@ -1,11 +1,11 @@
 ﻿using SBRW.Launcher.Core.Cache;
 using SBRW.Launcher.Core.Extension.Logging_;
-using SBRW.Launcher.Core.Reference.Ini_;
 using SBRW.Launcher.Core.Required.System.Windows_;
 using SBRW.Launcher.Core.Discord.RPC_;
 using SBRW.Launcher.Core.Extra.Ini_;
 using SBRW.Launcher.Core.Proxy.Nancy_;
 using SBRW.Launcher.Core.Recommended.Time_;
+using SBRW.Launcher.Core.Extra.Reference.Ini_;
 
 namespace SBRW.Launcher.Core.Extra.File_
 {
@@ -26,6 +26,7 @@ namespace SBRW.Launcher.Core.Extra.File_
 
             /* Pervent Removal of Login Info Before Main Screen (Temporary Boolean) */
             Save_Account.SaveLoginInformation = true;
+            bool Display_Timer_Migration = false;
 
             /* Migrate old Key Entries */
             if (SettingFile.Key_Exists("Server"))
@@ -62,6 +63,13 @@ namespace SBRW.Launcher.Core.Extra.File_
             {
                 Live_Data.Defender_Game = Live_Data.Defender_Launcher = SettingFile.Key_Read("WindowsDefender");
                 SettingFile.Key_Delete("WindowsDefender");
+            }
+
+            if (SettingFile.Key_Exists("LegacyTimer"))
+            {
+                Live_Data.Launcher_Display_Timer = SettingFile.Key_Read("LegacyTimer");
+                SettingFile.Key_Delete("LegacyTimer");
+                Display_Timer_Migration = true;
             }
 
             /* Check if any Entries are missing */
@@ -230,18 +238,35 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("Insider", Live_Data.Launcher_Insider = "0");
             }
 
-            if (!SettingFile.Key_Exists("LegacyTimer") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LegacyTimer")))
+            if ((!SettingFile.Key_Exists("DisplayTimer") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("DisplayTimer"))) && !Display_Timer_Migration)
             {
-                SettingFile.Key_Write("LegacyTimer", Live_Data.Launcher_Legacy_Timer = "0");
+                SettingFile.Key_Write("DisplayTimer", Live_Data.Launcher_Display_Timer = "0");
             }
-            else if ((SettingFile.Key_Read("LegacyTimer") == "0") || (SettingFile.Key_Read("LegacyTimer") == "1"))
+            else if (Display_Timer_Migration ? 
+                ((Live_Data.Launcher_Display_Timer == "0") || (Live_Data.Launcher_Display_Timer == "1") || Live_Data.Launcher_Display_Timer == "2") : 
+                ((SettingFile.Key_Read("DisplayTimer") == "0") || (SettingFile.Key_Read("DisplayTimer") == "1") || SettingFile.Key_Read("DisplayTimer") == "2"))
             {
-                Live_Data.Launcher_Legacy_Timer = SettingFile.Key_Read("LegacyTimer");
-                Time_Window.Legacy = Live_Data.Launcher_Legacy_Timer == "1";
+                if (!Display_Timer_Migration)
+                {
+                    Live_Data.Launcher_Display_Timer = SettingFile.Key_Read("DisplayTimer");
+                }
+
+                /* 0 = Static Timer, 1 = Dynamic Timer, 2 = No Timer */
+                if (Live_Data.Launcher_Display_Timer.Contains("1"))
+                {
+                    Time_Window.Legacy = true;
+                    Time_Window.Live_Stream = false;
+                }
+                else if (Live_Data.Launcher_Display_Timer.Contains("2"))
+                {
+                    /* Notes: This actually does not Display Timers on the Title Window and 'Time_Window.Live_Stream' will be renamed in the future */
+                    Time_Window.Legacy = false;
+                    Time_Window.Live_Stream = true;
+                }
             }
             else
             {
-                SettingFile.Key_Write("LegacyTimer", Live_Data.Launcher_Legacy_Timer = "0");
+                SettingFile.Key_Write("DisplayTimer", Live_Data.Launcher_Display_Timer = "0");
             }
 
             if (!SettingFile.Key_Exists("LzmaDownloader") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LzmaDownloader")))
@@ -268,6 +293,20 @@ namespace SBRW.Launcher.Core.Extra.File_
             else
             {
                 SettingFile.Key_Write("JSONFrequencyUpdateCache", Live_Data.Launcher_JSON_Frequency_Update_Cache = "0");
+            }
+
+            if (!SettingFile.Key_Exists("WebCallTimeOut") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("WebCallTimeOut")))
+            {
+                SettingFile.Key_Write("WebCallTimeOut", Live_Data.Launcher_WebCall_TimeOut_Time = "0");
+            }
+            else if (int.TryParse(SettingFile.Key_Read("WebCallTimeOut"), out int Converted_String_Value) && Converted_String_Value > 0)
+            {
+                Live_Data.Launcher_WebCall_TimeOut_Time = Launcher_Value.Launcher_WebCall_Timeout(Converted_String_Value).ToString();
+                Launcher_Value.Launcher_WebCall_Timeout_Enable = true;
+            }
+            else
+            {
+                SettingFile.Key_Write("WebCallTimeOut", Live_Data.Launcher_WebCall_TimeOut_Time = "0");
             }
 
             if (!Launcher_Value.System_Unix)
@@ -448,9 +487,9 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("Insider", Live_Data.Launcher_Insider);
             }
 
-            if (SettingFile.Key_Read("LegacyTimer") != Live_Data.Launcher_Legacy_Timer)
+            if (SettingFile.Key_Read("DisplayTimer") != Live_Data.Launcher_Display_Timer)
             {
-                SettingFile.Key_Write("LegacyTimer", Live_Data.Launcher_Legacy_Timer);
+                SettingFile.Key_Write("DisplayTimer", Live_Data.Launcher_Display_Timer);
             }
 
             if (SettingFile.Key_Read("LzmaDownloader") != Live_Data.Launcher_LZMA_Downloader)
@@ -461,6 +500,11 @@ namespace SBRW.Launcher.Core.Extra.File_
             if (SettingFile.Key_Read("JSONFrequencyUpdateCache") != Live_Data.Launcher_JSON_Frequency_Update_Cache)
             {
                 SettingFile.Key_Write("JSONFrequencyUpdateCache", Live_Data.Launcher_JSON_Frequency_Update_Cache);
+            }
+
+            if (SettingFile.Key_Read("WebCallTimeOut") != Live_Data.Launcher_WebCall_TimeOut_Time)
+            {
+                SettingFile.Key_Write("WebCallTimeOut", Live_Data.Launcher_WebCall_TimeOut_Time);
             }
 
             if (!Launcher_Value.System_Unix)
