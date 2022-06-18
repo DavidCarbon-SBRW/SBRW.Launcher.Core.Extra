@@ -254,14 +254,14 @@ namespace SBRW.Launcher.Core.Extra.File_
                 /* 0 = Static Timer, 1 = Dynamic Timer, 2 = No Timer */
                 if (Live_Data.Launcher_Display_Timer.Contains("1"))
                 {
-                    Time_Window.Legacy = true;
-                    Time_Window.Live_Stream = false;
+                    Time_Window.Timer_Dynamic = true;
+                    Time_Window.Timer_None = false;
                 }
                 else if (Live_Data.Launcher_Display_Timer.Contains("2"))
                 {
                     /* Notes: This actually does not Display Timers on the Title Window and 'Time_Window.Live_Stream' will be renamed in the future */
-                    Time_Window.Legacy = false;
-                    Time_Window.Live_Stream = true;
+                    Time_Window.Timer_Dynamic = false;
+                    Time_Window.Timer_None = true;
                 }
             }
             else
