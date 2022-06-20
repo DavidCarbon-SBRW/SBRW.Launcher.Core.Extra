@@ -38,7 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="SBRW.Ini.Parser" Version="2.6.5" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.47" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.48" />
     <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.25" />
     <PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.1.2" />
     <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.22" />
