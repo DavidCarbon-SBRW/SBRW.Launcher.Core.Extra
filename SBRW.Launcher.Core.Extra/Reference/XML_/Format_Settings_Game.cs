@@ -387,7 +387,6 @@ namespace SBRW.Launcher.Core.Extra.Reference.XML_
         /// "1" - On
         /// </code>
         /// </remarks>
-        [Obsolete("Not Used in Need for Speed: World")]
         public string RainEnable { get; set; } = "0";
         /// <summary>
         /// Road Reflections

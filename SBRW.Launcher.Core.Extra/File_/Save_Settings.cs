@@ -6,6 +6,7 @@ using SBRW.Launcher.Core.Extra.Ini_;
 using SBRW.Launcher.Core.Proxy.Nancy_;
 using SBRW.Launcher.Core.Recommended.Time_;
 using SBRW.Launcher.Core.Extra.Reference.Ini_;
+using SBRW.Launcher.Core.Downloader;
 
 namespace SBRW.Launcher.Core.Extra.File_
 {
@@ -301,8 +302,8 @@ namespace SBRW.Launcher.Core.Extra.File_
             }
             else if (int.TryParse(SettingFile.Key_Read("WebCallTimeOut"), out int Converted_String_Value) && Converted_String_Value > 0)
             {
-                Live_Data.Launcher_WebCall_TimeOut_Time = Launcher_Value.Launcher_WebCall_Timeout(Converted_String_Value).ToString();
-                Launcher_Value.Launcher_WebCall_Timeout_Enable = true;
+                Live_Data.Launcher_WebCall_TimeOut_Time = Download_Settings.Launcher_WebCall_Timeout(Launcher_Value.Launcher_WebCall_Timeout(Converted_String_Value)).ToString();
+                Download_Settings.Launcher_WebCall_Timeout_Enable = Launcher_Value.Launcher_WebCall_Timeout_Enable = true;
             }
             else
             {
