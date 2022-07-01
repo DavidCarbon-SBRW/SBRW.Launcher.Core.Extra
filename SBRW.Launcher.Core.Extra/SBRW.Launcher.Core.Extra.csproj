@@ -37,6 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Reference\XML_\UserSettings.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="SBRW.Ini.Parser" Version="2.6.5" />
     <PackageReference Include="SBRW.Launcher.Core" Version="0.0.50" />
     <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.26" />
