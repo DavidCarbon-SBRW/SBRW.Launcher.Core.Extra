@@ -139,6 +139,15 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("DisableProxy", Live_Data.Launcher_Proxy = "0");
             }
 
+            if (Live_Data.Launcher_Proxy == "0" && !Proxy_Settings.Running())
+            {
+                Proxy_Server.Instance.Start("SBRW.Launcher.Core.Extra [Null Safe]");
+            }
+            else if (Live_Data.Launcher_Proxy == "1" && Proxy_Settings.Running())
+            {
+                Proxy_Server.Instance.Stop("SBRW.Launcher.Core.Extra [Null Safe]");
+            }
+
             if (!SettingFile.Key_Exists("DisableRPC") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("DisableRPC")))
             {
                 SettingFile.Key_Write("DisableRPC", Live_Data.Launcher_Discord_Presence = "0");
@@ -146,16 +155,23 @@ namespace SBRW.Launcher.Core.Extra.File_
             else if ((SettingFile.Key_Read("DisableRPC") == "0") || (SettingFile.Key_Read("DisableRPC") == "1"))
             {
                 Live_Data.Launcher_Discord_Presence = SettingFile.Key_Read("DisableRPC");
-                if (Live_Data.Launcher_Discord_Presence == "1")
-                {
-                    /* Now that Settings has been Loaded, Lets Stop RPC */
-                    Presence_Launcher.Stop("Close");
-                    Presence_Settings.Disable_RPC_Startup = true;
-                }
             }
             else
             {
                 SettingFile.Key_Write("DisableRPC", Live_Data.Launcher_Discord_Presence = "0");
+            }
+
+            if (Live_Data.Launcher_Discord_Presence == "0")
+            {
+                /* Now that Settings has been Loaded, Lets Stop RPC */
+                Presence_Launcher.Start();
+                Presence_Settings.Disable_RPC_Startup = false;
+            }
+            else if (Live_Data.Launcher_Discord_Presence == "1")
+            {
+                /* Now that Settings has been Loaded, Lets Stop RPC */
+                Presence_Launcher.Stop("Close");
+                Presence_Settings.Disable_RPC_Startup = true;
             }
 
             if (!SettingFile.Key_Exists("IgnoreUpdateVersion") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("IgnoreUpdateVersion")))
@@ -446,11 +462,31 @@ namespace SBRW.Launcher.Core.Extra.File_
             if (SettingFile.Key_Read("DisableProxy") != Live_Data.Launcher_Proxy)
             {
                 SettingFile.Key_Write("DisableProxy", Live_Data.Launcher_Proxy);
+                if (Live_Data.Launcher_Proxy == "0" && !Proxy_Settings.Running())
+                {
+                    Proxy_Server.Instance.Start("SBRW.Launcher.Core.Extra [Save]");
+                }
+                else if (Live_Data.Launcher_Proxy == "1" && Proxy_Settings.Running())
+                {
+                    Proxy_Server.Instance.Stop("SBRW.Launcher.Core.Extra [Save]");
+                }
             }
 
             if (SettingFile.Key_Read("DisableRPC") != Live_Data.Launcher_Discord_Presence)
             {
                 SettingFile.Key_Write("DisableRPC", Live_Data.Launcher_Discord_Presence);
+                if (Live_Data.Launcher_Discord_Presence == "0")
+                {
+                    /* Now that Settings has been Loaded, Lets Stop RPC */
+                    Presence_Launcher.Start();
+                    Presence_Settings.Disable_RPC_Startup = false;
+                }
+                else if (Live_Data.Launcher_Discord_Presence == "1")
+                {
+                    /* Now that Settings has been Loaded, Lets Stop RPC */
+                    Presence_Launcher.Stop("Close");
+                    Presence_Settings.Disable_RPC_Startup = true;
+                }
             }
 
             if (SettingFile.Key_Read("InstallationDirectory") != Live_Data.Game_Path)

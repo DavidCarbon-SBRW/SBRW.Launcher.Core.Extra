@@ -12,6 +12,8 @@ jobs:
       uses: actions/checkout@v2.4.0
       with:
         fetch-depth: 0
+        submodules: 'recursive'
+        token: ${{ secrets.SBRW_LIBRARIES_LAUNCHER_OUTHTOKEN }}
     - name: Custom Root Certificate Authority
       run: |
           New-Item -ItemType directory -Path Keys

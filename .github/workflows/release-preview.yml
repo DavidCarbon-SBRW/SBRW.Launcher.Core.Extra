@@ -10,6 +10,9 @@ jobs:
     steps:
     - name: Branch Checkout
       uses: actions/checkout@v2.4.0
+      with:
+        submodules: 'recursive'
+        token: ${{ secrets.SBRW_LIBRARIES_LAUNCHER_OUTHTOKEN }}
     - name: Custom Root Certificate Authority
       run: |
           New-Item -ItemType directory -Path Keys

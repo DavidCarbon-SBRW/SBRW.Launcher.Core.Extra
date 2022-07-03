@@ -1,0 +1,8 @@
+[submodule "SBRW.Launcher.Core.Proxy"]
+	path = SBRW.Launcher.Core.Proxy
+	url = https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Proxy
+	branch = development
+[submodule "SBRW.Launcher.Core.Downloader"]
+	path = SBRW.Launcher.Core.Downloader
+	url = https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Downloader
+	branch = development
