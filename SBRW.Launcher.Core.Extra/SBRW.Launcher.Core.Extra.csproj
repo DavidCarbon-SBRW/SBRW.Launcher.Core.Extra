@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net6.0-windows;net461;net472</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.20</Version>
+    <Version>0.0.21</Version>
     <Authors>Soapbox Race World - Launcher Division</Authors>
     <Company>Soapbox Race World</Company>
     <Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
@@ -28,6 +28,8 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <!-- Required: Include symbols files if Self-Hosted Nuget Feed does not support symbol packages -->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PlatformTarget>x86</PlatformTarget>
+    <Platforms>x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,12 +44,12 @@
 
   <ItemGroup>
     <PackageReference Include="SBRW.Ini.Parser" Version="2.6.5" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.53" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.55" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.24" />
-    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.27" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.0.25" />
+    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.0.28" />
     <PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.1.3" />
   </ItemGroup>
 
