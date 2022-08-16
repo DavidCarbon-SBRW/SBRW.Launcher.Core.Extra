@@ -44,7 +44,7 @@
 
   <ItemGroup>
     <PackageReference Include="SBRW.Ini.Parser" Version="2.6.5" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.57" />
+    <PackageReference Include="SBRW.Launcher.Core" Version="0.0.58" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
