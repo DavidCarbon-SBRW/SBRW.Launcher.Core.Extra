@@ -27,18 +27,21 @@ namespace SBRW.Launcher.Core.Extra.File_
             {
                 if (Unix_Platforms)
                 {
-                    string Command_Mode = Human_Values ? "df -h" : "df";
-                    string Escaped_Args = Folder_File_Path.Replace("\"", "\\\"");
+                    string Command_Mode = Human_Values ? "df -h " : "df ";
+                    string Modified_Path = "'" + Folder_File_Path + "'";
+                    string Escaped_Args = (Command_Mode + Modified_Path).Replace("\"", "\\\"");
 
                     Process Bash_Process = new Process()
                     {
                         StartInfo = new ProcessStartInfo
                         {
-                            FileName = "/bin/bash",
-                            Arguments = $"{Command_Mode} \"{Escaped_Args}\"",
-                            RedirectStandardOutput = true,
+                            FileName = @"/bin/bash",
+                            Arguments = $"-s \"" + Escaped_Args +"\"",
                             UseShellExecute = false,
-                            CreateNoWindow = true
+                            RedirectStandardOutput = true,
+                            RedirectStandardInput = true,
+                            CreateNoWindow = true,
+                            WindowStyle = ProcessWindowStyle.Hidden
                         }
                     };
 
@@ -47,9 +50,9 @@ namespace SBRW.Launcher.Core.Extra.File_
                     /* df -h / "Filesystem      Size  Used Avail Use% Mounted on  /dev/sda3        39G   30G  6.9G  82% /" */
                     /* df / "Filesystem     1K-blocks     Used Available Use% Mounted on  /dev/sda3       40502528 31190956   7224456  82% /" */
                     string Konsole = Bash_Process.StandardOutput.ReadToEnd();
-                    string[] Konsole_Split = Folder_File_Path.Replace(' ', ',').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                     /* Lets wait 30 Seconds (Worst Case) */
                     Bash_Process.WaitForExit(30000);
+                    string[] Konsole_Split = Konsole.Replace(' ', ',').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
                     int.TryParse(Konsole_Split[12].Replace("%", string.Empty), out int Final_Value);
 
