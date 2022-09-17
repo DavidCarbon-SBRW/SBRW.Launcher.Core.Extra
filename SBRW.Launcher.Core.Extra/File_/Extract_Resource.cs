@@ -33,7 +33,7 @@ namespace SBRW.Launcher.Core.Extra.File_
                 }
                 catch (Exception Error)
                 {
-                    Log_Detail.OpenLog("Extract Resource AsByte", null, Error, null, true);
+                    Log_Detail.Full("Extract Resource AsByte", Error);
                     return null;
                 }
             }
@@ -67,7 +67,7 @@ namespace SBRW.Launcher.Core.Extra.File_
                 }
                 catch (Exception Error)
                 {
-                    Log_Detail.OpenLog("Extract Resource AsString", null, Error, null, true);
+                    Log_Detail.Full("Extract Resource AsString", Error);
                     return string.Empty;
                 }
             }
