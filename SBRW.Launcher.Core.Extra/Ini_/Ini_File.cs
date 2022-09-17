@@ -57,7 +57,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             }
             catch (Exception Error)
             {
-                Log_Detail.OpenLog("IniFile Core", null, Error, null, true);
+                Log_Detail.Full("IniFile Core", Error);
             }
             finally
             {
@@ -94,7 +94,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             }
             catch (Exception Error)
             {
-                Log_Detail.OpenLog("IniFile Key Write", null, Error, null, true);
+                Log_Detail.Full("IniFile Key Write", Error);
             }
             finally
             {
@@ -122,7 +122,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             }
             catch (Exception Error)
             {
-                Log_Detail.OpenLog("IniFile Key Deletion", null, Error, null, true);
+                Log_Detail.Full("IniFile Key Deletion", Error);
             }
             finally
             {
@@ -185,7 +185,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             }
             catch (Exception Error)
             {
-                Log_Detail.OpenLog("IniFile Key Delete Section", null, Error, null, true);
+                Log_Detail.Full("IniFile Key Delete Section", Error);
             }
             finally
             {

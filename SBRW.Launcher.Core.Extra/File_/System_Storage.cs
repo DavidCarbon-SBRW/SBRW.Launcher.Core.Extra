@@ -118,11 +118,11 @@ namespace SBRW.Launcher.Core.Extra.File_
             }
             catch (UnauthorizedAccessException Error)
             {
-                Log_Detail.OpenLog("Drive_Full_Info [U.A.E.]", null, Error, null, true);
+                Log_Detail.Full("Drive_Full_Info [U.A.E.]",Error);
             }
             catch (Exception Error)
             {
-                Log_Detail.OpenLog("Drive_Full_Info", null, Error, null, true);
+                Log_Detail.Full("Drive_Full_Info", Error);
             }
 
             return Current_Drive;

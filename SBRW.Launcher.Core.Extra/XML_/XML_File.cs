@@ -169,7 +169,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
                 }
                 catch (Exception Error)
                 {
-                    Log_Detail.OpenLog("USX File", string.Empty, Error, string.Empty, true);
+                    Log_Detail.Full("USX File", Error);
                 }
 
                 return -1;
@@ -283,7 +283,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
             }
             catch (Exception Error)
             {
-                Log_Detail.OpenLog("USX File", string.Empty, Error, string.Empty, true);
+                Log_Detail.Full("USX File", Error);
             }
 
             return -1;
@@ -371,14 +371,14 @@ namespace SBRW.Launcher.Core.Extra.XML_
                 {
                     Log.Error("USX File: XML Node Is Null or Does not Exist [Type: '" + Node_Type + "' NodePath: '" + NodePath + "' SingleNode: '" +
                                 SingleNode + "' AttributeName: '" + AttributeName + "' AttributeValue: '" + AttributeValue + "']" + Error.Message);
-                    Log_Detail.OpenLog("USX File", string.Empty, Error, string.Empty, true);
+                    Log_Detail.Full("USX File", Error);
                     return;
                 }
                 catch (Exception Error)
                 {
                     Log.Error("USX File: Unable to Create XML Node [Type: '" + Node_Type + "' NodePath: '" + NodePath + "' SingleNode: '" +
                                 SingleNode + "' AttributeName: '" + AttributeName + "' AttributeValue: '" + AttributeValue + "']" + Error.Message);
-                    Log_Detail.OpenLog("USX File", string.Empty, Error, string.Empty, true);
+                    Log_Detail.Full("USX File", Error);
                     return;
                 }
             }
@@ -463,7 +463,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
             catch (Exception Error)
             {
                 Log.Error("USX File: Unable to Read XML Node [NodePath: '" + Full_Node_Path + "' AttributeName: '" + Attribute_Name + "']" + Error.Message);
-                Log_Detail.OpenLog("USX File", string.Empty, Error, string.Empty, true);
+                Log_Detail.Full("USX File", Error);
                 return null;
             }
         }
