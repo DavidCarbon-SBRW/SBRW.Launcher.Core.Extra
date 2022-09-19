@@ -7,6 +7,7 @@ using SBRW.Launcher.Core.Proxy.Nancy_;
 using SBRW.Launcher.Core.Recommended.Time_;
 using SBRW.Launcher.Core.Extra.Reference.Ini_;
 using SBRW.Launcher.Core.Downloader;
+using System.IO;
 
 namespace SBRW.Launcher.Core.Extra.File_
 {
@@ -99,6 +100,19 @@ namespace SBRW.Launcher.Core.Extra.File_
             else
             {
                 Live_Data.Game_Path_Old = SettingFile.Key_Read("OldInstallationDirectory");
+            }
+
+            if (!SettingFile.Key_Exists("GameArchivePath"))
+            {
+                SettingFile.Key_Write("GameArchivePath", Live_Data.Game_Archive_Location);
+            }
+            else if (File.Exists(SettingFile.Key_Read("GameArchivePath")))
+            {
+                Live_Data.Game_Archive_Location = SettingFile.Key_Read("GameArchivePath");
+            }
+            else
+            {
+                SettingFile.Key_Write("GameArchivePath", Live_Data.Game_Archive_Location);
             }
 
             if (!SettingFile.Key_Exists("CDN") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("CDN")))
@@ -522,6 +536,11 @@ namespace SBRW.Launcher.Core.Extra.File_
             if (!Launcher_Value.System_Unix && SettingFile.Key_Read("OldInstallationDirectory") != Live_Data.Game_Path_Old)
             {
                 SettingFile.Key_Write("OldInstallationDirectory", Live_Data.Game_Path_Old);
+            }
+
+            if (SettingFile.Key_Read("GameArchivePath") != Live_Data.Game_Archive_Location)
+            {
+                SettingFile.Key_Write("GameArchivePath", Live_Data.Game_Archive_Location);
             }
 
             if (SettingFile.Key_Read("IgnoreUpdateVersion") != Live_Data.Update_Version_Skip)
