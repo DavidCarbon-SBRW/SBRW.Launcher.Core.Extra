@@ -17,6 +17,10 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <remarks><i>Usually when User changes Path Locations</i></remarks>
         public string Game_Path_Old { get; set; }
         /// <summary>
+        /// Saved Game Archive Path
+        /// </summary>
+        public string Game_Archive_Location { get; set; }
+        /// <summary>
         /// Users's Choice Game Files CDN
         /// </summary>
         /// <remarks><i>Does not Affect Server Mod Files Delivery</i></remarks>
