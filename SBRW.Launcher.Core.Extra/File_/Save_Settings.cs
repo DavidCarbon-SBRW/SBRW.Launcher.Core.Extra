@@ -253,11 +253,19 @@ namespace SBRW.Launcher.Core.Extra.File_
             {
                 SettingFile.Key_Write("Insider", Live_Data.Launcher_Insider = "0");
             }
-            else if (!Launcher_Value.Launcher_Insider_Beta && (SettingFile.Key_Read("Insider") == "0") || (SettingFile.Key_Read("Insider") == "1"))
+            else if ((SettingFile.Key_Read_Int("Insider") >= 0) && (SettingFile.Key_Read_Int("Insider") <= 2))
             {
                 Live_Data.Launcher_Insider = SettingFile.Key_Read("Insider");
-                Log.Core("Insider Status: ".ToUpper() + "Opted Into the Beta Preview -> " + 
-                    (Launcher_Value.Launcher_Insider_Beta = Live_Data.Launcher_Insider == "1"));
+                if (SettingFile.Key_Read_Int("Insider") == 1)
+                {
+                    Launcher_Value.Launcher_Insider_Beta = true;
+                    Log.Core("Insider Status: ".ToUpper() + "Opted Into the Beta Preview");
+                }
+                else if (SettingFile.Key_Read_Int("Insider") == 2)
+                {
+                    Launcher_Value.Launcher_Insider_Dev = true;
+                    Log.Core("Insider Status: ".ToUpper() + "Opted Into the Development Preview");
+                }
             }
             else
             {
@@ -270,7 +278,7 @@ namespace SBRW.Launcher.Core.Extra.File_
             }
             else if (Display_Timer_Migration ? 
                 ((Live_Data.Launcher_Display_Timer == "0") || (Live_Data.Launcher_Display_Timer == "1") || Live_Data.Launcher_Display_Timer == "2") : 
-                ((SettingFile.Key_Read("DisplayTimer") == "0") || (SettingFile.Key_Read("DisplayTimer") == "1") || SettingFile.Key_Read("DisplayTimer") == "2"))
+                ((SettingFile.Key_Read_Int("DisplayTimer") >= 0) && (SettingFile.Key_Read_Int("DisplayTimer") <= 2)))
             {
                 if (!Display_Timer_Migration)
                 {
