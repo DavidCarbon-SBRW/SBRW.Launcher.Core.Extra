@@ -412,7 +412,7 @@ namespace SBRW.Launcher.Core.Extra.File_
 
             /* Key Entries to Convert into Boolens */
 
-            Log.Function("Custom Proxy Port:".ToUpper() + " -> " + Proxy_Settings.Custom_Port(Live_Data.Launcher_Proxy_Port + " has been Set"));
+            Log.Function("Custom Proxy Port:".ToUpper() + " -> " + Proxy_Settings.Custom_Port(Live_Data.Launcher_Proxy_Port) + " has been Set");
             Launcher_Value.Launcher_Alternative_Webcalls(Live_Data.Launcher_WebClient_Method == "WebClient");
 
             /* Run User Entry Functions After Loading Data */
