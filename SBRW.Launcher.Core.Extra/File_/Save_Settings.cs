@@ -574,6 +574,21 @@ namespace SBRW.Launcher.Core.Extra.File_
             if (SettingFile.Key_Read("Insider") != Live_Data.Launcher_Insider)
             {
                 SettingFile.Key_Write("Insider", Live_Data.Launcher_Insider);
+                if (SettingFile.Key_Read_Int("Insider") == 1)
+                {
+                    Launcher_Value.Launcher_Insider_Beta = true;
+                    Log.Core("Insider Status: ".ToUpper() + "Opted Into the Beta Preview");
+                }
+                else if (SettingFile.Key_Read_Int("Insider") == 2)
+                {
+                    Launcher_Value.Launcher_Insider_Dev = true;
+                    Log.Core("Insider Status: ".ToUpper() + "Opted Into the Development Preview");
+                }
+                else
+                {
+                    Launcher_Value.Launcher_Insider_Beta = Launcher_Value.Launcher_Insider_Dev = false;
+                    Log.Core("Insider Status: ".ToUpper() + "Opted Into Stable");
+                }
             }
 
             if (SettingFile.Key_Read("DisplayTimer") != Live_Data.Launcher_Display_Timer)

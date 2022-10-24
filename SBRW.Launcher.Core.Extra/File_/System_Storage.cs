@@ -12,6 +12,46 @@ namespace SBRW.Launcher.Core.Extra.File_
     public class System_Storage
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        private static Process StartProcess_Linux(string cmd, string args)
+        {
+            ProcessStartInfo processStartInfo = new ProcessStartInfo(cmd, args)
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true
+            };
+
+            return Process.Start(processStartInfo);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        private static string ReadProcessOutput_Linux(string cmd, string args)
+        {
+            try
+            {
+                using Process process = StartProcess_Linux(cmd, args);
+                using StreamReader streamReader = process.StandardOutput;
+                process.WaitForExit();
+
+                return streamReader.ReadToEnd().Trim();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+        /// <summary>
         /// Provides access to information on a drive.
         /// </summary>
         /// <param name="Folder_File_Path">A valid drive path or drive letter. 
@@ -27,31 +67,11 @@ namespace SBRW.Launcher.Core.Extra.File_
             {
                 if (Unix_Platforms)
                 {
-                    string Command_Mode = Human_Values ? "df -h " : "df ";
-                    string Modified_Path = "'" + Folder_File_Path + "'";
-                    string Escaped_Args = (Command_Mode + Modified_Path).Replace("\"", "\\\"");
-
-                    Process Bash_Process = new Process()
-                    {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            FileName = @"/bin/bash",
-                            Arguments = $"-s \"" + Escaped_Args +"\"",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            RedirectStandardInput = true,
-                            CreateNoWindow = true,
-                            WindowStyle = ProcessWindowStyle.Hidden
-                        }
-                    };
-
-                    Bash_Process.Start();
                     /* Example */
                     /* df -h / "Filesystem      Size  Used Avail Use% Mounted on  /dev/sda3        39G   30G  6.9G  82% /" */
                     /* df / "Filesystem     1K-blocks     Used Available Use% Mounted on  /dev/sda3       40502528 31190956   7224456  82% /" */
-                    string Konsole = Bash_Process.StandardOutput.ReadToEnd();
-                    /* Lets wait 30 Seconds (Worst Case) */
-                    Bash_Process.WaitForExit(30000);
+                    string Konsole = ReadProcessOutput_Linux(Human_Values ? "df -h " : "df ",
+                        "'" + Folder_File_Path + "'".Replace("\"", "\\\""));
                     string[] Konsole_Split = Konsole.Replace(' ', ',').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
                     int.TryParse(Konsole_Split[12].Replace("%", string.Empty), out int Final_Value);
