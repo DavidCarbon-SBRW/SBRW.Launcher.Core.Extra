@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SBRW.Launcher.Core.Extra.Reference.XML_
+﻿namespace SBRW.Launcher.Core.Extra.Reference.XML_
 {
     /// <summary>
     /// XML Format for Game Settings
