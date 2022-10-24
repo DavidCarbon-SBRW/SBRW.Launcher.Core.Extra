@@ -49,7 +49,7 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
     <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.1.0" />
-    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.1.0" />
+    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.1.1" />
     <PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.1.6" />
   </ItemGroup>
 
