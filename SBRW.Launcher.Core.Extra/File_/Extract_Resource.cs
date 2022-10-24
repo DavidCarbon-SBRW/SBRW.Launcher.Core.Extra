@@ -1,9 +1,7 @@
 ﻿using SBRW.Launcher.Core.Extension.Logging_;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace SBRW.Launcher.Core.Extra.File_
 {
