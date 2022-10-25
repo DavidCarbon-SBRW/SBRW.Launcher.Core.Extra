@@ -428,7 +428,7 @@
         <Tracks Type="int">1</Tracks>
         <UseGfxFormat Type="bool">true</UseGfxFormat>
         <VideoDefault Type="xml">
-            <VideoOptions carDetail="1" carReflectionRate="2" worldDetail="2" roadDetail="1" resolution="1" brightness="0.52" performance="2" rain="False" visualTreatment="True" particles="True" motionBlur="False" vSync="True" disableAero="True" textureFilter="1064" aa="1" shaderDetail="1" windowed="False" isApplied="False" displayAeroWarning="True" />
+            <VideoOptions carDetail="1" carReflectionRate="2" worldDetail="2" roadDetail="1" resolution="1" brightness="0.52" performance="2" rain="False" visualTreatment="True" particles="True" motionBlur="False" vSync="True" disableAero="True" textureFilter="1064" aa="1" shaderDetail="1" windowed="True" isApplied="False" displayAeroWarning="True" />
         </VideoDefault>
     </UI>
     <VideoConfig>
@@ -462,7 +462,7 @@
         <screenrefresh Type="int">60</screenrefresh>
         <screentop Type="int">40</screentop>
         <screenwidth Type="int">1024</screenwidth>
-        <screenwindowed Type="int">0</screenwindowed>
+        <screenwindowed Type="int">1</screenwindowed>
         <shaderdetail Type="int">0</shaderdetail>
         <shadowdetail Type="int">0</shadowdetail>
         <size Type="int">0</size>

@@ -48,7 +48,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
                         XML_Settings_Data.ScreenWidth = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwidth", null))) ?
                                                             NodeReader(1, "Settings/VideoConfig/screenwidth", null) : "800";
                         XML_Settings_Data.ScreenWindowed = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwindowed", null))) ?
-                                                               NodeReader(1, "Settings/VideoConfig/screenwindowed", null) : "0";
+                                                               NodeReader(1, "Settings/VideoConfig/screenwindowed", null) : "1";
                     }
                     else if (Read_Pointer == 1)
                     {
@@ -111,7 +111,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
                         XML_Settings_Data.ScreenWidth = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwidth", null))) ?
                                                             NodeReader(1, "Settings/VideoConfig/screenwidth", null) : "800";
                         XML_Settings_Data.ScreenWindowed = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwindowed", null))) ?
-                                                               NodeReader(1, "Settings/VideoConfig/screenwindowed", null) : "0";
+                                                               NodeReader(1, "Settings/VideoConfig/screenwindowed", null) : "1";
                         XML_Settings_Data.VSyncOn = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/vsyncon", null))) ?
                                                         NodeReader(1, "Settings/VideoConfig/vsyncon", null) : "0";
                         /* VideoConfig Addons */

@@ -228,7 +228,7 @@
         /// "1" - Windowed
         /// </code>
         /// </remarks>
-        public string ScreenWindowed { get; set; } = "0";
+        public string ScreenWindowed { get; set; } = "1";
         /// <summary>
         /// VSync
         /// </summary>
