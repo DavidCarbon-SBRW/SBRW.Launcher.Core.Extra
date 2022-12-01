@@ -5,9 +5,9 @@ using System.Reflection;
 
 namespace SBRW.Launcher.Core.Extra.File_
 {
-    internal class Extract_Resource
+    internal static class Extract_Resource
     {
-        internal static byte[] AsByte(String File_Name)
+        internal static byte[] AsByte(this string File_Name)
         {
             if (string.IsNullOrWhiteSpace(File_Name))
             {
@@ -37,7 +37,7 @@ namespace SBRW.Launcher.Core.Extra.File_
             }
         }
 
-        internal static string AsString(string File_Name)
+        internal static string AsString(this string File_Name)
         {
             if (string.IsNullOrWhiteSpace(File_Name))
             {

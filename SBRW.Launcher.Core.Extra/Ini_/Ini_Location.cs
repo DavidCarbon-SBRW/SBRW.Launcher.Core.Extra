@@ -25,7 +25,14 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         {
             get
             {
-                return Launcher_Value.System_Unix ? Name_Settings_Ini : Path.Combine(Log_Location.LauncherFolder, Name_Settings_Ini);
+                try
+                {
+                    return Launcher_Value.System_Unix ? Name_Settings_Ini : Path.Combine(Log_Location.LauncherFolder, Name_Settings_Ini);
+                }
+                catch
+                {
+                    return Name_Settings_Ini;
+                }
             }
         }
         /// <summary>
