@@ -352,16 +352,16 @@ namespace SBRW.Launcher.Core.Extra.XML_
         /// <param name="ValueComparison"></param>
         public static void NodeUpdater(int Node_Type, string NodePath, string SingleNode, string AttributeName, string AttributeValue, string ValueComparison)
         {
-            string FullNodePath = Strings.Encode(NodePath + "/" + SingleNode);
+            string FullNodePath = (NodePath + "/" + SingleNode).Encode_UTF8();
 
             if (NodeChecker(Node_Type, FullNodePath, AttributeName) == false)
             {
                 try
                 {
-                    XmlNode Root = UserSettingsFile.SelectSingleNode(Strings.Encode(NodePath));
-                    XmlNode CustomNode = UserSettingsFile.CreateElement(Strings.Encode(SingleNode));
-                    XmlAttribute CustomNodeAttribute = UserSettingsFile.CreateAttribute(Strings.Encode(AttributeName));
-                    CustomNodeAttribute.Value = Strings.Encode(AttributeValue);
+                    XmlNode Root = UserSettingsFile.SelectSingleNode(NodePath.Encode_UTF8());
+                    XmlNode CustomNode = UserSettingsFile.CreateElement(SingleNode.Encode_UTF8());
+                    XmlAttribute CustomNodeAttribute = UserSettingsFile.CreateAttribute(AttributeName.Encode_UTF8());
+                    CustomNodeAttribute.Value = AttributeValue.Encode_UTF8();
                     CustomNode.Attributes.Append(CustomNodeAttribute);
                     Root.AppendChild(CustomNode);
                     Log.Info("USX File: Created XML Node [Type: '" + Node_Type + "' NodePath: '" + NodePath + "' SingleNode: '" +
@@ -391,9 +391,9 @@ namespace SBRW.Launcher.Core.Extra.XML_
                               "' COMPARING NEW: '" + ValueComparison + "'");
                 }
 
-                if (UserSettingsFile.SelectSingleNode(FullNodePath).Attributes[Strings.Encode(AttributeName)].Value != Strings.Encode(ValueComparison))
+                if (UserSettingsFile.SelectSingleNode(FullNodePath).Attributes[AttributeName.Encode_UTF8()].Value.Encode_UTF8() != ValueComparison.Encode_UTF8())
                 {
-                    UserSettingsFile.SelectSingleNode(FullNodePath).Attributes[Strings.Encode(AttributeName)].Value = Strings.Encode(ValueComparison);
+                    UserSettingsFile.SelectSingleNode(FullNodePath).Attributes[AttributeName.Encode_UTF8()].Value = ValueComparison.Encode_UTF8();
                 }
             }
             else if (Node_Type == 1)
@@ -404,9 +404,9 @@ namespace SBRW.Launcher.Core.Extra.XML_
                               "' COMPARING NEW: '" + ValueComparison + "'");
                 }
 
-                if (UserSettingsFile.SelectSingleNode(FullNodePath).InnerText != Strings.Encode(ValueComparison))
+                if (UserSettingsFile.SelectSingleNode(FullNodePath).InnerText.Encode_UTF8() != ValueComparison.Encode_UTF8())
                 {
-                    UserSettingsFile.SelectSingleNode(FullNodePath).InnerText = Strings.Encode(ValueComparison);
+                    UserSettingsFile.SelectSingleNode(FullNodePath).InnerText = ValueComparison.Encode_UTF8();
                 }
             }
             else
@@ -436,7 +436,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
                     }
                     else
                     {
-                        return UserSettingsFile.SelectSingleNode(Full_Node_Path).Attributes[Attribute_Name].Value;
+                        return UserSettingsFile.SelectSingleNode(Full_Node_Path).Attributes[Attribute_Name].Value.Encode_UTF8();
                     }
                 }
                 else if (Node_Type == 1)
@@ -447,7 +447,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
                     }
                     else
                     {
-                        return UserSettingsFile.SelectSingleNode(Full_Node_Path).InnerText;
+                        return UserSettingsFile.SelectSingleNode(Full_Node_Path).InnerText.Encode_UTF8();
                     }
                 }
                 else
