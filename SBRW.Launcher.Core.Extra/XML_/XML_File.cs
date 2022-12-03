@@ -1,5 +1,4 @@
 ﻿using SBRW.Launcher.Core.Cache;
-using SBRW.Launcher.Core.Downloader.LZMA_;
 using SBRW.Launcher.Core.Extension.Logging_;
 using SBRW.Launcher.Core.Extension.String_;
 using SBRW.Launcher.Core.Extra.Reference.XML_;
@@ -14,6 +13,10 @@ namespace SBRW.Launcher.Core.Extra.XML_
     /// </summary>
     public class XML_File
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string Language_UI_Game { get; set; } = "en";
         private static XmlDocument UserSettingsFile { get; set; } = new XmlDocument();
         /// <summary>
         /// Settings Data Format
@@ -54,7 +57,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
                     {
                         /* Language */
                         XML_Settings_Data.Language = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/UI/Language", null))) ?
-                                                         NodeReader(1, "Settings/UI/Language", null) : Download_LZMA_Support.SpeechFiles().ToUpper();
+                                                         NodeReader(1, "Settings/UI/Language", null) : Language_UI_Game.ToUpperInvariant();
                     }
                     else if (Read_Pointer == 2)
                     {
@@ -432,7 +435,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
                 {
                     if (UserSettingsFile.SelectSingleNode(Full_Node_Path).Attributes[Attribute_Name].Value == null)
                     {
-                        return null;
+                        return string.Empty;
                     }
                     else
                     {
@@ -443,7 +446,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
                 {
                     if (UserSettingsFile.SelectSingleNode(Full_Node_Path).InnerText == null)
                     {
-                        return null;
+                        return string.Empty;
                     }
                     else
                     {
@@ -452,19 +455,19 @@ namespace SBRW.Launcher.Core.Extra.XML_
                 }
                 else
                 {
-                    return null;
+                    return string.Empty;
                 }
             }
             catch (System.Xml.XPath.XPathException Error)
             {
                 Log.Warning("USX File: XML Node Is Null or Does not Exist [NodePath: '" + Full_Node_Path + "']" + Error.Message);
-                return null;
+                return string.Empty;
             }
             catch (Exception Error)
             {
                 Log.Error("USX File: Unable to Read XML Node [NodePath: '" + Full_Node_Path + "' AttributeName: '" + Attribute_Name + "']" + Error.Message);
                 Log_Detail.Full("USX File", Error);
-                return null;
+                return string.Empty;
             }
         }
     }
