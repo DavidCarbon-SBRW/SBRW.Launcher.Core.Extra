@@ -123,5 +123,15 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// Users's Desired Web Client Timeout
         /// </summary>
         public string Launcher_WebCall_TimeOut_Time { get; set; }
+        /// <summary>
+        /// Launcher's RunTime Environment, which will either limit Pervent Ini Saves or 
+        /// Log Details without Enabling Insider Mode. Refer to the Documentation or Ask for Developers help.
+        /// </summary>
+        /// <remarks>Examples: Internet Cafe, Guest, and/or Development Machine(s)</remarks>
+        public string Launcher_RunTime_Environment { get; set; }
+        /// <summary>
+        /// User's Desired Alert-Popup about Limited Storage Space
+        /// </summary>
+        public string Alert_Storage_Space { get; set; }
     }
 }

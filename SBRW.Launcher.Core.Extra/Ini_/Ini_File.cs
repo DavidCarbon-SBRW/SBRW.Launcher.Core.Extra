@@ -12,16 +12,19 @@ namespace SBRW.Launcher.Core.Extra.Ini_
     /// </summary>
     public class Ini_File
     {
-        internal string File_Path;
+        /// <summary>
+        /// Ini File Path
+        /// </summary>
+        public string File_Path { get; set; }
         /// <summary>
         /// Index Header for the Ini File
         /// </summary>
-        public static string Index_Header { get; set; } = "GameLauncher";
+        public string Index_Header { get; set; } = "GameLauncher";
         /// <summary>
         /// Conversion Failure Number to indicate if a value conversion had failed
         /// </summary>
         /// <remarks>Default Number: -2017</remarks>
-        public static int Conversion_Failure { get; set; } = -2017;
+        public int Conversion_Failure { get; set; } = -2017;
         internal FileIniDataParser File_Parser { get; set; }
         internal IniData File_Data { get; set; }
         internal UTF8Encoding UTF8
@@ -34,12 +37,15 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         /// <summary>
         /// Loads Ini File
         /// </summary>
-        /// <param name="Ini_Path">Ini Full File Path</param>
-        public Ini_File(string Ini_Path = null)
+        public Ini_File()
         {
             try
             {
-                File_Path = new FileInfo(Ini_Path ?? Index_Header + ".ini").FullName;
+                if (string.IsNullOrWhiteSpace(File_Path))
+                {
+                    File_Path = Index_Header + ".ini".ToLowerInvariant();
+                }
+
                 File_Parser = new FileIniDataParser();
                 if (File.Exists(File_Path))
                 {
@@ -49,11 +55,52 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                 {
                     if (!File.Exists(File_Path))
                     {
-                        File.Create(File_Path).Dispose();
+                        File.Create(File_Path).Close();
                     }
 
                     File_Data = new IniData();
                 }
+            }
+            catch (IOException Error)
+            {
+                Log_Detail.Full("IniFile Core [I.O.]", Error);
+            }
+            catch (Exception Error)
+            {
+                Log_Detail.Full("IniFile Core", Error);
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+        /// <summary>
+        /// Loads Ini File
+        /// </summary>
+        /// <param name="Ini_Path">Ini Full File Path</param>
+        public Ini_File(string Ini_Path)
+        {
+            try
+            {
+                File_Path = new FileInfo(string.IsNullOrWhiteSpace(Ini_Path) ? Index_Header + ".ini".ToLowerInvariant() : Ini_Path).FullName;
+                File_Parser = new FileIniDataParser();
+                if (File.Exists(File_Path))
+                {
+                    File_Data = File_Parser.ReadFile(File_Path, UTF8);
+                }
+                else
+                {
+                    if (!File.Exists(File_Path))
+                    {
+                        File.Create(File_Path).Close();
+                    }
+
+                    File_Data = new IniData();
+                }
+            }
+            catch (IOException Error)
+            {
+                Log_Detail.Full("IniFile Core [I.O.]", Error);
             }
             catch (Exception Error)
             {
@@ -82,7 +129,11 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         {
             try
             {
-                if (new FileInfo(File_Path).IsReadOnly)
+                if (string.IsNullOrWhiteSpace(File_Path))
+                {
+                    Log.Warning("IniFile: ".ToUpper() + "[Key Write] Ini File's Path can not be Null");
+                }
+                else if (new FileInfo(File_Path).IsReadOnly)
                 {
                     Log.Warning("IniFile: ".ToUpper() + "[Key Write] Ini File is Key_Read-Only -> " + Path.GetFileName(File_Path));
                 }
@@ -110,7 +161,11 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         {
             try
             {
-                if (new FileInfo(File_Path).IsReadOnly)
+                if (string.IsNullOrWhiteSpace(File_Path))
+                {
+                    Log.Warning("IniFile: ".ToUpper() + "[Key Remove] Ini File's Path can not be Null");
+                }
+                else if (new FileInfo(File_Path).IsReadOnly)
                 {
                     Log.Warning("IniFile: ".ToUpper() + "[Key Remove] Ini File is Key_Read-Only -> " + Path.GetFileName(File_Path));
                 }
@@ -173,7 +228,11 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         {
             try
             {
-                if (new FileInfo(File_Path).IsReadOnly)
+                if (string.IsNullOrWhiteSpace(File_Path))
+                {
+                    Log.Warning("IniFile: ".ToUpper() + "[Key Delete Section] Ini File's Path can not be Null");
+                }
+                else if (new FileInfo(File_Path).IsReadOnly)
                 {
                     Log.Warning("IniFile: ".ToUpper() + "[Key Delete Section] Ini File is Key_Read-Only -> " + Path.GetFileName(File_Path));
                 }
