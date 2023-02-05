@@ -28,9 +28,9 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         internal IniData File_Data { get; set; }
         internal UTF8Encoding UTF8
         {
-            get 
-            { 
-                return new UTF8Encoding(false); 
+            get
+            {
+                return new UTF8Encoding(false);
             }
         }
         /// <summary>
@@ -132,12 +132,21 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                 {
                     Log.Warning("IniFile: ".ToUpper() + "[Key Write] Ini File's Path can not be Null");
                 }
+                else if (string.IsNullOrWhiteSpace(Key_Index))
+                {
+                    Log.Warning("IniFile: ".ToUpper() + "[Key Write] Key can not be Null");
+                }
                 else if (new FileInfo(File_Path).IsReadOnly)
                 {
                     Log.Warning("IniFile: ".ToUpper() + "[Key Write] Ini File is Key_Read-Only -> " + Path.GetFileName(File_Path));
                 }
                 else
                 {
+                    if (File_Data[Index_Header] == default)
+                    {
+                        File_Data.Sections.Add(Index_Header);
+                    }
+
                     File_Data[Index_Header][Key_Index] = Index_Data;
                     File_Parser.WriteFile(File_Path, File_Data, UTF8);
                 }
@@ -160,9 +169,24 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(File_Path))
+                if (string.IsNullOrWhiteSpace(File_Path) || string.IsNullOrWhiteSpace(Key_Index))
                 {
-                    Log.Warning("IniFile: ".ToUpper() + "[Key Remove] Ini File's Path can not be Null");
+                    if (string.IsNullOrWhiteSpace(Key_Index))
+                    {
+                        Log.Warning("IniFile: ".ToUpper() + "[Key Remove] Key can not be Null");
+                    }
+                    else
+                    {
+                        Log.Warning("IniFile: ".ToUpper() + "[Key Remove] Ini File's Path can not be Null");
+                    }
+                }
+                else if (File_Data == default)
+                {
+                    Log.Warning("IniFile: ".ToUpper() + "[Key Remove] Ini Data can not be Null");
+                }
+                else if (File_Data[Index_Header] == default)
+                {
+                    Log.Warning("IniFile: ".ToUpper() + "[Key Remove] Ini File's Header can not be Null");
                 }
                 else if (new FileInfo(File_Path).IsReadOnly)
                 {
@@ -190,7 +214,14 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         /// <returns>True if found; otherwise, False</returns>
         public bool Key_Exists(string Key_Index)
         {
-            return File_Data[Index_Header].Contains(Key_Index);
+            if (string.IsNullOrWhiteSpace(Key_Index) || (File_Data == default) || (File_Data[Index_Header] == default))
+            {
+                return false;
+            }
+            else
+            {
+                return File_Data[Index_Header].Contains(Key_Index);
+            }
         }
         /// <summary>
         /// Converts the specified Boolean value to the equivalent 32-bit signed integer.
@@ -200,7 +231,11 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         /// <remarks><b><i>Make Sure to Set a Value that be checked for conversion failure</i></b></remarks>
         public int Key_Read_Int(string Key_Index)
         {
-            if (int.TryParse(File_Data[Index_Header][Key_Index], out int Converted_Port))
+            if (string.IsNullOrWhiteSpace(Key_Index) || (File_Data == default) || (File_Data[Index_Header] == default))
+            {
+                return Conversion_Failure;
+            }
+            else if (int.TryParse(File_Data[Index_Header][Key_Index], out int Converted_Port))
             {
                 return Converted_Port;
             }
@@ -216,7 +251,14 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         /// <returns>True if value was converted successfully; otherwise, False.</returns>
         public bool Key_Read_Int_Check(string Key_Index)
         {
-            return int.TryParse(File_Data[Index_Header][Key_Index], out int Converted_Port);
+            if (string.IsNullOrWhiteSpace(Key_Index) || (File_Data == default) || (File_Data[Index_Header] == default))
+            {
+                return false;
+            }
+            else
+            {
+                return int.TryParse(File_Data[Index_Header][Key_Index], out int Converted_Port);
+            }
         }
         /// <summary>
         /// Deletes a Section of Ini File Section
@@ -227,9 +269,25 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(File_Path))
+
+                if (string.IsNullOrWhiteSpace(File_Path) || string.IsNullOrWhiteSpace(Key_Section))
                 {
-                    Log.Warning("IniFile: ".ToUpper() + "[Key Delete Section] Ini File's Path can not be Null");
+                    if (string.IsNullOrWhiteSpace(Key_Section))
+                    {
+                        Log.Warning("IniFile: ".ToUpper() + "[Key Delete Section] Key can not be Null");
+                    }
+                    else
+                    {
+                        Log.Warning("IniFile: ".ToUpper() + "[Key Delete Section] Ini File's Path can not be Null");
+                    }
+                }
+                else if (File_Data == default)
+                {
+                    Log.Warning("IniFile: ".ToUpper() + "[Key Delete Section] Ini Data can not be Null");
+                }
+                else if (File_Data[Index_Header] == default)
+                {
+                    Log.Warning("IniFile: ".ToUpper() + "[Key Delete Section] Ini File's Header can not be Null");
                 }
                 else if (new FileInfo(File_Path).IsReadOnly)
                 {

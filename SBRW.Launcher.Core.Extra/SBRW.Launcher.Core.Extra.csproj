@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SBRW.Ini.Parser" Version="3.0.0-preview002" />
+    <PackageReference Include="SBRW.Ini.Parser" Version="3.0.0" />
     <PackageReference Include="SBRW.Launcher.Core" Version="0.2.3" />
   </ItemGroup>
 
