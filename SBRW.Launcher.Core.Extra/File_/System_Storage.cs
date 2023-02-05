@@ -71,44 +71,63 @@ namespace SBRW.Launcher.Core.Extra.File_
                     /* df -h / "Filesystem      Size  Used Avail Use% Mounted on  /dev/sda3        39G   30G  6.9G  82% /" */
                     /* df / "Filesystem     1K-blocks     Used Available Use% Mounted on  /dev/sda3       40502528 31190956   7224456  82% /" */
                     string Konsole = ReadProcessOutput_Linux(Human_Values ? "df -h " : "df ",
-                        "'" + Folder_File_Path + "'".Replace("\"", "\\\""));
-                    string[] Konsole_Split = Konsole.Replace(' ', ',').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    int.TryParse(Konsole_Split[12].Replace("%", string.Empty), out int Final_Value);
-
-                    if (Human_Values)
+                        ("'" + Folder_File_Path + "'").Replace("\"", "\\\""));
+                    if (!string.IsNullOrWhiteSpace(Konsole))
                     {
-                        long.TryParse(Konsole_Split[9], out long Long_Value_Total_Space);
-                        long.TryParse(Konsole_Split[11], out long Long_Value_Available);
+                        string[] Konsole_Split = Konsole.Replace(' ', ',').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                        Current_Drive = new Format_System_Storage()
+                        int.TryParse(Konsole_Split[12].Replace("%", string.Empty), out int Final_Value);
+
+                        if (Human_Values)
                         {
-                            DriveFormat = "Unknown",
-                            TotalSize = Long_Value_Total_Space * 1000L,
-                            AvailableFreeSpace = Long_Value_Available * 1000L,
-                            Name = Konsole_Split[13],
-                            VolumeLabel = Konsole_Split[8],
-                            RootDirectory = new DirectoryInfo(Folder_File_Path),
-                            IsReady = true,
-                            TotalFreeSpace = Long_Value_Total_Space * 1000L,
-                            DriveType = DriveType.Unknown,
-                            Percentage_Of_Drive_Used = Final_Value
-                        };
+                            long.TryParse(Konsole_Split[9], out long Long_Value_Total_Space);
+                            long.TryParse(Konsole_Split[11], out long Long_Value_Available);
+
+                            Current_Drive = new Format_System_Storage()
+                            {
+                                DriveFormat = "Unknown",
+                                TotalSize = Long_Value_Total_Space * 1000L,
+                                AvailableFreeSpace = Long_Value_Available * 1000L,
+                                Name = Konsole_Split[13],
+                                VolumeLabel = Konsole_Split[8],
+                                RootDirectory = new DirectoryInfo(Folder_File_Path),
+                                IsReady = true,
+                                TotalFreeSpace = Long_Value_Total_Space * 1000L,
+                                DriveType = DriveType.Unknown,
+                                Percentage_Of_Drive_Used = Final_Value
+                            };
+                        }
+                        else
+                        {
+                            Current_Drive = new Format_System_Storage()
+                            {
+                                DriveFormat = "Unknown",
+                                TotalSize_Linux = Konsole_Split[9],
+                                AvailableFreeSpace_Linux = Konsole_Split[11],
+                                Name = Konsole_Split[13],
+                                VolumeLabel = Konsole_Split[8],
+                                RootDirectory = new DirectoryInfo(Folder_File_Path),
+                                IsReady = true,
+                                TotalSizeUsed_Linux = Konsole_Split[10],
+                                DriveType = DriveType.Unknown,
+                                Percentage_Of_Drive_Used = Final_Value
+                            };
+                        }
                     }
                     else
                     {
                         Current_Drive = new Format_System_Storage()
                         {
                             DriveFormat = "Unknown",
-                            TotalSize_Linux = Konsole_Split[9],
-                            AvailableFreeSpace_Linux = Konsole_Split[11],
-                            Name = Konsole_Split[13],
-                            VolumeLabel = Konsole_Split[8],
+                            TotalSize = -1,
+                            AvailableFreeSpace = -1,
+                            Name = "API_ERROR",
+                            VolumeLabel = new DirectoryInfo(Folder_File_Path).Root.Name,
                             RootDirectory = new DirectoryInfo(Folder_File_Path),
                             IsReady = true,
-                            TotalSizeUsed_Linux = Konsole_Split[10],
+                            TotalFreeSpace = -1,
                             DriveType = DriveType.Unknown,
-                            Percentage_Of_Drive_Used = Final_Value
+                            Percentage_Of_Drive_Used = -1
                         };
                     }
                 }

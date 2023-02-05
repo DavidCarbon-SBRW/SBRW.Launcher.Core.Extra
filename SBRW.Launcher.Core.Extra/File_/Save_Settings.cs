@@ -8,6 +8,7 @@ using SBRW.Launcher.Core.Recommended.Time_;
 using SBRW.Launcher.Core.Extra.Reference.Ini_;
 using SBRW.Launcher.Core.Downloader;
 using System.IO;
+using SBRW.Launcher.Core.Extension.String_;
 
 namespace SBRW.Launcher.Core.Extra.File_
 {
@@ -411,6 +412,36 @@ namespace SBRW.Launcher.Core.Extra.File_
                     SettingFile.Key_Delete("PatchesApplied");
                 }
             }
+            else if (!SettingFile.Key_Exists("AlertStorageSpace") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("AlertStorageSpace")))
+            {
+                SettingFile.Key_Write("AlertStorageSpace", Live_Data.Alert_Storage_Space = "0");
+            }
+            else if ((SettingFile.Key_Read("AlertStorageSpace") == "0") || (SettingFile.Key_Read("AlertStorageSpace") == "1"))
+            {
+                Live_Data.Alert_Storage_Space = SettingFile.Key_Read("AlertStorageSpace");
+            }
+            else
+            {
+                SettingFile.Key_Write("AlertStorageSpace", Live_Data.Alert_Storage_Space = "0");
+            }
+
+            if (!SettingFile.Key_Exists("LauncherEnvironment") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LauncherEnvironment")))
+            {
+                SettingFile.Key_Write("LauncherEnvironment", Live_Data.Launcher_RunTime_Environment = "0");
+            }
+            /* 0 = Personal
+             * 1 = Internet Cafe
+             * 2 = Shared PC
+             * 3 = Development
+             */
+            else if ((SettingFile.Key_Read_Int("LauncherEnvironment") >= 0) && (SettingFile.Key_Read_Int("LauncherEnvironment") <= 3))
+            {
+                Live_Data.Launcher_RunTime_Environment = SettingFile.Key_Read_Int("LauncherEnvironment").ToStringInvariant();
+            }
+            else
+            {
+                SettingFile.Key_Write("LauncherEnvironment", Live_Data.Launcher_RunTime_Environment = "0");
+            }
 
             /* Key Entries to Convert into Boolens */
 
@@ -652,6 +683,15 @@ namespace SBRW.Launcher.Core.Extra.File_
                 {
                     SettingFile.Key_Write("PatchesApplied", Live_Data.Win_7_Patches);
                 }
+            }
+            else if (SettingFile.Key_Read("AlertStorageSpace") != Live_Data.Alert_Storage_Space)
+            {
+                SettingFile.Key_Write("AlertStorageSpace", Live_Data.Alert_Storage_Space);
+            }
+
+            if (SettingFile.Key_Read("LauncherEnvironment") != Live_Data.Launcher_RunTime_Environment)
+            {
+                SettingFile.Key_Write("LauncherEnvironment", Live_Data.Launcher_RunTime_Environment);
             }
 
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
