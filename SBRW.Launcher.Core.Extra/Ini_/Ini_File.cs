@@ -1,5 +1,4 @@
 ﻿using SBRW.Ini.Parser;
-using SBRW.Ini.Parser.Model;
 using SBRW.Launcher.Core.Extension.Logging_;
 using System;
 using System.IO;
@@ -25,7 +24,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         /// </summary>
         /// <remarks>Default Number: -2017</remarks>
         public int Conversion_Failure { get; set; } = -2017;
-        internal FileIniDataParser File_Parser { get; set; }
+        internal IniDataFile File_Parser { get; set; }
         internal IniData File_Data { get; set; }
         internal UTF8Encoding UTF8
         {
@@ -46,7 +45,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                     File_Path = Index_Header + ".ini".ToLowerInvariant();
                 }
 
-                File_Parser = new FileIniDataParser();
+                File_Parser = new IniDataFile();
                 if (File.Exists(File_Path))
                 {
                     File_Data = File_Parser.ReadFile(File_Path, UTF8);
@@ -83,7 +82,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             try
             {
                 File_Path = new FileInfo(string.IsNullOrWhiteSpace(Ini_Path) ? Index_Header + ".ini".ToLowerInvariant() : Ini_Path).FullName;
-                File_Parser = new FileIniDataParser();
+                File_Parser = new IniDataFile();
                 if (File.Exists(File_Path))
                 {
                     File_Data = File_Parser.ReadFile(File_Path, UTF8);
@@ -171,7 +170,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                 }
                 else
                 {
-                    File_Data[Index_Header].RemoveKey(Key_Index);
+                    File_Data[Index_Header].Remove(Key_Index);
                     File_Parser.WriteFile(File_Path, File_Data, UTF8);
                 }
             }
@@ -191,7 +190,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         /// <returns>True if found; otherwise, False</returns>
         public bool Key_Exists(string Key_Index)
         {
-            return File_Data[Index_Header].ContainsKey(Key_Index);
+            return File_Data[Index_Header].Contains(Key_Index);
         }
         /// <summary>
         /// Converts the specified Boolean value to the equivalent 32-bit signed integer.
@@ -238,7 +237,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                 }
                 else
                 {
-                    File_Data.Sections.RemoveSection(Key_Section);
+                    File_Data.Sections.Remove(Key_Section);
                     File_Parser.WriteFile(File_Path, File_Data);
                 }
             }
