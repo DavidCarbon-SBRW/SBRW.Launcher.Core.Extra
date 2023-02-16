@@ -22,6 +22,7 @@ namespace SBRW.Launcher.Core.Extra.File_
         public static Format_Settings Live_Data { get; set; } = new Format_Settings();
         ///<value>Settings File Information on Disk</value>s
         private static Ini_File SettingFile { get; set; }
+        #region Functions
         /// <summary>Creates all the NullSafe Values for Settings.ini</summary>
         public static void NullSafe()
         {
@@ -443,6 +444,32 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("LauncherEnvironment", Live_Data.Launcher_RunTime_Environment = "0");
             }
 
+            if (!SettingFile.Key_Exists("LegacyHost2IP") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LegacyHost2IP")))
+            {
+                SettingFile.Key_Write("LegacyHost2IP", Live_Data.Launcher_Legacy_Host_To_IP = "0");
+            }
+            else if ((SettingFile.Key_Read_Int("LegacyHost2IP") >= 0) && (SettingFile.Key_Read_Int("LegacyHost2IP") <= 1))
+            {
+                Live_Data.Launcher_Legacy_Host_To_IP = SettingFile.Key_Read_Int("LegacyHost2IP").ToStringInvariant();
+            }
+            else
+            {
+                SettingFile.Key_Write("LegacyHost2IP", Live_Data.Launcher_Legacy_Host_To_IP = "0");
+            }
+
+            if (!SettingFile.Key_Exists("ProxyHostDomain") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("ProxyHostDomain")))
+            {
+                SettingFile.Key_Write("ProxyHostDomain", Live_Data.Launcher_Proxy_Domain = "0");
+            }
+            else if ((SettingFile.Key_Read_Int("ProxyHostDomain") >= 0) && (SettingFile.Key_Read_Int("ProxyHostDomain") <= 1))
+            {
+                Live_Data.Launcher_Proxy_Domain = SettingFile.Key_Read_Int("ProxyHostDomain").ToStringInvariant();
+            }
+            else
+            {
+                SettingFile.Key_Write("ProxyHostDomain", Live_Data.Launcher_Proxy_Domain = "0");
+            }
+
             /* Key Entries to Convert into Boolens */
 
             Log.Function("Custom Proxy Port:".ToUpper() + " -> " + Proxy_Settings.Custom_Port(Live_Data.Launcher_Proxy_Port) + " has been Set");
@@ -542,6 +569,34 @@ namespace SBRW.Launcher.Core.Extra.File_
                     if (Proxy_Settings.Running())
                     {
                         Proxy_Server.Instance.Stop("SBRW.Launcher.Core.Extra [Save]");
+                    }
+                }
+            }
+
+            if (SettingFile.Key_Read("ProxyPort") != Live_Data.Launcher_Proxy_Port)
+            {
+                SettingFile.Key_Write("ProxyPort", Live_Data.Launcher_Proxy_Port);
+
+                Log.Function("Custom Proxy Port:".ToUpper() + " -> " + Proxy_Settings.Custom_Port(Live_Data.Launcher_Proxy_Port) + " has been Set");
+            }
+
+            if (SettingFile.Key_Read("ProxyHostDomain") != Live_Data.Launcher_Proxy_Domain)
+            {
+                SettingFile.Key_Write("ProxyHostDomain", Live_Data.Launcher_Proxy_Domain);
+
+                if (Live_Data.Launcher_Proxy.Equals("0"))
+                {
+                    if (Proxy_Settings.Running())
+                    {
+                        Proxy_Server.Instance.Stop("SBRW.Launcher.Core.Extra [Save (Domain)]");
+                    }
+
+                    Proxy_Settings.Domain = Live_Data.Launcher_Proxy_Domain.Equals("0") ? "127.0.0.1" : "localhost";
+                    Log.Function("Custom Proxy Domain:".ToUpper() + " -> " + Proxy_Settings.Domain + " has been Set");
+
+                    if (!Proxy_Settings.Running())
+                    {
+                        Proxy_Server.Instance.Start("SBRW.Launcher.Core.Extra [Save (Domain)]");
                     }
                 }
             }
@@ -694,7 +749,60 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("LauncherEnvironment", Live_Data.Launcher_RunTime_Environment);
             }
 
+            if (SettingFile.Key_Read("LegacyHost2IP") != Live_Data.Launcher_Legacy_Host_To_IP)
+            {
+                SettingFile.Key_Write("LegacyHost2IP", Live_Data.Launcher_Legacy_Host_To_IP);
+            }
+
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
         }
+        #endregion
+        #region
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static bool Legacy_Host_To_IP()
+        {
+            if (Live_Data != default)
+            {
+                return Live_Data.Launcher_Legacy_Host_To_IP.Equals("0");
+            }
+            else
+            {
+                return true;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string Game_Files_Path()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Game_Path;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string Game_Files_Old_Path()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Game_Path_Old;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        #endregion
     }
 }

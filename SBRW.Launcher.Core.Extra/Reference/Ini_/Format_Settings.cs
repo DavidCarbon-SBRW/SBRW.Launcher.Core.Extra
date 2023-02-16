@@ -133,5 +133,13 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// User's Desired Alert-Popup about Limited Storage Space
         /// </summary>
         public string Alert_Storage_Space { get; set; }
+        /// <summary>
+        /// User's Desired Host to IP conversion
+        /// </summary>
+        public string Launcher_Legacy_Host_To_IP { get; set; }
+        /// <summary>
+        /// Users's Domain such as LocalHost
+        /// </summary>
+        public string Launcher_Proxy_Domain { get; set; }
     }
 }
