@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net6.0-windows;net461;net472</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.3.2</Version>
+    <Version>0.3.3</Version>
     <LangVersion>8.0</LangVersion>
     <Authors>Soapbox Race World - Launcher Division</Authors>
     <Company>Soapbox Race World</Company>
@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.2.4" />
+    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.2.5" />
     <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.2.3" />
     <PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.3.5" />
   </ItemGroup>
