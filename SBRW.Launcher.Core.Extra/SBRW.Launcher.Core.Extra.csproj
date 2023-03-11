@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net6.0-windows;net461;net472</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.3.3</Version>
+    <Version>0.3.4</Version>
     <LangVersion>8.0</LangVersion>
     <Authors>Soapbox Race World - Launcher Division</Authors>
     <Company>Soapbox Race World</Company>
@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SBRW.Ini.Parser" Version="3.0.0" />
+    <PackageReference Include="SBRW.Ini.Parser" Version="3.0.2" />
     <PackageReference Include="SBRW.Launcher.Core" Version="0.2.3" />
   </ItemGroup>
 
