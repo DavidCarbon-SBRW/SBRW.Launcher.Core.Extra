@@ -26,13 +26,6 @@ namespace SBRW.Launcher.Core.Extra.Ini_
         public int Conversion_Failure { get; set; } = -2017;
         internal IniDataFile File_Parser { get; set; }
         internal IniData File_Data { get; set; }
-        internal UTF8Encoding UTF8
-        {
-            get
-            {
-                return new UTF8Encoding(false);
-            }
-        }
         /// <summary>
         /// Loads Ini File
         /// </summary>
@@ -48,7 +41,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                 File_Parser = new IniDataFile();
                 if (File.Exists(File_Path))
                 {
-                    File_Data = File_Parser.ReadFile(File_Path, UTF8);
+                    File_Data = File_Parser.ReadFile(File_Path);
                 }
                 else
                 {
@@ -85,7 +78,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                 File_Parser = new IniDataFile();
                 if (File.Exists(File_Path))
                 {
-                    File_Data = File_Parser.ReadFile(File_Path, UTF8);
+                    File_Data = File_Parser.ReadFile(File_Path);
                 }
                 else
                 {
@@ -148,7 +141,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                     }
 
                     File_Data[Index_Header][Key_Index] = Index_Data;
-                    File_Parser.WriteFile(File_Path, File_Data, UTF8);
+                    File_Parser.WriteFile(File_Path, File_Data);
                 }
             }
             catch (Exception Error)
@@ -195,7 +188,7 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                 else
                 {
                     File_Data[Index_Header].Remove(Key_Index);
-                    File_Parser.WriteFile(File_Path, File_Data, UTF8);
+                    File_Parser.WriteFile(File_Path, File_Data);
                 }
             }
             catch (Exception Error)
