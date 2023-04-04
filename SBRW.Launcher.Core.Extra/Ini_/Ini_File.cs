@@ -1,8 +1,8 @@
 ﻿using SBRW.Ini.Parser;
 using SBRW.Launcher.Core.Extension.Logging_;
+using SBRW.Launcher.Core.Extension.String_;
 using System;
 using System.IO;
-using System.Text;
 
 namespace SBRW.Launcher.Core.Extra.Ini_
 {
@@ -39,13 +39,32 @@ namespace SBRW.Launcher.Core.Extra.Ini_
                 }
 
                 File_Parser = new IniDataFile();
-                if (File.Exists(File_Path))
+                try
                 {
-                    File_Data = File_Parser.ReadFile(File_Path);
+                    if (File.Exists(File_Path))
+                    {
+                        File_Data = File_Parser.ReadFile(File_Path);
+                    }
+                    else
+                    {
+                        if (!File.Exists(File_Path))
+                        {
+                            File.Create(File_Path).Close();
+                        }
+
+                        File_Data = new IniData();
+                    }
                 }
-                else
+                catch (Ini.Parser.Exceptions.ParsingException)
                 {
-                    if (!File.Exists(File_Path))
+                    if (File.Exists(File_Path))
+                    {
+                        /* Lets create a new .ini File since its going to be a problem on next run */
+                        string Old_Extention = File_Path.GetExtension();
+                        File.Move(File_Path, File_Path.Replace(Old_Extention, DateTime.Now.ToLongDateString() + "." + Old_Extention));
+                        File.Create(File_Path).Close();
+                    }
+                    else
                     {
                         File.Create(File_Path).Close();
                     }
@@ -60,10 +79,6 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             catch (Exception Error)
             {
                 Log_Detail.Full("IniFile Core", Error);
-            }
-            finally
-            {
-                GC.Collect();
             }
         }
         /// <summary>
@@ -76,13 +91,32 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             {
                 File_Path = new FileInfo(string.IsNullOrWhiteSpace(Ini_Path) ? Index_Header + ".ini".ToLowerInvariant() : Ini_Path).FullName;
                 File_Parser = new IniDataFile();
-                if (File.Exists(File_Path))
+
+                try
                 {
-                    File_Data = File_Parser.ReadFile(File_Path);
+                    if (File.Exists(File_Path))
+                    {
+                        File_Data = File_Parser.ReadFile(File_Path);
+                    }
+                    else
+                    {
+                        if (!File.Exists(File_Path))
+                        {
+                            File.Create(File_Path).Close();
+                        }
+
+                        File_Data = new IniData();
+                    }
                 }
-                else
+                catch (Ini.Parser.Exceptions.ParsingException)
                 {
-                    if (!File.Exists(File_Path))
+                    if (File.Exists(File_Path))
+                    {
+                        string Old_Extention = File_Path.GetExtension();
+                        File.Move(File_Path, File_Path.Replace(Old_Extention, DateTime.Now.ToLongDateString() + "." + Old_Extention));
+                        File.Create(File_Path).Close();
+                    }
+                    else
                     {
                         File.Create(File_Path).Close();
                     }
@@ -97,10 +131,6 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             catch (Exception Error)
             {
                 Log_Detail.Full("IniFile Core", Error);
-            }
-            finally
-            {
-                GC.Collect();
             }
         }
         /// <summary>
@@ -148,10 +178,6 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             {
                 Log_Detail.Full("IniFile Key Write", Error);
             }
-            finally
-            {
-                GC.Collect();
-            }
         }
         /// <summary>
         /// Deletes a Key Entry from the Ini File
@@ -194,10 +220,6 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             catch (Exception Error)
             {
                 Log_Detail.Full("IniFile Key Deletion", Error);
-            }
-            finally
-            {
-                GC.Collect();
             }
         }
         /// <summary>
@@ -295,10 +317,6 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             catch (Exception Error)
             {
                 Log_Detail.Full("IniFile Key Delete Section", Error);
-            }
-            finally
-            {
-                GC.Collect();
             }
         }
     }
