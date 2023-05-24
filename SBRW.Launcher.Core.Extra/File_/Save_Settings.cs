@@ -470,9 +470,30 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("ProxyHostDomain", Live_Data.Launcher_Proxy_Domain = "0");
             }
 
+            if (!SettingFile.Key_Exists("ProxyLogMode") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("ProxyLogMode")))
+            {
+                SettingFile.Key_Write("ProxyLogMode", Live_Data.Launcher_Proxy_Log_Mode = "1");
+            }
+            else if ((SettingFile.Key_Read_Int("ProxyLogMode") >= 0) && (SettingFile.Key_Read_Int("ProxyLogMode") <= 4))
+            {
+                Live_Data.Launcher_Proxy_Log_Mode = SettingFile.Key_Read("ProxyLogMode");
+            }
+            else
+            {
+                SettingFile.Key_Write("ProxyLogMode", Live_Data.Launcher_Proxy_Log_Mode = "1");
+            }
+
             /* Key Entries to Convert into Boolens */
 
             Proxy_Settings.Domain = Live_Data.Launcher_Proxy_Domain.Equals("0") ? "127.0.0.1" : "localhost";
+            Proxy_Settings.Log_Mode = Live_Data.Launcher_Proxy_Log_Mode switch
+            {
+                "0" => Proxy.Log_.CommunicationLogRecord.None,
+                "2" => Proxy.Log_.CommunicationLogRecord.Errors,
+                "3" => Proxy.Log_.CommunicationLogRecord.Responses,
+                "4" => Proxy.Log_.CommunicationLogRecord.Requests,
+                _ => Proxy.Log_.CommunicationLogRecord.All,
+            };
             Log.Function("Custom Proxy Port:".ToUpper() + " -> " + Proxy_Settings.Custom_Port(Live_Data.Launcher_Proxy_Port) + " has been Set");
             Launcher_Value.Launcher_Alternative_Webcalls(Live_Data.Launcher_WebClient_Method == "WebClient");
 
@@ -753,6 +774,16 @@ namespace SBRW.Launcher.Core.Extra.File_
             if (SettingFile.Key_Read("LegacyHost2IP") != Live_Data.Launcher_Legacy_Host_To_IP)
             {
                 SettingFile.Key_Write("LegacyHost2IP", Live_Data.Launcher_Legacy_Host_To_IP);
+            }
+
+            if (SettingFile.Key_Read("ProxyHostDomain") != Live_Data.Launcher_Proxy_Domain)
+            {
+                SettingFile.Key_Write("ProxyHostDomain", Live_Data.Launcher_Proxy_Domain);
+            }
+
+            if (SettingFile.Key_Read("ProxyLogMode") != Live_Data.Launcher_Proxy_Log_Mode)
+            {
+                SettingFile.Key_Write("ProxyLogMode", Live_Data.Launcher_Proxy_Log_Mode);
             }
 
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
