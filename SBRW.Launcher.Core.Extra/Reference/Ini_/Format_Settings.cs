@@ -103,7 +103,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// Users's Choice to Enable Legacy Window Timer Support
         /// </summary>
-        /// <remarks>Formally: <paramref href="Launcher_Streaming_Support"/></remarks>
+        /// <remarks>Formally: <see cref="Launcher_Streaming_Support"/></remarks>
         [Obsolete("Instead use 'Launcher_Display_Timer'")]
         public string Launcher_Legacy_Timer { get; set; }
         /// <summary>
@@ -117,7 +117,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// Users's Choice to Display Different Window Timers
         /// </summary>
-        /// <remarks>Formally: <paramref href="Launcher_Legacy_Timer"/></remarks>
+        /// <remarks>Formally: <see cref="Launcher_Legacy_Timer"/></remarks>
         public string Launcher_Display_Timer { get; set; }
         /// <summary>
         /// Users's Desired Web Client Timeout
@@ -141,5 +141,9 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// Users's Domain such as LocalHost
         /// </summary>
         public string Launcher_Proxy_Domain { get; set; }
+        /// <summary>
+        /// User's Logging Mode Type
+        /// </summary>
+        public string Launcher_Proxy_Log_Mode { get; set; }
     }
 }
