@@ -94,7 +94,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// Users's Choice to Enable "Native" Window Video Capture Support
         /// </summary>
-        [Obsolete("Instead use 'Launcher_Legacy_Timer'")]
+        [Obsolete("Instead use \"Launcher_Legacy_Timer\"")]
         public string Launcher_Streaming_Support { get; set; }
         /// <summary>
         /// Users's Choice on Opting Into Insider Builds
@@ -104,12 +104,18 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// Users's Choice to Enable Legacy Window Timer Support
         /// </summary>
         /// <remarks>Formally: <see cref="Launcher_Streaming_Support"/></remarks>
-        [Obsolete("Instead use 'Launcher_Display_Timer'")]
+        [Obsolete("Instead use \"Launcher_Display_Timer\"")]
         public string Launcher_Legacy_Timer { get; set; }
         /// <summary>
         /// Users's Choice to Enable LZMA Downloader
         /// </summary>
+        /// <remarks>Formally: <see cref="Launcher_Game_Downloader"/></remarks>
+        [Obsolete("Instead use \"Launcher_Game_Downloader\"")]
         public string Launcher_LZMA_Downloader { get; set; }
+        /// <summary>
+        /// Users's Choice of their Game Downloader Method
+        /// </summary>
+        public string Launcher_Game_Downloader { get; set; }
         /// <summary>
         /// User's Choice to Disable the Update Cache Frequency for Launcher Related JSON Files
         /// </summary>
