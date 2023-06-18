@@ -76,6 +76,11 @@ namespace SBRW.Launcher.Core.Extra.File_
                 Display_Timer_Migration = true;
             }
 
+            if (SettingFile.Key_Exists("LzmaDownloader"))
+            {
+                SettingFile.Key_Delete("LzmaDownloader");
+            }
+
             /* Check if any Entries are missing */
 
             if (Launcher_Value.System_Unix && !SettingFile.Key_Exists("InstallationDirectory"))
@@ -307,17 +312,17 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("DisplayTimer", Live_Data.Launcher_Display_Timer = "0");
             }
 
-            if (!SettingFile.Key_Exists("LzmaDownloader") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LzmaDownloader")))
+            if (!SettingFile.Key_Exists("DownloaderGame") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("DownloaderGame")))
             {
-                SettingFile.Key_Write("LzmaDownloader", Live_Data.Launcher_LZMA_Downloader = "0");
+                SettingFile.Key_Write("DownloaderGame", Live_Data.Launcher_Game_Downloader = "0");
             }
-            else if ((SettingFile.Key_Read("LzmaDownloader") == "0") || (SettingFile.Key_Read("LzmaDownloader") == "1"))
+            else if ((SettingFile.Key_Read_Int("DownloaderGame") >= 0) && (SettingFile.Key_Read_Int("DownloaderGame") <= 3))
             {
-                Live_Data.Launcher_LZMA_Downloader = SettingFile.Key_Read("LzmaDownloader");
+                Live_Data.Launcher_Game_Downloader = SettingFile.Key_Read("DownloaderGame");
             }
             else
             {
-                SettingFile.Key_Write("LzmaDownloader", Live_Data.Launcher_LZMA_Downloader = "0");
+                SettingFile.Key_Write("DownloaderGame", Live_Data.Launcher_Game_Downloader = "0");
             }
 
             if (!SettingFile.Key_Exists("JSONFrequencyUpdateCache") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("JSONFrequencyUpdateCache")))
@@ -711,9 +716,9 @@ namespace SBRW.Launcher.Core.Extra.File_
                 SettingFile.Key_Write("DisplayTimer", Live_Data.Launcher_Display_Timer);
             }
 
-            if (SettingFile.Key_Read("LzmaDownloader") != Live_Data.Launcher_LZMA_Downloader)
+            if (SettingFile.Key_Read("DownloaderGame") != Live_Data.Launcher_Game_Downloader)
             {
-                SettingFile.Key_Write("LzmaDownloader", Live_Data.Launcher_LZMA_Downloader);
+                SettingFile.Key_Write("DownloaderGame", Live_Data.Launcher_Game_Downloader);
             }
 
             if (SettingFile.Key_Read("JSONFrequencyUpdateCache") != Live_Data.Launcher_JSON_Frequency_Update_Cache)
