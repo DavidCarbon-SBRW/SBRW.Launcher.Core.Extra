@@ -316,7 +316,7 @@ namespace SBRW.Launcher.Core.Extra.File_
             {
                 SettingFile.Key_Write("DownloaderGame", Live_Data.Launcher_Game_Downloader = "0");
             }
-            else if ((SettingFile.Key_Read_Int("DownloaderGame") >= 0) && (SettingFile.Key_Read_Int("DownloaderGame") <= 3))
+            else if ((SettingFile.Key_Read_Int("DownloaderGame") >= 0) && (SettingFile.Key_Read_Int("DownloaderGame") <= 2))
             {
                 Live_Data.Launcher_Game_Downloader = SettingFile.Key_Read("DownloaderGame");
             }
@@ -946,6 +946,15 @@ namespace SBRW.Launcher.Core.Extra.File_
             }
         }
         /// <summary>
+        /// Preview Mode
+        /// </summary>
+        /// <returns>Numerical Value of Preview</returns>
+        public static long Preview_Mode_Int()
+        {
+            long.TryParse(Live_Data.Launcher_Insider ?? "0", out long Preview_Value);
+            return Preview_Value;
+        }
+        /// <summary>
         /// If Custom Themes should be Used
         /// </summary>
         /// <returns>True or False</returns>
@@ -1001,6 +1010,15 @@ namespace SBRW.Launcher.Core.Extra.File_
             {
                 return Proxy.Log_.CommunicationLogRecord.All;
             }
+        }
+        /// <summary>
+        /// Proxy Log Mode
+        /// </summary>
+        /// <returns>Numerical Value of Proxy Log</returns>
+        public static long Proxy_Log_Mode_Int()
+        {
+            long.TryParse(Live_Data.Launcher_Proxy_Log_Mode ?? "0", out long Proxy_Log_Value);
+            return Proxy_Log_Value;
         }
         /// <summary>
         /// If the Game Downloader is Set to use LZMA
