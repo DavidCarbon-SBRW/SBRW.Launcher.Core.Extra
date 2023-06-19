@@ -16,7 +16,7 @@ namespace SBRW.Launcher.Core.Extra.File_
     /// Global Settings Save System
     /// </summary>
     /// <remarks>Used to set Values and Save them</remarks>
-    public class Save_Settings
+    public static class Save_Settings
     {
         /// <summary>Settings Format Information In Live Memory</summary>
         public static Format_Settings Live_Data { get; set; } = new Format_Settings();
@@ -829,7 +829,7 @@ namespace SBRW.Launcher.Core.Extra.File_
         /// 
         /// </summary>
         /// <returns></returns>
-        public static string Game_Files_Old_Path()
+        public static string Game_Files_Path_Old()
         {
             if (Live_Data != null)
             {
@@ -838,6 +838,332 @@ namespace SBRW.Launcher.Core.Extra.File_
             else
             {
                 return string.Empty;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static bool Proxy_RunTime()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Proxy.Equals("0");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static bool RPC_Discord()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Discord_Presence.Equals("0");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static bool Update_Frequency_JSON()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_JSON_Frequency_Update_Cache.Equals("1");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static bool WebCalls_Alt()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_WebClient_Method.Equals("WebClientWithTimeout");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// If Preview for Insider is Enabled
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Preview_Insider()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Insider.Equals("1");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// If Preview for Developer is Enabled
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Preview_Developer()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Insider.Equals("2");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// If Preview for Developer or Insider is Enabled
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Preview_Mode()
+        {
+            if (Live_Data != null)
+            {
+                return (Preview_Developer() || Preview_Insider());
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// If Custom Themes should be Used
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Theme_Custom()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Theme_Support.Equals("1");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// If Proxy URL Domain should be localhost or 127.0.0.1
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Proxy_Domain()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Proxy_Domain.Equals("1");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Proxy Log Record Type
+        /// </summary>
+        /// <returns>Communication Log Record Type</returns>
+        public static Proxy.Log_.CommunicationLogRecord Proxy_Log_Mode()
+        {
+            if(Live_Data != null)
+            {
+                switch(Live_Data.Launcher_Proxy_Log_Mode)
+                {
+                    case "0":
+                        return Proxy.Log_.CommunicationLogRecord.None;
+                    case "2":
+                        return Proxy.Log_.CommunicationLogRecord.Errors;
+                    case "3":
+                        return Proxy.Log_.CommunicationLogRecord.Responses;
+                    case "4":
+                        return Proxy.Log_.CommunicationLogRecord.Requests;
+                    default:
+                        return Proxy.Log_.CommunicationLogRecord.All;
+                }
+            }
+            else
+            {
+                return Proxy.Log_.CommunicationLogRecord.All;
+            }
+        }
+        /// <summary>
+        /// If the Game Downloader is Set to use LZMA
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Downloader_Game_LZMA()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Game_Downloader.Equals("0");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// If the Game Downloader is Set to use Pack
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Downloader_Game_Pack()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Game_Downloader.Equals("1");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// If the Game Downloader is Set to use Raw
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Downloader_Game_Raw()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Game_Downloader.Equals("2");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Game Downloader Mode
+        /// </summary>
+        /// <returns>Numerical Value of Game Downloader</returns>
+        public static long Downloader_Game()
+        {
+            long.TryParse(Live_Data.Launcher_Game_Downloader ?? "0", out long Game_Downloader_Value);
+            return Game_Downloader_Value;
+        }
+        /// <summary>
+        /// Displays Storage Space Alert
+        /// </summary>
+        /// <returns>True or False</returns>
+        public static bool Storage_Space_Alert()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Alert_Storage_Space.Equals("0");
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Path Location for Game Files Archive File
+        /// </summary>
+        /// <returns>
+        /// Example: <b>C:\Soapbox Race World\Game Files\.Launcher\Downloads\GameFiles.sbrwpack</b><br/>
+        /// OR <b><see cref="string.Empty"/></b>
+        /// </returns>
+        public static string Game_Archive_Path()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Game_Archive_Location;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+        /// <summary>
+        /// Default Path Location for Game Files Archive File
+        /// </summary>
+        /// <param name="Game_Folder_Path"></param>
+        /// <returns>
+        /// Example: <b>C:\Soapbox Race World\Game Files\.Launcher\Downloads\GameFiles.sbrwpack</b><br/>
+        /// OR <b>\.Launcher\Downloads\GameFiles.sbrwpack</b>
+        /// </returns>
+        public static string Game_Archive_Path_Primary(this string Game_Folder_Path)
+        {
+            if (!string.IsNullOrWhiteSpace(Game_Folder_Path))
+            {
+                return Path.Combine(Game_Folder_Path, ".Launcher", "Downloads", "GameFiles.sbrwpack");
+            }
+            else
+            {
+                return Path.Combine(".Launcher", "Downloads", "GameFiles.sbrwpack");
+            }
+        }
+        /// <summary>
+        /// Secondary Path Location for Game Files Archive File
+        /// </summary>
+        /// <param name="Game_Folder_Path"></param>
+        /// <returns>
+        /// Example: <b>C:\Soapbox Race World\Launcher\Launcher_Data\Archive\GameFiles.sbrwpack</b><br/>
+        /// OR <b>\Launcher_Data\Archive\GameFiles.sbrwpack</b>
+        /// </returns>
+        public static string Game_Archive_Path_Secondary(this string Game_Folder_Path)
+        {
+            if (!string.IsNullOrWhiteSpace(Game_Folder_Path))
+            {
+                return Path.Combine(Game_Folder_Path, "Launcher_Data", "Archive", "GameFiles.sbrwpack");
+            }
+            else
+            {
+                return Path.Combine("Launcher_Data", "Archive", "GameFiles.sbrwpack");
+            }
+        }
+        /// <summary>
+        /// Secondary Path Location for Game Files Archive File
+        /// </summary>
+        /// <param name="Game_Folder_Path"></param>
+        /// <returns>
+        /// Example: <b>C:\Soapbox Race World\Launcher\Launcher_Data\Archive\Game Files\GameFiles.sbrwpack</b><br/>
+        /// OR <b>\Launcher_Data\Archive\Game Files\GameFiles.sbrwpack</b>
+        /// </returns>
+        public static string Game_Archive_Path_Secondary_Old(this string Game_Folder_Path)
+        {
+            if (!string.IsNullOrWhiteSpace(Game_Folder_Path))
+            {
+                return Path.Combine(Game_Folder_Path, "Launcher_Data", "Archive", "Game Files", "GameFiles.sbrwpack");
+            }
+            else
+            {
+                return Path.Combine("Launcher_Data", "Archive", "Game Files", "GameFiles.sbrwpack");
+            }
+        }
+        /// <summary>
+        /// Legacy File path that existed for launchers 2.1.4.X - 2.1.5.X
+        /// </summary>
+        /// <param name="Game_Folder_Path"></param>
+        /// <remarks>Example: C:\Soapbox Race World\Launcher\GameFiles.sbrwpack</remarks>
+        /// <returns>
+        /// Example: <b>C:\Soapbox Race World\Launcher\GameFiles.sbrwpack</b><br/>
+        /// OR <b>GameFiles.sbrwpack</b>
+        /// </returns>
+        public static string Game_Archive_Path_Legacy(this string Game_Folder_Path)
+        {
+            if (!string.IsNullOrWhiteSpace(Game_Folder_Path))
+            {
+                return Path.Combine(Game_Folder_Path, "GameFiles.sbrwpack");
+            }
+            else
+            {
+                return "GameFiles.sbrwpack";
             }
         }
         #endregion
