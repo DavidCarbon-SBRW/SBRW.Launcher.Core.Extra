@@ -29,5 +29,9 @@
         /// Server's Authentication Version Locally Saved
         /// </summary>
         public string Saved_Server_Hash_Version { get; set; }
+        /// <summary>
+        /// Users's Account Index Locally Saved
+        /// </summary>
+        public string User_Account_Index { get; set; }
     }
 }

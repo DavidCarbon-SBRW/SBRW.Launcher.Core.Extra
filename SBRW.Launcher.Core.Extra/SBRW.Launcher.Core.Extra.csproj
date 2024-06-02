@@ -38,6 +38,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Reference\Ini_\Format_Account.cs~RFd61f29a.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Reference\XML_\UserSettings.xml" />
   </ItemGroup>
 
