@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SBRW.Launcher.Core.Extra.Reference.Ini_
+﻿namespace SBRW.Launcher.Core.Extra.Reference.Ini_
 {
     /// <summary>
     /// Ini Format for an Settings Information
@@ -92,26 +90,9 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// </summary>
         public string Launcher_Theme_Support { get; set; }
         /// <summary>
-        /// Users's Choice to Enable "Native" Window Video Capture Support
-        /// </summary>
-        [Obsolete("Instead use \"Launcher_Legacy_Timer\"")]
-        public string Launcher_Streaming_Support { get; set; }
-        /// <summary>
         /// Users's Choice on Opting Into Insider Builds
         /// </summary>
         public string Launcher_Insider { get; set; }
-        /// <summary>
-        /// Users's Choice to Enable Legacy Window Timer Support
-        /// </summary>
-        /// <remarks>Formally: <see cref="Launcher_Streaming_Support"/></remarks>
-        [Obsolete("Instead use \"Launcher_Display_Timer\"")]
-        public string Launcher_Legacy_Timer { get; set; }
-        /// <summary>
-        /// Users's Choice to Enable LZMA Downloader
-        /// </summary>
-        /// <remarks>Formally: <see cref="Launcher_Game_Downloader"/></remarks>
-        [Obsolete("Instead use \"Launcher_Game_Downloader\"")]
-        public string Launcher_LZMA_Downloader { get; set; }
         /// <summary>
         /// Users's Choice of their Game Downloader Method
         /// </summary>
@@ -123,7 +104,6 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// Users's Choice to Display Different Window Timers
         /// </summary>
-        /// <remarks>Formally: <see cref="Launcher_Legacy_Timer"/></remarks>
         public string Launcher_Display_Timer { get; set; }
         /// <summary>
         /// Users's Desired Web Client Timeout
@@ -151,5 +131,17 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// User's Logging Mode Type
         /// </summary>
         public string Launcher_Proxy_Log_Mode { get; set; }
+        /// <summary>
+        /// User's Game Affinity Range
+        /// </summary>
+        public int[] Game_Affinity_Range { get; set; } = new int[] { 0, 3 };
+        /// <summary>
+        /// User's Choice to use the Account Manager
+        /// </summary>
+        public string Launcher_Account_Manager { get; set; }
+        /// <summary>
+        /// User's Choice on Proxy GZip Version
+        /// </summary>
+        public string Launcher_Proxy_GZip_Version { get; set; }
     }
 }

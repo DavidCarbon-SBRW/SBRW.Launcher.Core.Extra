@@ -83,6 +83,15 @@ namespace SBRW.Launcher.Core.Extra.File_
                 Live_Data.User_Raw_Password = AccountFile.Key_Read("PasswordRaw");
             }
 
+            if (!AccountFile.Key_Exists("AccountIndex"))
+            {
+                AccountFile.Key_Write("AccountIndex", Live_Data.User_Account_Index);
+            }
+            else
+            {
+                Live_Data.User_Account_Index = AccountFile.Key_Read("AccountIndex");
+            }
+
             AccountFile = new Ini_File(Ini_Location.Launcher_Account);
         }
         /// <summary>
@@ -96,6 +105,11 @@ namespace SBRW.Launcher.Core.Extra.File_
             if (!AccountFile.Key_Exists("Server") || AccountFile.Key_Read("Server") != Live_Data.Saved_Server_Address)
             {
                 AccountFile.Key_Write("Server", Live_Data.Saved_Server_Address);
+            }
+
+            if (!AccountFile.Key_Exists("AccountIndex") || AccountFile.Key_Read("AccountIndex") != Live_Data.User_Account_Index)
+            {
+                AccountFile.Key_Write("AccountIndex", Live_Data.User_Account_Index);
             }
 
             if (!AccountFile.Key_Exists("Hash") || AccountFile.Key_Read("Hash") != Live_Data.Saved_Server_Hash_Version)
