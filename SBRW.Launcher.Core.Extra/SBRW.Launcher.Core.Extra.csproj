@@ -1,75 +1,75 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0-windows;net461;net472</TargetFrameworks>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.4.0</Version>
-    <LangVersion>8.0</LangVersion>
-    <Authors>Soapbox Race World - Launcher Division</Authors>
-    <Company>Soapbox Race World</Company>
-    <Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
-    <Copyright>© Soapbox Race World</Copyright>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>Ini</PackageTags>
-    <NeutralLanguage>en</NeutralLanguage>
-    <RepositoryUrl>https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Extra</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Extra</PackageProjectUrl>
-    <PackageIcon>Logo_512.png</PackageIcon>
-    <PackageIconUrl />
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <!-- Required: Full Debugging -->
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <!-- Required: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <!-- Required: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <!-- Required: Include symbols files if Self-Hosted Nuget Feed does not support symbol packages -->
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net6.0-windows;net461;net472</TargetFrameworks>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Version>0.4.1</Version>
+		<LangVersion>8.0</LangVersion>
+		<Authors>Soapbox Race World - Launcher Division</Authors>
+		<Company>Soapbox Race World</Company>
+		<Description>A Game Launchers Additional Library built within the .NET Standard Framework</Description>
+		<Copyright>© Soapbox Race World</Copyright>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>Ini</PackageTags>
+		<NeutralLanguage>en</NeutralLanguage>
+		<RepositoryUrl>https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Extra</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Extra</PackageProjectUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/DavidCarbon-SBRW/SBRW.Launcher.Core.Theme/development/SBRW.Launcher.Core.Theme/Resources/Icon/Logo_512.png</PackageIconUrl>
+		<PackageIcon>Logo_512.png</PackageIcon>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<!-- Required: Full Debugging -->
+		<DebugType>full</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<!-- Required: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<!-- Required: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<!-- Required: Include symbols files if Self-Hosted Nuget Feed does not support symbol packages -->
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Reference\XML\**" />
-    <EmbeddedResource Remove="Reference\XML\**" />
-    <None Remove="Reference\XML\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Reference\XML\**" />
+		<EmbeddedResource Remove="Reference\XML\**" />
+		<None Remove="Reference\XML\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Reference\Ini_\Format_Account.cs~RFd61f29a.TMP" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Reference\Ini_\Format_Account.cs~RFd61f29a.TMP" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Reference\XML_\UserSettings.xml" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Reference\XML_\UserSettings.xml" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="SBRW.Ini.Parser" Version="3.0.2" />
-    <PackageReference Include="SBRW.Launcher.Core" Version="0.4.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="SBRW.Ini.Parser" Version="3.0.2" />
+		<PackageReference Include="SBRW.Launcher.Core" Version="0.4.0" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.4.0" />
-    <PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.4.0" />
-    <PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.3.8" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+		<PackageReference Include="SBRW.Launcher.Core.Proxy" Version="0.4.1" />
+		<PackageReference Include="SBRW.Launcher.Core.Discord" Version="0.4.0" />
+		<PackageReference Include="SBRW.Launcher.Core.Downloader" Version="0.3.8" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Debug'">
-    <ProjectReference Include="..\SBRW.Launcher.Core.Proxy\SBRW.Launcher.Core.Proxy\SBRW.Launcher.Core.Proxy.csproj" />
-    <ProjectReference Include="..\SBRW.Launcher.Core.Proxy\SBRW.Launcher.Core.Discord\SBRW.Launcher.Core.Discord\SBRW.Launcher.Core.Discord.csproj" />
-    <ProjectReference Include="..\SBRW.Launcher.Core.Downloader\SBRW.Launcher.Core.Downloader\SBRW.Launcher.Core.Downloader.csproj" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<ProjectReference Include="..\SBRW.Launcher.Core.Proxy\SBRW.Launcher.Core.Proxy\SBRW.Launcher.Core.Proxy.csproj" />
+		<ProjectReference Include="..\SBRW.Launcher.Core.Proxy\SBRW.Launcher.Core.Discord\SBRW.Launcher.Core.Discord\SBRW.Launcher.Core.Discord.csproj" />
+		<ProjectReference Include="..\SBRW.Launcher.Core.Downloader\SBRW.Launcher.Core.Downloader\SBRW.Launcher.Core.Downloader.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="Resources\Icon\Logo_512.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="Resources\Icon\Logo_512.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if &quot;$(Configuration)&quot; == &quot;Release&quot; (&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetPath)&quot;)&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetDir)SBRW*.dll&quot;)&#xD;&#xA;)&#xD;&#xA;" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if &quot;$(Configuration)&quot; == &quot;Release&quot; (&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetPath)&quot;)&#xD;&#xA;if exist &quot;$(SolutionDir)Keys\Launcher.p12&quot; (&quot;C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe&quot; sign /f &quot;$(SolutionDir)Keys\Launcher.p12&quot; /p &quot;Launcher Development CRT&quot; /d &quot;Soapbox Race World&quot; /du &quot;https://soapboxrace.world&quot; /tr http://timestamp.digicert.com /td SHA256 &quot;$(TargetDir)SBRW*.dll&quot;)&#xD;&#xA;)&#xD;&#xA;" />
+	</Target>
 </Project>
