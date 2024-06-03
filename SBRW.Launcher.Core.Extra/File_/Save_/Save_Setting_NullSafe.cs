@@ -504,7 +504,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
 
             if (!SettingFile.Key_Exists("ProxyGZipVersion") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("ProxyGZipVersion")))
             {
-                SettingFile.Key_Write("ProxyGZipVersion", Live_Data.Launcher_Proxy_GZip_Version = "1");
+                SettingFile.Key_Write("ProxyGZipVersion", Live_Data.Launcher_Proxy_GZip_Version = "0");
             }
             else if ((SettingFile.Key_Read_Int("ProxyGZipVersion") >= 0) && (SettingFile.Key_Read_Int("ProxyGZipVersion") <= 4))
             {
@@ -512,7 +512,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             }
             else
             {
-                SettingFile.Key_Write("ProxyGZipVersion", Live_Data.Launcher_Proxy_GZip_Version = "1");
+                SettingFile.Key_Write("ProxyGZipVersion", Live_Data.Launcher_Proxy_GZip_Version = "0");
             }
 
             /* Key Entries to Convert into Boolens */
