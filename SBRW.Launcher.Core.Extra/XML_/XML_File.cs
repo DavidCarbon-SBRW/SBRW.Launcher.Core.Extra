@@ -42,133 +42,119 @@ namespace SBRW.Launcher.Core.Extra.XML_
                 try
                 {
                     UserSettingsFile.Load(XML_Location.RoamingAppData_Game_XML);
+                    /* VideoConfig */
+                    XML_Settings_Data.ScreenHeight = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenheight", null))) ?
+                                                         NodeReader(1, "Settings/VideoConfig/screenheight", null) : "600";
+                    XML_Settings_Data.ScreenWidth = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwidth", null))) ?
+                                                        NodeReader(1, "Settings/VideoConfig/screenwidth", null) : "800";
+                    XML_Settings_Data.ScreenWindowed = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwindowed", null))) ?
+                                                           NodeReader(1, "Settings/VideoConfig/screenwindowed", null) : "1";
+                    /* Language */
+                    XML_Settings_Data.Language = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/UI/Language", null))) ?
+                                                     NodeReader(1, "Settings/UI/Language", null) : Language_UI_Game.ToUpperInvariant();
+                    /* Audio */
+                    XML_Settings_Data.AudioMode = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "AudioMode"))) ?
+                                                      NodeReader(0, "Settings/UI/Audio/AudioOptions", "AudioMode") : "0";
+                    XML_Settings_Data.SFXAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "SFXVol"))) ?
+                                                     NodeReader(0, "Settings/UI/Audio/AudioOptions", "SFXVol") : "100";
+                    XML_Settings_Data.MasterAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "MasterVol"))) ?
+                                                        NodeReader(0, "Settings/UI/Audio/AudioOptions", "MasterVol") : "100";
+                    XML_Settings_Data.CarAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "CarVol"))) ?
+                                                     NodeReader(0, "Settings/UI/Audio/AudioOptions", "CarVol") : "100";
+                    XML_Settings_Data.SpeechAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "SpeechVol"))) ?
+                                                        NodeReader(0, "Settings/UI/Audio/AudioOptions", "SpeechVol") : "100";
+                    XML_Settings_Data.MusicAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "GameMusicVol"))) ?
+                                                       NodeReader(0, "Settings/UI/Audio/AudioOptions", "GameMusicVol") : "100";
+                    XML_Settings_Data.FreeroamAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "FEMusicVol"))) ?
+                                                          NodeReader(0, "Settings/UI/Audio/AudioOptions", "FEMusicVol") : "100";
+                    /* Gameplay */
+                    XML_Settings_Data.Camera = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "camera"))) ?
+                                                   NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "camera") : "2";
+                    XML_Settings_Data.Transmission = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "transmission"))) ?
+                                                         NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "transmission") : "2";
+                    XML_Settings_Data.Damage = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "damage"))) ?
+                                                   NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "damage") : "1";
+                    XML_Settings_Data.Moments = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "moments"))) ?
+                                                   NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "moments") : "1";
+                    XML_Settings_Data.SpeedUnits = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "speedUnits"))) ?
+                                                       NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "speedUnits") : "1";
+                    /* Physics */
+                    XML_Settings_Data.CameraPOV = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/Physics/CameraPOV", null))) ?
+                                                      NodeReader(1, "Settings/Physics/CameraPOV", null) : "2";
+                    XML_Settings_Data.TransmissionType = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/Physics/TransmissionType", null))) ?
+                                                             NodeReader(1, "Settings/Physics/TransmissionType", null) : "1";
+                    /* VideoConfig */
+                    XML_Settings_Data.AudioM = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/audiomode", null))) ?
+                                                         NodeReader(1, "Settings/VideoConfig/audiomode", null) : "0";
+                    XML_Settings_Data.AudioQuality = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/audioquality", null))) ?
+                                                         NodeReader(1, "Settings/VideoConfig/audioquality", null) : "0";
+                    XML_Settings_Data.Brightness = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/brightness", null))) ?
+                                                       NodeReader(1, "Settings/VideoConfig/brightness", null) : "100";
+                    XML_Settings_Data.EnableAero = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/enableaero", null))) ?
+                                                       NodeReader(1, "Settings/VideoConfig/enableaero", null) : "0";
+                    XML_Settings_Data.FirstTime = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/firsttime", null))) ?
+                                                      NodeReader(1, "Settings/VideoConfig/firsttime", null) : "0";
+                    XML_Settings_Data.ForcesM1x = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/forcesm1x", null))) ?
+                                                      NodeReader(1, "Settings/VideoConfig/forcesm1x", null) : "False";
+                    XML_Settings_Data.PixelAspectRatioOverride = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/pixelaspectratiooverride", null))) ?
+                                                                     NodeReader(1, "Settings/VideoConfig/pixelaspectratiooverride", null) : "2";
+                    XML_Settings_Data.PerformanceLevel = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/performancelevel", null))) ?
+                                                             NodeReader(1, "Settings/VideoConfig/performancelevel", null) : "2";
+                    XML_Settings_Data.ScreenHeight = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenheight", null))) ?
+                                                         NodeReader(1, "Settings/VideoConfig/screenheight", null) : "600";
+                    XML_Settings_Data.ScreenWidth = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwidth", null))) ?
+                                                        NodeReader(1, "Settings/VideoConfig/screenwidth", null) : "800";
+                    XML_Settings_Data.ScreenWindowed = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwindowed", null))) ?
+                                                           NodeReader(1, "Settings/VideoConfig/screenwindowed", null) : "1";
+                    XML_Settings_Data.VSyncOn = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/vsyncon", null))) ?
+                                                    NodeReader(1, "Settings/VideoConfig/vsyncon", null) : "0";
+                    /* VideoConfig Addons */
+                    XML_Settings_Data.BaseTextureFilter = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/basetexturefilter", null))) ?
+                                                              NodeReader(1, "Settings/VideoConfig/basetexturefilter", null) : "0";
+                    XML_Settings_Data.BaseTextureLODBias = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/basetexturelodbias", null))) ?
+                                                               NodeReader(1, "Settings/VideoConfig/basetexturelodbias", null) : "0";
+                    XML_Settings_Data.BaseTextureMaxAni = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/basetexturemaxani", null))) ?
+                                                              NodeReader(1, "Settings/VideoConfig/basetexturemaxani", null) : "0";
+                    XML_Settings_Data.CarEnvironmentMapEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/carenvironmentmapenable", null))) ?
+                                                                    NodeReader(1, "Settings/VideoConfig/carenvironmentmapenable", null) : "0";
+                    XML_Settings_Data.CarLODLevel = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/carlodlevel", null))) ?
+                                                        NodeReader(1, "Settings/VideoConfig/carlodlevel", null) : "0";
+                    XML_Settings_Data.FSAALevel = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/fsaalevel", null))) ?
+                                                      NodeReader(1, "Settings/VideoConfig/fsaalevel", null) : "0";
+                    XML_Settings_Data.GlobalDetailLevel = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/globaldetaillevel", null))) ?
+                                                              NodeReader(1, "Settings/VideoConfig/globaldetaillevel", null) : "0";
+                    XML_Settings_Data.MaxSkidMarks = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/maxskidmarks", null))) ?
+                                                         NodeReader(1, "Settings/VideoConfig/maxskidmarks", null) : "0";
+                    XML_Settings_Data.MotionBlurEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/motionblurenable", null))) ?
+                                                             NodeReader(1, "Settings/VideoConfig/motionblurenable", null) : "0";
+                    XML_Settings_Data.OverBrightEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/overbrightenable", null))) ?
+                                                             NodeReader(1, "Settings/VideoConfig/overbrightenable", null) : "0";
+                    XML_Settings_Data.ParticleSystemEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/particlesystemenable", null))) ?
+                                                                 NodeReader(1, "Settings/VideoConfig/particlesystemenable", null) : "0";
+                    XML_Settings_Data.PostProcessingEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/postprocessingenable", null))) ?
+                                                                 NodeReader(1, "Settings/VideoConfig/postprocessingenable", null) : "0";
+                    XML_Settings_Data.RainEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/rainenable", null))) ?
+                                                       NodeReader(1, "Settings/VideoConfig/rainenable", null) : "0";
+                    XML_Settings_Data.RoadReflectionEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/roadreflectionenable", null))) ?
+                                                                 NodeReader(1, "Settings/VideoConfig/roadreflectionenable", null) : "0";
+                    XML_Settings_Data.RoadTextureFilter = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/roadtexturefilter", null))) ?
+                                                              NodeReader(1, "Settings/VideoConfig/roadtexturefilter", null) : "0";
+                    XML_Settings_Data.RoadTextureLODBias = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/roadtexturelodbias", null))) ?
+                                                               NodeReader(1, "Settings/VideoConfig/roadtexturelodbias", null) : "0";
+                    XML_Settings_Data.RoadTextureMaxAni = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/roadtexturemaxani", null))) ?
+                                                              NodeReader(1, "Settings/VideoConfig/roadtexturemaxani", null) : "0";
+                    XML_Settings_Data.ShaderDetail = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/shaderdetail", null))) ?
+                                                         NodeReader(1, "Settings/VideoConfig/shaderdetail", null) : "0";
+                    XML_Settings_Data.ShadowDetail = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/shadowdetail", null))) ?
+                                                         NodeReader(1, "Settings/VideoConfig/shadowdetail", null) : "0";
+                    XML_Settings_Data.Size = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/size", null))) ?
+                                                         NodeReader(1, "Settings/VideoConfig/size", null) : "0";
+                    XML_Settings_Data.VisualTreatment = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/visualtreatment", null))) ?
+                                                            NodeReader(1, "Settings/VideoConfig/visualtreatment", null) : "0";
+                    XML_Settings_Data.WaterSimEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/watersimenable", null))) ?
+                                                           NodeReader(1, "Settings/VideoConfig/watersimenable", null) : "0";
 
-                    if (Read_Pointer == 0)
-                    {
-                        /* VideoConfig */
-                        XML_Settings_Data.ScreenHeight = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenheight", null))) ?
-                                                             NodeReader(1, "Settings/VideoConfig/screenheight", null) : "600";
-                        XML_Settings_Data.ScreenWidth = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwidth", null))) ?
-                                                            NodeReader(1, "Settings/VideoConfig/screenwidth", null) : "800";
-                        XML_Settings_Data.ScreenWindowed = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwindowed", null))) ?
-                                                               NodeReader(1, "Settings/VideoConfig/screenwindowed", null) : "1";
-                    }
-                    else if (Read_Pointer == 1)
-                    {
-                        /* Language */
-                        XML_Settings_Data.Language = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/UI/Language", null))) ?
-                                                         NodeReader(1, "Settings/UI/Language", null) : Language_UI_Game.ToUpperInvariant();
-                    }
-                    else if (Read_Pointer == 2)
-                    {
-                        /* Audio */
-                        XML_Settings_Data.AudioMode = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "AudioMode"))) ?
-                                                          NodeReader(0, "Settings/UI/Audio/AudioOptions", "AudioMode") : "0";
-                        XML_Settings_Data.SFXAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "SFXVol"))) ?
-                                                         NodeReader(0, "Settings/UI/Audio/AudioOptions", "SFXVol") : "100";
-                        XML_Settings_Data.MasterAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "MasterVol"))) ?
-                                                            NodeReader(0, "Settings/UI/Audio/AudioOptions", "MasterVol") : "100";
-                        XML_Settings_Data.CarAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "CarVol"))) ?
-                                                         NodeReader(0, "Settings/UI/Audio/AudioOptions", "CarVol") : "100";
-                        XML_Settings_Data.SpeechAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "SpeechVol"))) ?
-                                                            NodeReader(0, "Settings/UI/Audio/AudioOptions", "SpeechVol") : "100";
-                        XML_Settings_Data.MusicAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "GameMusicVol"))) ?
-                                                           NodeReader(0, "Settings/UI/Audio/AudioOptions", "GameMusicVol") : "100";
-                        XML_Settings_Data.FreeroamAudio = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Audio/AudioOptions", "FEMusicVol"))) ?
-                                                              NodeReader(0, "Settings/UI/Audio/AudioOptions", "FEMusicVol") : "100";
-                        /* Gameplay */
-                        XML_Settings_Data.Camera = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "camera"))) ?
-                                                       NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "camera") : "2";
-                        XML_Settings_Data.Transmission = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "transmission"))) ?
-                                                             NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "transmission") : "2";
-                        XML_Settings_Data.Damage = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "damage"))) ?
-                                                       NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "damage") : "1";
-                        XML_Settings_Data.Moments = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "moments"))) ?
-                                                       NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "moments") : "1";
-                        XML_Settings_Data.SpeedUnits = (!string.IsNullOrWhiteSpace(NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "speedUnits"))) ?
-                                                           NodeReader(0, "Settings/UI/Gameplay/GamePlayOptions", "speedUnits") : "1";
-                        /* Physics */
-                        XML_Settings_Data.CameraPOV = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/Physics/CameraPOV", null))) ?
-                                                          NodeReader(1, "Settings/Physics/CameraPOV", null) : "2";
-                        XML_Settings_Data.TransmissionType = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/Physics/TransmissionType", null))) ?
-                                                                 NodeReader(1, "Settings/Physics/TransmissionType", null) : "1";
-                        /* VideoConfig */
-                        XML_Settings_Data.AudioM = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/audiomode", null))) ?
-                                                             NodeReader(1, "Settings/VideoConfig/audiomode", null) : "0";
-                        XML_Settings_Data.AudioQuality = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/audioquality", null))) ?
-                                                             NodeReader(1, "Settings/VideoConfig/audioquality", null) : "0";
-                        XML_Settings_Data.Brightness = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/brightness", null))) ?
-                                                           NodeReader(1, "Settings/VideoConfig/brightness", null) : "100";
-                        XML_Settings_Data.EnableAero = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/enableaero", null))) ?
-                                                           NodeReader(1, "Settings/VideoConfig/enableaero", null) : "0";
-                        XML_Settings_Data.FirstTime = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/firsttime", null))) ?
-                                                          NodeReader(1, "Settings/VideoConfig/firsttime", null) : "0";
-                        XML_Settings_Data.ForcesM1x = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/forcesm1x", null))) ?
-                                                          NodeReader(1, "Settings/VideoConfig/forcesm1x", null) : "False";
-                        XML_Settings_Data.PixelAspectRatioOverride = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/pixelaspectratiooverride", null))) ?
-                                                                         NodeReader(1, "Settings/VideoConfig/pixelaspectratiooverride", null) : "2";
-                        XML_Settings_Data.PerformanceLevel = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/performancelevel", null))) ?
-                                                                 NodeReader(1, "Settings/VideoConfig/performancelevel", null) : "2";
-                        XML_Settings_Data.ScreenHeight = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenheight", null))) ?
-                                                             NodeReader(1, "Settings/VideoConfig/screenheight", null) : "600";
-                        XML_Settings_Data.ScreenWidth = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwidth", null))) ?
-                                                            NodeReader(1, "Settings/VideoConfig/screenwidth", null) : "800";
-                        XML_Settings_Data.ScreenWindowed = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/screenwindowed", null))) ?
-                                                               NodeReader(1, "Settings/VideoConfig/screenwindowed", null) : "1";
-                        XML_Settings_Data.VSyncOn = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/vsyncon", null))) ?
-                                                        NodeReader(1, "Settings/VideoConfig/vsyncon", null) : "0";
-                        /* VideoConfig Addons */
-                        XML_Settings_Data.BaseTextureFilter = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/basetexturefilter", null))) ?
-                                                                  NodeReader(1, "Settings/VideoConfig/basetexturefilter", null) : "0";
-                        XML_Settings_Data.BaseTextureLODBias = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/basetexturelodbias", null))) ?
-                                                                   NodeReader(1, "Settings/VideoConfig/basetexturelodbias", null) : "0";
-                        XML_Settings_Data.BaseTextureMaxAni = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/basetexturemaxani", null))) ?
-                                                                  NodeReader(1, "Settings/VideoConfig/basetexturemaxani", null) : "0";
-                        XML_Settings_Data.CarEnvironmentMapEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/carenvironmentmapenable", null))) ?
-                                                                        NodeReader(1, "Settings/VideoConfig/carenvironmentmapenable", null) : "0";
-                        XML_Settings_Data.CarLODLevel = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/carlodlevel", null))) ?
-                                                            NodeReader(1, "Settings/VideoConfig/carlodlevel", null) : "0";
-                        XML_Settings_Data.FSAALevel = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/fsaalevel", null))) ?
-                                                          NodeReader(1, "Settings/VideoConfig/fsaalevel", null) : "0";
-                        XML_Settings_Data.GlobalDetailLevel = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/globaldetaillevel", null))) ?
-                                                                  NodeReader(1, "Settings/VideoConfig/globaldetaillevel", null) : "0";
-                        XML_Settings_Data.MaxSkidMarks = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/maxskidmarks", null))) ?
-                                                             NodeReader(1, "Settings/VideoConfig/maxskidmarks", null) : "0";
-                        XML_Settings_Data.MotionBlurEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/motionblurenable", null))) ?
-                                                                 NodeReader(1, "Settings/VideoConfig/motionblurenable", null) : "0";
-                        XML_Settings_Data.OverBrightEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/overbrightenable", null))) ?
-                                                                 NodeReader(1, "Settings/VideoConfig/overbrightenable", null) : "0";
-                        XML_Settings_Data.ParticleSystemEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/particlesystemenable", null))) ?
-                                                                     NodeReader(1, "Settings/VideoConfig/particlesystemenable", null) : "0";
-                        XML_Settings_Data.PostProcessingEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/postprocessingenable", null))) ?
-                                                                     NodeReader(1, "Settings/VideoConfig/postprocessingenable", null) : "0";
-                        XML_Settings_Data.RainEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/rainenable", null))) ?
-                                                           NodeReader(1, "Settings/VideoConfig/rainenable", null) : "0";
-                        XML_Settings_Data.RoadReflectionEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/roadreflectionenable", null))) ?
-                                                                     NodeReader(1, "Settings/VideoConfig/roadreflectionenable", null) : "0";
-                        XML_Settings_Data.RoadTextureFilter = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/roadtexturefilter", null))) ?
-                                                                  NodeReader(1, "Settings/VideoConfig/roadtexturefilter", null) : "0";
-                        XML_Settings_Data.RoadTextureLODBias = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/roadtexturelodbias", null))) ?
-                                                                   NodeReader(1, "Settings/VideoConfig/roadtexturelodbias", null) : "0";
-                        XML_Settings_Data.RoadTextureMaxAni = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/roadtexturemaxani", null))) ?
-                                                                  NodeReader(1, "Settings/VideoConfig/roadtexturemaxani", null) : "0";
-                        XML_Settings_Data.ShaderDetail = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/shaderdetail", null))) ?
-                                                             NodeReader(1, "Settings/VideoConfig/shaderdetail", null) : "0";
-                        XML_Settings_Data.ShadowDetail = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/shadowdetail", null))) ?
-                                                             NodeReader(1, "Settings/VideoConfig/shadowdetail", null) : "0";
-                        XML_Settings_Data.Size = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/size", null))) ?
-                                                             NodeReader(1, "Settings/VideoConfig/size", null) : "0";
-                        XML_Settings_Data.VisualTreatment = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/visualtreatment", null))) ?
-                                                                NodeReader(1, "Settings/VideoConfig/visualtreatment", null) : "0";
-                        XML_Settings_Data.WaterSimEnable = (!string.IsNullOrWhiteSpace(NodeReader(1, "Settings/VideoConfig/watersimenable", null))) ?
-                                                               NodeReader(1, "Settings/VideoConfig/watersimenable", null) : "0";
-
-                        return 1;
-                    }
-                    else
-                    {
-                        Log.Warning("USX File: Unknown File Read Type -> " + Read_Pointer);
-                    }
+                    return 1;
                 }
                 catch (Exception Error)
                 {
@@ -186,102 +172,87 @@ namespace SBRW.Launcher.Core.Extra.XML_
         /// <summary>
         /// Saves the Current Values of the XML (Settings File)
         /// </summary>
-        /// <param name="Read_Pointer">
-        /// "0" - "Screen Resolution Only"<br></br>
-        /// "1" - "Language Only"<br></br>
-        /// "2" - "Full File"
-        /// </param>
         /// <returns>
         /// <b>-1</b> - Error Encountered<br></br>
         /// <b>0</b> - File Is Read-Only<br></br>
         /// <b>1</b> - Saved Successfully
         /// </returns>
-        public static int Save(int Read_Pointer)
+        public static int Save()
         {
             try
             {
-                if (Read_Pointer == 0)
-                {
-                    /* VideoConfig */
-                    NodeUpdater(1, "Settings/VideoConfig", "screenheight", "Type", "int", XML_Settings_Data.ScreenHeight);
-                    NodeUpdater(1, "Settings/VideoConfig", "screenwidth", "Type", "int", XML_Settings_Data.ScreenWidth);
-                    NodeUpdater(1, "Settings/VideoConfig", "screenwindowed", "Type", "int", XML_Settings_Data.ScreenWindowed);
-                }
-                else if (Read_Pointer == 1)
-                {
-                    /* Language */
-                    NodeUpdater(1, "Settings/PersistentValue/Chat", "DefaultChatGroup", "Type", "string", XML_Settings_Data.Language);
-                    NodeUpdater(1, "Settings/UI", "Language", "Type", "string", XML_Settings_Data.Language);
-                    /* Tracks */
-                    NodeUpdater(1, "Settings/UI", "Tracks", "Type", "int", "1");
-                }
-                else if (Read_Pointer == 2)
-                {
-                    /* Audio */
-                    NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "AudioMode", XML_Settings_Data.AudioMode, XML_Settings_Data.AudioMode);
-                    NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "SFXVol", XML_Settings_Data.SFXAudio, XML_Settings_Data.SFXAudio);
-                    NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "MasterVol", XML_Settings_Data.MasterAudio, XML_Settings_Data.MasterAudio);
-                    NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "CarVol", XML_Settings_Data.CarAudio, XML_Settings_Data.CarAudio);
-                    NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "SpeechVol", XML_Settings_Data.SpeechAudio, XML_Settings_Data.SpeechAudio);
-                    NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "GameMusicVol", XML_Settings_Data.MusicAudio, XML_Settings_Data.MusicAudio);
-                    NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "FEMusicVol", XML_Settings_Data.FreeroamAudio, XML_Settings_Data.FreeroamAudio);
-                    /* Gameplay */
-                    NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "camera", XML_Settings_Data.CameraPOV, XML_Settings_Data.CameraPOV);
-                    NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "transmission", XML_Settings_Data.Transmission, XML_Settings_Data.Transmission);
-                    NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "damage", XML_Settings_Data.Damage, XML_Settings_Data.Damage);
-                    NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "moments", XML_Settings_Data.Moments, XML_Settings_Data.Moments);
-                    NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "speedUnits", XML_Settings_Data.SpeedUnits, XML_Settings_Data.SpeedUnits);
-                    /* Physics */
-                    NodeUpdater(1, "Settings/Physics", "CameraPOV", "Type", "int", XML_Settings_Data.CameraPOV);
-                    NodeUpdater(1, "Settings/Physics", "TransmissionType", "Type", "int", XML_Settings_Data.Transmission);
-                    /* VideoConfig */
-                    NodeUpdater(1, "Settings/VideoConfig", "audiomode", "Type", "int", XML_Settings_Data.AudioMode);
-                    NodeUpdater(1, "Settings/VideoConfig", "audioquality", "Type", "int", XML_Settings_Data.AudioQuality);
-                    NodeUpdater(1, "Settings/VideoConfig", "brightness", "Type", "int", XML_Settings_Data.Brightness);
-                    NodeUpdater(1, "Settings/VideoConfig", "enableaero", "Type", "int", XML_Settings_Data.EnableAero);
-                    NodeUpdater(1, "Settings/VideoConfig", "pixelaspectratiooverride", "Type", "int", XML_Settings_Data.PixelAspectRatioOverride);
-                    NodeUpdater(1, "Settings/VideoConfig", "performancelevel", "Type", "int", XML_Settings_Data.PerformanceLevel);
-                    NodeUpdater(1, "Settings/VideoConfig", "screenheight", "Type", "int", XML_Settings_Data.ScreenHeight);
-                    NodeUpdater(1, "Settings/VideoConfig", "screenwidth", "Type", "int", XML_Settings_Data.ScreenWidth);
-                    NodeUpdater(1, "Settings/VideoConfig", "screenwindowed", "Type", "int", XML_Settings_Data.ScreenWindowed);
-                    NodeUpdater(1, "Settings/VideoConfig", "vsyncon", "Type", "int", XML_Settings_Data.VSyncOn);
-                    /* VideoConfig Addons */
-                    NodeUpdater(1, "Settings/VideoConfig", "basetexturefilter", "Type", "int", XML_Settings_Data.BaseTextureFilter);
-                    NodeUpdater(1, "Settings/VideoConfig", "basetexturelodbias", "Type", "int", XML_Settings_Data.BaseTextureLODBias);
-                    NodeUpdater(1, "Settings/VideoConfig", "basetexturemaxani", "Type", "int", XML_Settings_Data.BaseTextureMaxAni);
-                    NodeUpdater(1, "Settings/VideoConfig", "carenvironmentmapenable", "Type", "int", XML_Settings_Data.CarEnvironmentMapEnable);
-                    NodeUpdater(1, "Settings/VideoConfig", "carlodlevel", "Type", "int", XML_Settings_Data.CarLODLevel);
-                    NodeUpdater(1, "Settings/VideoConfig", "fsaalevel", "Type", "int", XML_Settings_Data.FSAALevel);
-                    NodeUpdater(1, "Settings/VideoConfig", "globaldetaillevel", "Type", "int", XML_Settings_Data.GlobalDetailLevel);
-                    NodeUpdater(1, "Settings/VideoConfig", "maxskidmarks", "Type", "int", XML_Settings_Data.MaxSkidMarks);
-                    NodeUpdater(1, "Settings/VideoConfig", "motionblurenable", "Type", "int", XML_Settings_Data.MotionBlurEnable);
-                    NodeUpdater(1, "Settings/VideoConfig", "overbrightenable", "Type", "int", XML_Settings_Data.OverBrightEnable);
-                    NodeUpdater(1, "Settings/VideoConfig", "particlesystemenable", "Type", "int", XML_Settings_Data.ParticleSystemEnable);
-                    NodeUpdater(1, "Settings/VideoConfig", "postprocessingenable", "Type", "int", XML_Settings_Data.PostProcessingEnable);
-                    NodeUpdater(1, "Settings/VideoConfig", "rainenable", "Type", "int", XML_Settings_Data.RainEnable);
-                    NodeUpdater(1, "Settings/VideoConfig", "roadreflectionenable", "Type", "int", XML_Settings_Data.RoadReflectionEnable);
-                    NodeUpdater(1, "Settings/VideoConfig", "roadtexturefilter", "Type", "int", XML_Settings_Data.RoadTextureFilter);
-                    NodeUpdater(1, "Settings/VideoConfig", "roadtexturelodbias", "Type", "int", XML_Settings_Data.RoadTextureLODBias);
-                    NodeUpdater(1, "Settings/VideoConfig", "roadtexturemaxani", "Type", "int", XML_Settings_Data.RoadTextureMaxAni);
-                    NodeUpdater(1, "Settings/VideoConfig", "shaderdetail", "Type", "int", XML_Settings_Data.ShaderDetail);
-                    NodeUpdater(1, "Settings/VideoConfig", "shadowdetail", "Type", "int", XML_Settings_Data.ShadowDetail);
-                    NodeUpdater(1, "Settings/VideoConfig", "visualtreatment", "Type", "int", XML_Settings_Data.VisualTreatment);
-                    NodeUpdater(1, "Settings/VideoConfig", "watersimenable", "Type", "int", XML_Settings_Data.WaterSimEnable);
-                }
-                else
-                {
-                    Log.Warning("USX File: Unknown File Read Pointer -> " + Read_Pointer);
-                }
+                /* VideoConfig */
+                NodeUpdater(1, "Settings/VideoConfig", "screenheight", "Type", "int", XML_Settings_Data.ScreenHeight);
+                NodeUpdater(1, "Settings/VideoConfig", "screenwidth", "Type", "int", XML_Settings_Data.ScreenWidth);
+                NodeUpdater(1, "Settings/VideoConfig", "screenwindowed", "Type", "int", XML_Settings_Data.ScreenWindowed);
+                /* Language */
+                NodeUpdater(1, "Settings/PersistentValue/Chat", "DefaultChatGroup", "Type", "string", XML_Settings_Data.Language);
+                NodeUpdater(1, "Settings/UI", "Language", "Type", "string", XML_Settings_Data.Language);
+                /* Tracks */
+                NodeUpdater(1, "Settings/UI", "Tracks", "Type", "int", "1");
+                /* Audio */
+                NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "AudioMode", XML_Settings_Data.AudioMode, XML_Settings_Data.AudioMode);
+                NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "SFXVol", XML_Settings_Data.SFXAudio, XML_Settings_Data.SFXAudio);
+                NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "MasterVol", XML_Settings_Data.MasterAudio, XML_Settings_Data.MasterAudio);
+                NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "CarVol", XML_Settings_Data.CarAudio, XML_Settings_Data.CarAudio);
+                NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "SpeechVol", XML_Settings_Data.SpeechAudio, XML_Settings_Data.SpeechAudio);
+                NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "GameMusicVol", XML_Settings_Data.MusicAudio, XML_Settings_Data.MusicAudio);
+                NodeUpdater(0, "Settings/UI/Audio", "AudioOptions", "FEMusicVol", XML_Settings_Data.FreeroamAudio, XML_Settings_Data.FreeroamAudio);
+                /* Gameplay */
+                NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "camera", XML_Settings_Data.CameraPOV, XML_Settings_Data.CameraPOV);
+                NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "transmission", XML_Settings_Data.Transmission, XML_Settings_Data.Transmission);
+                NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "damage", XML_Settings_Data.Damage, XML_Settings_Data.Damage);
+                NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "moments", XML_Settings_Data.Moments, XML_Settings_Data.Moments);
+                NodeUpdater(0, "Settings/UI/Gameplay", "GamePlayOptions", "speedUnits", XML_Settings_Data.SpeedUnits, XML_Settings_Data.SpeedUnits);
+                /* Physics */
+                NodeUpdater(1, "Settings/Physics", "CameraPOV", "Type", "int", XML_Settings_Data.CameraPOV);
+                NodeUpdater(1, "Settings/Physics", "TransmissionType", "Type", "int", XML_Settings_Data.Transmission);
+                /* VideoConfig */
+                NodeUpdater(1, "Settings/VideoConfig", "audiomode", "Type", "int", XML_Settings_Data.AudioMode);
+                NodeUpdater(1, "Settings/VideoConfig", "audioquality", "Type", "int", XML_Settings_Data.AudioQuality);
+                NodeUpdater(1, "Settings/VideoConfig", "brightness", "Type", "int", XML_Settings_Data.Brightness);
+                NodeUpdater(1, "Settings/VideoConfig", "enableaero", "Type", "int", XML_Settings_Data.EnableAero);
+                NodeUpdater(1, "Settings/VideoConfig", "pixelaspectratiooverride", "Type", "int", XML_Settings_Data.PixelAspectRatioOverride);
+                NodeUpdater(1, "Settings/VideoConfig", "performancelevel", "Type", "int", XML_Settings_Data.PerformanceLevel);
+                NodeUpdater(1, "Settings/VideoConfig", "screenheight", "Type", "int", XML_Settings_Data.ScreenHeight);
+                NodeUpdater(1, "Settings/VideoConfig", "screenwidth", "Type", "int", XML_Settings_Data.ScreenWidth);
+                NodeUpdater(1, "Settings/VideoConfig", "screenwindowed", "Type", "int", XML_Settings_Data.ScreenWindowed);
+                NodeUpdater(1, "Settings/VideoConfig", "vsyncon", "Type", "int", XML_Settings_Data.VSyncOn);
+                /* VideoConfig Addons */
+                NodeUpdater(1, "Settings/VideoConfig", "basetexturefilter", "Type", "int", XML_Settings_Data.BaseTextureFilter);
+                NodeUpdater(1, "Settings/VideoConfig", "basetexturelodbias", "Type", "int", XML_Settings_Data.BaseTextureLODBias);
+                NodeUpdater(1, "Settings/VideoConfig", "basetexturemaxani", "Type", "int", XML_Settings_Data.BaseTextureMaxAni);
+                NodeUpdater(1, "Settings/VideoConfig", "carenvironmentmapenable", "Type", "int", XML_Settings_Data.CarEnvironmentMapEnable);
+                NodeUpdater(1, "Settings/VideoConfig", "carlodlevel", "Type", "int", XML_Settings_Data.CarLODLevel);
+                NodeUpdater(1, "Settings/VideoConfig", "fsaalevel", "Type", "int", XML_Settings_Data.FSAALevel);
+                NodeUpdater(1, "Settings/VideoConfig", "globaldetaillevel", "Type", "int", XML_Settings_Data.GlobalDetailLevel);
+                NodeUpdater(1, "Settings/VideoConfig", "maxskidmarks", "Type", "int", XML_Settings_Data.MaxSkidMarks);
+                NodeUpdater(1, "Settings/VideoConfig", "motionblurenable", "Type", "int", XML_Settings_Data.MotionBlurEnable);
+                NodeUpdater(1, "Settings/VideoConfig", "overbrightenable", "Type", "int", XML_Settings_Data.OverBrightEnable);
+                NodeUpdater(1, "Settings/VideoConfig", "particlesystemenable", "Type", "int", XML_Settings_Data.ParticleSystemEnable);
+                NodeUpdater(1, "Settings/VideoConfig", "postprocessingenable", "Type", "int", XML_Settings_Data.PostProcessingEnable);
+                NodeUpdater(1, "Settings/VideoConfig", "rainenable", "Type", "int", XML_Settings_Data.RainEnable);
+                NodeUpdater(1, "Settings/VideoConfig", "roadreflectionenable", "Type", "int", XML_Settings_Data.RoadReflectionEnable);
+                NodeUpdater(1, "Settings/VideoConfig", "roadtexturefilter", "Type", "int", XML_Settings_Data.RoadTextureFilter);
+                NodeUpdater(1, "Settings/VideoConfig", "roadtexturelodbias", "Type", "int", XML_Settings_Data.RoadTextureLODBias);
+                NodeUpdater(1, "Settings/VideoConfig", "roadtexturemaxani", "Type", "int", XML_Settings_Data.RoadTextureMaxAni);
+                NodeUpdater(1, "Settings/VideoConfig", "shaderdetail", "Type", "int", XML_Settings_Data.ShaderDetail);
+                NodeUpdater(1, "Settings/VideoConfig", "shadowdetail", "Type", "int", XML_Settings_Data.ShadowDetail);
+                NodeUpdater(1, "Settings/VideoConfig", "visualtreatment", "Type", "int", XML_Settings_Data.VisualTreatment);
+                NodeUpdater(1, "Settings/VideoConfig", "watersimenable", "Type", "int", XML_Settings_Data.WaterSimEnable);
 
-                if (new FileInfo(XML_Location.RoamingAppData_Game_XML).IsReadOnly != true)
+                if (File.Exists(XML_Location.RoamingAppData_Game_XML))
                 {
-                    UserSettingsFile.Save(XML_Location.RoamingAppData_Game_XML);
-                    return 1;
-                }
-                else
-                {
-                    Log.Error("USX File: UserSettings File is Read-Only. Settings Not Saved!");
-                    return 0;
+                    if (new FileInfo(XML_Location.RoamingAppData_Game_XML).IsReadOnly != true)
+                    {
+                        UserSettingsFile.Save(XML_Location.RoamingAppData_Game_XML);
+                        return 1;
+                    }
+                    else
+                    {
+                        Log.Error("USX File: UserSettings File is Read-Only. Settings Not Saved!");
+                        return 0;
+                    }
                 }
             }
             catch (Exception Error)
