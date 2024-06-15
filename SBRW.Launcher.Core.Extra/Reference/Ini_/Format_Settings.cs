@@ -143,5 +143,17 @@
         /// User's Choice on Proxy GZip Version
         /// </summary>
         public string Launcher_Proxy_GZip_Version { get; set; }
+        /// <summary>
+        /// User's Choice of Certificate Mode Functions
+        /// </summary>
+        public string Launcher_Certificate_Mode { get; set; }
+        /// <summary>
+        /// User's Logging Mode Type
+        /// </summary>
+        public string Launcher_Log_Mode { get; set; }
+        /// <summary>
+        /// User's Logging Mode Type
+        /// </summary>
+        public string Launcher_Verify_Log_Mode { get; set; }
     }
 }

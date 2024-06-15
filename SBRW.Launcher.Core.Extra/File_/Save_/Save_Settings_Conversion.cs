@@ -1,4 +1,5 @@
-﻿using SBRW.Launcher.Core.Proxy.Nancy_;
+﻿using SBRW.Launcher.Core.Extension.Logging_;
+using SBRW.Launcher.Core.Proxy.Nancy_;
 using System.IO;
 
 namespace SBRW.Launcher.Core.Extra.File_.Save_
@@ -230,7 +231,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                     "2" => GzipVersion.Two,
                     "3" => GzipVersion.OneV2,
                     "4" => GzipVersion.Four,
-                    _ => GzipVersion.Three,
+                    _ => GzipVersion.Three
                 };
             }
             else
@@ -255,6 +256,94 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             long.TryParse(Live_Data.Launcher_Proxy_GZip_Version ?? "0", out long Proxy_Log_Value);
             return Proxy_Log_Value;
+        }
+        /// <summary>
+        /// Launcher Log Mode
+        /// </summary>
+        /// <returns>Launcher Log Mode Type</returns>
+        public static Log_Enum Log_Mode()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Log_Mode switch
+                {
+                    "0" => Log_Enum.None,
+                    "2" => Log_Enum.Error,
+                    "3" => Log_Enum.Information,
+                    "4" => Log_Enum.Debug,
+                    _ => Log_Enum.All
+                };
+            }
+            else
+            {
+                return Log_Enum.All;
+            }
+        }
+        /// <summary>
+        /// Launcher Log Mode
+        /// </summary>
+        /// <returns>Numerical Value of Launcher Log</returns>
+        public static long Log_Mode_Int()
+        {
+            long.TryParse(Live_Data.Launcher_Log_Mode ?? "0", out long Log_Value);
+            return Log_Value;
+        }
+        /// <summary>
+        /// Launcher Log Mode
+        /// </summary>
+        /// <returns>Launcher Log Mode Type</returns>
+        public static Log_Enum_Verify Verify_Log_Mode()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Verify_Log_Mode switch
+                {
+                    "0" => Log_Enum_Verify.None,
+                    "2" => Log_Enum_Verify.Error,
+                    "3" => Log_Enum_Verify.Information,
+                    "4" => Log_Enum_Verify.Replaced,
+                    "5" => Log_Enum_Verify.Hashes,
+                    "6" => Log_Enum_Verify.Validation,
+                    _ => Log_Enum_Verify.All
+                };
+            }
+            else
+            {
+                return Log_Enum_Verify.All;
+            }
+        }
+        /// <summary>
+        /// Launcher Verify Log Mode
+        /// </summary>
+        /// <returns>Numerical Value of Launcher Verify Log</returns>
+        public static long Verify_Log_Int()
+        {
+            long.TryParse(Live_Data.Launcher_Verify_Log_Mode ?? "0", out long Log_Value);
+            return Log_Value;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static long Certificate_Mode_Int()
+        {
+            long.TryParse(Live_Data.Launcher_Certificate_Mode ?? "0", out long Log_Value);
+            return Log_Value;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static bool Certificate_Mode()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Certificate_Mode == "1";
+            }
+            else
+            {
+                return false;
+            }
         }
         /// <summary>
         /// Account Manager Save Display Status
