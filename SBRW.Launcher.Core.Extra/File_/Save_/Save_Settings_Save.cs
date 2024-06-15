@@ -265,6 +265,39 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 };
             }
 
+            if (SettingFile.Key_Read("LogMode") != Live_Data.Launcher_Log_Mode)
+            {
+                SettingFile.Key_Write("LogMode", Live_Data.Launcher_Log_Mode);
+                Log.Mode = Live_Data.Launcher_Log_Mode switch
+                {
+                    "0" => Log_Enum.None,
+                    "2" => Log_Enum.Error,
+                    "3" => Log_Enum.Information,
+                    "4" => Log_Enum.Debug,
+                    _ => Log_Enum.All
+                };
+            }
+
+            if (SettingFile.Key_Read("VerifyLogMode") != Live_Data.Launcher_Verify_Log_Mode)
+            {
+                SettingFile.Key_Write("VerifyLogMode", Live_Data.Launcher_Verify_Log_Mode);
+                Log_Verify.Mode = Live_Data.Launcher_Verify_Log_Mode switch
+                {
+                    "0" => Log_Enum_Verify.None,
+                    "2" => Log_Enum_Verify.Error,
+                    "3" => Log_Enum_Verify.Information,
+                    "4" => Log_Enum_Verify.Replaced,
+                    "5" => Log_Enum_Verify.Hashes,
+                    "6" => Log_Enum_Verify.Validation,
+                    _ => Log_Enum_Verify.All
+                };
+            }
+
+            if (SettingFile.Key_Read("Certificate") != Live_Data.Launcher_Certificate_Mode)
+            {
+                SettingFile.Key_Write("Certificate", Live_Data.Launcher_Certificate_Mode);
+            }
+
             if (SettingFile.Key_Read("AccountManager") != Live_Data.Launcher_Account_Manager)
             {
                 SettingFile.Key_Write("AccountManager", Live_Data.Launcher_Account_Manager);

@@ -515,8 +515,48 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 SettingFile.Key_Write("ProxyGZipVersion", Live_Data.Launcher_Proxy_GZip_Version = "0");
             }
 
+            if (!SettingFile.Key_Exists("LogMode") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LogMode")))
+            {
+                SettingFile.Key_Write("LogMode", Live_Data.Launcher_Log_Mode = "1");
+            }
+            else if ((SettingFile.Key_Read_Int("LogMode") >= 0) && (SettingFile.Key_Read_Int("LogMode") <= 4))
+            {
+                Live_Data.Launcher_Log_Mode = SettingFile.Key_Read("LogMode");
+            }
+            else
+            {
+                SettingFile.Key_Write("LogMode", Live_Data.Launcher_Log_Mode = "1");
+            }
+
+            if (!SettingFile.Key_Exists("VerifyLogMode") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("VerifyLogMode")))
+            {
+                SettingFile.Key_Write("VerifyLogMode", Live_Data.Launcher_Verify_Log_Mode = "1");
+            }
+            else if ((SettingFile.Key_Read_Int("VerifyLogMode") >= 0) && (SettingFile.Key_Read_Int("VerifyLogMode") <= 6))
+            {
+                Live_Data.Launcher_Verify_Log_Mode = SettingFile.Key_Read("VerifyLogMode");
+            }
+            else
+            {
+                SettingFile.Key_Write("VerifyLogMode", Live_Data.Launcher_Verify_Log_Mode = "1");
+            }
+
+            if (!SettingFile.Key_Exists("Certificate") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("Certificate")))
+            {
+                SettingFile.Key_Write("Certificate", Live_Data.Launcher_Certificate_Mode = "0");
+            }
+            else if ((SettingFile.Key_Read_Int("Certificate") >= 0) && (SettingFile.Key_Read_Int("Certificate") <= 1))
+            {
+                Live_Data.Launcher_Certificate_Mode = SettingFile.Key_Read("Certificate");
+            }
+            else
+            {
+                SettingFile.Key_Write("Certificate", Live_Data.Launcher_Certificate_Mode = "0");
+            }
+
             /* Key Entries to Convert into Boolens */
 
+            /* Proxy Related Settings */
             Proxy_Settings.Domain = Live_Data.Launcher_Proxy_Domain.Equals("0") ? "127.0.0.1" : "localhost";
             Proxy_Settings.Gzip_Version = Live_Data.Launcher_Proxy_GZip_Version switch
             {
@@ -524,7 +564,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 "2" => GzipVersion.Two,
                 "3" => GzipVersion.OneV2,
                 "4" => GzipVersion.Four,
-                _ => GzipVersion.Three,
+                _ => GzipVersion.Three
             };
             Proxy_Settings.Log_Mode = Live_Data.Launcher_Proxy_Log_Mode switch
             {
@@ -532,10 +572,30 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 "2" => Proxy.Log_.CommunicationLogRecord.Errors,
                 "3" => Proxy.Log_.CommunicationLogRecord.Responses,
                 "4" => Proxy.Log_.CommunicationLogRecord.Requests,
-                _ => Proxy.Log_.CommunicationLogRecord.All,
+                _ => Proxy.Log_.CommunicationLogRecord.All
             };
             Log.Function("Custom Proxy Port:".ToUpper() + " -> " + Proxy_Settings.Custom_Port(Live_Data.Launcher_Proxy_Port) + " has been Set");
             Launcher_Value.Launcher_Alternative_Webcalls(Live_Data.Launcher_WebClient_Method == "WebClient");
+
+            /* Launcher Logging */
+            Log.Mode = Live_Data.Launcher_Log_Mode switch
+            {
+                "0" => Log_Enum.None,
+                "2" => Log_Enum.Error,
+                "3" => Log_Enum.Information,
+                "4" => Log_Enum.Debug,
+                _ => Log_Enum.All
+            };
+            Log_Verify.Mode = Live_Data.Launcher_Verify_Log_Mode switch
+            {
+                "0" => Log_Enum_Verify.None,
+                "2" => Log_Enum_Verify.Error,
+                "3" => Log_Enum_Verify.Information,
+                "4" => Log_Enum_Verify.Replaced,
+                "5" => Log_Enum_Verify.Hashes,
+                "6" => Log_Enum_Verify.Validation,
+                _ => Log_Enum_Verify.All
+            };
 
             /* Run User Entry Functions After Loading Data */
 
