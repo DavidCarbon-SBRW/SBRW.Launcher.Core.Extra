@@ -132,7 +132,11 @@
         /// </summary>
         public string Launcher_Proxy_Log_Mode { get; set; }
         /// <summary>
-        /// User's Game Affinity Range
+        /// User's Game Affinity Simple Mode
+        /// </summary>
+        public string Launcher_Game_Affinity_Range_Mode { get; set; }
+        /// <summary>
+        /// User's Game Affinity Range "Advanced"
         /// </summary>
         public int[] Game_Affinity_Range { get; set; } = new int[] { 0, 3 };
         /// <summary>
@@ -155,5 +159,9 @@
         /// User's Logging Mode Type
         /// </summary>
         public string Launcher_Verify_Log_Mode { get; set; }
+        /// <summary>
+        /// User's Choice on removing the Scripts Folder during Verify Hash Scan
+        /// </summary>
+        public string Launcher_Verify_Script_Removal { get; set; }
     }
 }

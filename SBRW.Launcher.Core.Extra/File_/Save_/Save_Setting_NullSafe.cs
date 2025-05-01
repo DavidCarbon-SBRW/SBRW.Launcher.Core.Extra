@@ -69,6 +69,8 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
 
             if (SettingFile.Key_Exists("LzmaDownloader"))
             {
+                /* Since we are having LZMA being the default downloader 
+                 * its safe to remove it with the new entry (which defaults to LZMA already) */
                 SettingFile.Key_Delete("LzmaDownloader");
             }
 
@@ -76,6 +78,8 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
 
             if (Launcher_Value.System_Unix && !SettingFile.Key_Exists("InstallationDirectory"))
             {
+                /* Unix Builds is unable to choose the folder path correctly
+                 * Use known good failsafe folder path */
                 SettingFile.Key_Write("InstallationDirectory", "GameFiles");
             }
             else if (!SettingFile.Key_Exists("InstallationDirectory"))
@@ -99,6 +103,8 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             {
                 Live_Data.Game_Path_Old = SettingFile.Key_Read("OldInstallationDirectory");
             }
+
+            /* SBRW Pack File Path */
 
             if (!SettingFile.Key_Exists("GameArchivePath"))
             {
@@ -479,6 +485,19 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 SettingFile.Key_Write("ProxyLogMode", Live_Data.Launcher_Proxy_Log_Mode = "1");
             }
 
+            if (!SettingFile.Key_Exists("GameAffinityRangeMode") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("GameAffinityRangeMode")))
+            {
+                SettingFile.Key_Write("GameAffinityRangeMode", Live_Data.Launcher_Game_Affinity_Range_Mode = "0");
+            }
+            else if ((SettingFile.Key_Read("GameAffinityRangeMode") == "0") || (SettingFile.Key_Read("GameAffinityRangeMode") == "1"))
+            {
+                Live_Data.Launcher_Game_Affinity_Range_Mode = SettingFile.Key_Read("GameAffinityRangeMode");
+            }
+            else
+            {
+                Live_Data.Launcher_Game_Affinity_Range_Mode = SettingFile.Key_Read("GameAffinityRangeMode");
+            }
+
             if (!SettingFile.Key_Exists("GameAffinityRange") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("GameAffinityRange")))
             {
                 SettingFile.Key_Write("GameAffinityRange", "0-3");
@@ -539,6 +558,19 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             else
             {
                 SettingFile.Key_Write("VerifyLogMode", Live_Data.Launcher_Verify_Log_Mode = "1");
+            }
+
+            if (!SettingFile.Key_Exists("VerifyScriptRemoval") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("VerifyScriptRemoval")))
+            {
+                SettingFile.Key_Write("VerifyScriptRemoval", Live_Data.Launcher_Verify_Script_Removal = "1");
+            }
+            else if ((SettingFile.Key_Read("VerifyScriptRemoval") == "0") || (SettingFile.Key_Read("VerifyScriptRemoval") == "1"))
+            {
+                Live_Data.Launcher_Verify_Script_Removal = SettingFile.Key_Read("VerifyScriptRemoval");
+            }
+            else
+            {
+                SettingFile.Key_Write("VerifyScriptRemoval", Live_Data.Launcher_Verify_Script_Removal = "1");
             }
 
             if (!SettingFile.Key_Exists("Certificate") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("Certificate")))
