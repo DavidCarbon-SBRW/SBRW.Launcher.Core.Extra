@@ -14,7 +14,7 @@ namespace SBRW.Launcher.Core.Extra.XML_
     public class XML_File
     {
         /// <summary>
-        /// 
+        /// Games In-Game Language for UI and Chat 
         /// </summary>
         public static string Language_UI_Game { get; set; } = "en";
         private static XmlDocument UserSettingsFile { get; set; } = new XmlDocument();

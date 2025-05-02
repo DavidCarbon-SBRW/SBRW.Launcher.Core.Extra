@@ -308,6 +308,16 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 SettingFile.Key_Write("GameAffinityRange", Live_Data.Game_Affinity_Range.ArrayToString());
             }
 
+            if (SettingFile.Key_Read("GameAffinityRangeMode") != Live_Data.Launcher_Game_Affinity_Range_Mode)
+            {
+                SettingFile.Key_Write("GameAffinityRangeMode", Live_Data.Launcher_Game_Affinity_Range_Mode);
+            }
+
+            if (SettingFile.Key_Read("VerifyScriptRemoval") != Live_Data.Launcher_Verify_Script_Removal)
+            {
+                SettingFile.Key_Write("VerifyScriptRemoval", Live_Data.Launcher_Verify_Script_Removal);
+            }
+
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
         }
     }

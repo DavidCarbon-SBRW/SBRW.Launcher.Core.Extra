@@ -322,18 +322,35 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             return Log_Value;
         }
         /// <summary>
-        /// 
+        /// Removal of Scripts Folder for Verify Scan
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if User has enabled/allowed the removal of the scripts folder,
+        /// otherwise False</returns>
+        public static bool Verify_Script_Removal()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Verify_Script_Removal == "1";
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// User's Choice of Certificate Mode Functions
+        /// </summary>
+        /// <returns>Converted String to Long</returns>
         public static long Certificate_Mode_Int()
         {
             long.TryParse(Live_Data.Launcher_Certificate_Mode ?? "0", out long Log_Value);
             return Log_Value;
         }
         /// <summary>
-        /// 
+        /// User's Choice of Certificate Mode
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if User's allows the install of Custom Certificate,
+        /// otherwise False</returns>
         public static bool Certificate_Mode()
         {
             if (Live_Data != null)
@@ -361,9 +378,25 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             }
         }
         /// <summary>
-        /// 
+        /// Game Affinity Range Mode Status
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if user has enabled a custom range of Affinity, 
+        /// otherwise returns False</returns>
+        public static bool Game_Affinity_Range_Mode()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Game_Affinity_Range_Mode == "1";
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Game Affinity Range Value if Set
+        /// </summary>
+        /// <returns>User's set range, otherwise defaults to 4 cores (0, 3) </returns>
         public static int[] Game_Affinity_Range()
         {
             if (Live_Data != null)
