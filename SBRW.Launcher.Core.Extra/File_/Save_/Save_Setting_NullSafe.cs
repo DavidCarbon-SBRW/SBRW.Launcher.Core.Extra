@@ -603,7 +603,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
 
             if (!SettingFile.Key_Exists("LogCleanupSchedule") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LogCleanupSchedule")))
             {
-                SettingFile.Key_Write("LogCleanupSchedule", Live_Data.Launcher_Log_Schedule = Time_Clock.UnixEpochNetwork().AddMonths(1).ToString());
+                SettingFile.Key_Write("LogCleanupSchedule", Live_Data.Launcher_Log_Schedule = Time_Clock.UnixEpoch().CompareNetworkWithPCTime().AddMonths(1).ToString());
             }
             else
             {
