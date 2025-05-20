@@ -26,11 +26,7 @@ jobs:
       run: git branch --remote --contains | grep origin/release
     - name: Get Release Version Number
       id: get_version
-      uses: battila7/get-version-action@v2.2.1
-    - name: Setup .Net 6 SDK
-      uses: actions/setup-dotnet@v1.9.0
-      with:
-        dotnet-version: '6.0.x'      
+      uses: battila7/get-version-action@v2.2.1   
     - name: Set Custom NuGet Packages
       run: |
         dotnet nuget add source ${env:PrivateNuGetUrl} -n "SBRW Launcher Libraries" -u ${env:GHUserName} -p ${env:Password} --store-password-in-clear-text
