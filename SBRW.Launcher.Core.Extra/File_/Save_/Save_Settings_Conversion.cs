@@ -2,6 +2,7 @@
 using SBRW.Launcher.Core.Extension.Logging_;
 using SBRW.Launcher.Core.Extension.Time_;
 using SBRW.Launcher.Core.Proxy.Nancy_;
+using System;
 using System.IO;
 
 namespace SBRW.Launcher.Core.Extra.File_.Save_
@@ -302,6 +303,28 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             return Proxy_Port_Convert;
         }
         /// <summary>
+        /// Log Cleanup Schedule
+        /// </summary>
+        /// <returns>DateTime of Converted Value, otherwise returns default (null) value of DateTime</returns>
+        public static DateTime Log_Cleanup_Schedule()
+        {
+            if (Live_Data != null)
+            {
+                if (DateTime.TryParse(Live_Data.Launcher_Log_Schedule, out DateTime Converted_Time))
+                {
+                    return Converted_Time;
+                }
+                else
+                {
+                    return default;
+                }
+            }
+            else
+            {
+                return default;
+            }
+        }
+        /// <summary>
         /// Launcher Log Mode
         /// </summary>
         /// <returns>Launcher Log Mode Type</returns>
@@ -351,6 +374,21 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             else
             {
                 return Log_Enum_Cleanup.Monthly;
+            }
+        }
+        /// <summary>
+        /// Launcher Cleanup
+        /// </summary>
+        /// <returns>True if last saved time has elapsed, otherwise False</returns>
+        public static bool Log_Cleanup()
+        {
+            if (Live_Data != null)
+            {
+                return Log_Cleanup_Schedule() <= Time_Clock.UnixEpoch().CompareNetworkWithPCTime();
+            }
+            else
+            {
+                return false;
             }
         }
         /// <summary>
