@@ -328,6 +328,11 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 SettingFile.Key_Write("VerifyScriptRemoval", Live_Data.Launcher_Verify_Script_Removal);
             }
 
+            if (SettingFile.Key_Read("TimeServerURL") != Live_Data.Launcher_Time_Server_URL)
+            {
+                SettingFile.Key_Write("TimeServerURL", Live_Data.Launcher_Time_Server_URL);
+            }
+
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
         }
     }

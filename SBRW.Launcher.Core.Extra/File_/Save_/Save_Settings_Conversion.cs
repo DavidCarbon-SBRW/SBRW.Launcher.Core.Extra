@@ -1,4 +1,6 @@
-﻿using SBRW.Launcher.Core.Extension.Logging_;
+﻿using Flurl;
+using SBRW.Launcher.Core.Extension.Logging_;
+using SBRW.Launcher.Core.Extension.Time_;
 using SBRW.Launcher.Core.Proxy.Nancy_;
 using System.IO;
 
@@ -756,6 +758,37 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             else
             {
                 return false;
+            }
+        }
+        /// <summary>
+        /// Time Server should be active
+        /// </summary>
+        /// <returns>True if Not Default or Null, otherwise False</returns>
+        public static bool Time_Server_Mode()
+        {
+            if (Live_Data != null)
+            {
+                return !string.IsNullOrWhiteSpace(Live_Data.Launcher_Time_Server_URL) && 
+                    (Live_Data.Launcher_Time_Server_URL != Time_Server.Static_Time_Server);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string Time_Server_URL()
+        {
+            if (Time_Server_Mode())
+            {
+                return new Url(Live_Data.Launcher_Time_Server_URL).Host;
+            }
+            else
+            {
+                return Time_Server.Static_Time_Server;
             }
         }
     }

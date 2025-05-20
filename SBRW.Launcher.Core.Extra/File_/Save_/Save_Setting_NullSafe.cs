@@ -10,6 +10,7 @@ using SBRW.Launcher.Core.Extra.Ini_;
 using SBRW.Launcher.Core.Extra.Conversion_;
 using System.IO;
 using System;
+using SBRW.Launcher.Core.Extension.Time_;
 
 namespace SBRW.Launcher.Core.Extra.File_.Save_
 {
@@ -602,15 +603,20 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
 
             if (!SettingFile.Key_Exists("LogCleanupSchedule") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LogCleanupSchedule")))
             {
-                SettingFile.Key_Write("LogCleanupSchedule", ((long)DateTime.UtcNow.Subtract(DateTime.UnixEpoch).TotalSeconds).ToString());
-            }
-            else if ((SettingFile.Key_Read_Int("LogCleanupSchedule") >= 0) && (SettingFile.Key_Read_Int("LogCleanupSchedule") <= 3))
-            {
-                Live_Data.Launcher_Log_Schedule = SettingFile.Key_Read("LogCleanupSchedule");
+                SettingFile.Key_Write("LogCleanupSchedule", Live_Data.Launcher_Log_Schedule = Time_Clock.UnixEpochNetwork().AddMonths(1).ToString());
             }
             else
             {
-                SettingFile.Key_Write("LogCleanupSchedule", Live_Data.Launcher_Log_Schedule = "3");
+                Live_Data.Launcher_Log_Schedule = SettingFile.Key_Read("LogCleanupSchedule");
+            }
+
+            if (!SettingFile.Key_Exists("TimeServerURL") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("TimeServerURL")))
+            {
+                SettingFile.Key_Write("TimeServerURL", Live_Data.Launcher_Time_Server_URL = "time.google.com");
+            }
+            else
+            {
+                Time_Server.Static_Time_Server = Live_Data.Launcher_Time_Server_URL = SettingFile.Key_Read("TimeServerURL");
             }
 
             /* Key Entries to Convert into Boolens */

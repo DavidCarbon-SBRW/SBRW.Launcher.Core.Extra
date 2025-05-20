@@ -171,5 +171,9 @@
         /// User's Choice on Log File removal Schedule in Unix Time
         /// </summary>
         public string Launcher_Log_Schedule { get; set; }
+        /// <summary>
+        /// User's Saved Time Server URL
+        /// </summary>
+        public string Launcher_Time_Server_URL { get; set; }
     }
 }
