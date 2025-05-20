@@ -9,6 +9,7 @@ using SBRW.Launcher.Core.Extension.String_;
 using SBRW.Launcher.Core.Extra.Ini_;
 using SBRW.Launcher.Core.Extra.Conversion_;
 using System.IO;
+using System;
 
 namespace SBRW.Launcher.Core.Extra.File_.Save_
 {
@@ -584,6 +585,32 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             else
             {
                 SettingFile.Key_Write("Certificate", Live_Data.Launcher_Certificate_Mode = "0");
+            }
+
+            if (!SettingFile.Key_Exists("LogCleanup") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LogCleanup")))
+            {
+                SettingFile.Key_Write("LogCleanup", Live_Data.Launcher_Log_Schedule_Mode = "3");
+            }
+            else if ((SettingFile.Key_Read_Int("LogCleanup") >= 0) && (SettingFile.Key_Read_Int("LogCleanup") <= 3))
+            {
+                Live_Data.Launcher_Log_Schedule_Mode = SettingFile.Key_Read("LogCleanup");
+            }
+            else
+            {
+                SettingFile.Key_Write("LogCleanup", Live_Data.Launcher_Log_Schedule_Mode = "3");
+            }
+
+            if (!SettingFile.Key_Exists("LogCleanupSchedule") || string.IsNullOrWhiteSpace(SettingFile.Key_Read("LogCleanupSchedule")))
+            {
+                SettingFile.Key_Write("LogCleanupSchedule", ((long)DateTime.UtcNow.Subtract(DateTime.UnixEpoch).TotalSeconds).ToString());
+            }
+            else if ((SettingFile.Key_Read_Int("LogCleanupSchedule") >= 0) && (SettingFile.Key_Read_Int("LogCleanupSchedule") <= 3))
+            {
+                Live_Data.Launcher_Log_Schedule = SettingFile.Key_Read("LogCleanupSchedule");
+            }
+            else
+            {
+                SettingFile.Key_Write("LogCleanupSchedule", Live_Data.Launcher_Log_Schedule = "3");
             }
 
             /* Key Entries to Convert into Boolens */

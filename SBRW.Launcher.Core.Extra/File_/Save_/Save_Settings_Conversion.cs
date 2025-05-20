@@ -112,6 +112,27 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             }
         }
         /// <summary>
+        /// Web Call Requests Timeout
+        /// </summary>
+        /// <returns>Numerical Value of Web Call Request Timeout</returns>
+        public static int WebCalls_Timeout()
+        {
+            int WebClient_Timeout_Convert = 0;
+            if (int.TryParse(Live_Data.Launcher_WebCall_TimeOut_Time, out WebClient_Timeout_Convert))
+            {
+                if ((WebClient_Timeout_Convert < 0) || (WebClient_Timeout_Convert > 179))
+                {
+                    WebClient_Timeout_Convert = 0;
+                }
+            }
+            else
+            {
+                WebClient_Timeout_Convert = 0;
+            }
+
+            return WebClient_Timeout_Convert;
+        }
+        /// <summary>
         /// If Preview for Insider is Enabled
         /// </summary>
         /// <returns>True or False</returns>
@@ -258,6 +279,27 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             return Proxy_Log_Value;
         }
         /// <summary>
+        /// Proxy Port Number
+        /// </summary>
+        /// <returns>Numerical Value of Proxy Port</returns>
+        public static int Proxy_Port_Int()
+        {
+            int Proxy_Port_Convert = 0;
+            if (int.TryParse(Live_Data.Launcher_Proxy_Port??"0", out Proxy_Port_Convert))
+            {
+                if ((Proxy_Port_Convert < 0) || (Proxy_Port_Convert > 65353))
+                {
+                    Proxy_Port_Convert = 0;
+                }
+            }
+            else
+            {
+                Proxy_Port_Convert = 0;
+            }
+
+            return Proxy_Port_Convert;
+        }
+        /// <summary>
         /// Launcher Log Mode
         /// </summary>
         /// <returns>Launcher Log Mode Type</returns>
@@ -277,6 +319,36 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             else
             {
                 return Log_Enum.All;
+            }
+        }
+        /// <summary>
+        /// Launcher Log Mode
+        /// </summary>
+        /// <returns>Numerical Value of Launcher Log</returns>
+        public static long Log_Cleanup_Mode_Int()
+        {
+            long.TryParse(Live_Data.Launcher_Log_Schedule_Mode ?? "3", out long Log_Value);
+            return Log_Value;
+        }
+        /// <summary>
+        /// Launcher Log Mode
+        /// </summary>
+        /// <returns>Launcher Log Mode Type</returns>
+        public static Log_Enum_Cleanup Log_Cleanup_Mode()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Log_Schedule_Mode switch
+                {
+                    "0" => Log_Enum_Cleanup.None,
+                    "1" => Log_Enum_Cleanup.Daily,
+                    "2" => Log_Enum_Cleanup.Weekly,
+                    _ => Log_Enum_Cleanup.Monthly
+                };
+            }
+            else
+            {
+                return Log_Enum_Cleanup.Monthly;
             }
         }
         /// <summary>
@@ -463,6 +535,60 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             return Game_Downloader_Value;
         }
         /// <summary>
+        /// Display Timer - Static
+        /// </summary>
+        /// <returns>True for Static Time, otherwise False</returns>
+        public static bool Display_Timer_Static()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Display_Timer == "0";
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Display Timer - Dynamic
+        /// </summary>
+        /// <returns>True for Time Countdown, otherwise False</returns>
+        public static bool Display_Timer_Dynamic()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Display_Timer == "1";
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Display Timer - None
+        /// </summary>
+        /// <returns>True for No Timer on Window Handle, otherwise False</returns>
+        public static bool Display_Timer_None()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Launcher_Display_Timer == "2";
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Display Timer Mode
+        /// </summary>
+        /// <returns>Numerical Value of Display Timer</returns>
+        public static long Display_Timer()
+        {
+            long.TryParse(Live_Data.Launcher_Display_Timer ?? "0", out long Launcher_Display_Timer);
+            return Launcher_Display_Timer;
+        }
+        /// <summary>
         /// Displays Storage Space Alert
         /// </summary>
         /// <returns>True or False</returns>
@@ -570,6 +696,66 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             else
             {
                 return "GameFiles.sbrwpack";
+            }
+        }
+        /// <summary>
+        /// Game File Integrity
+        /// </summary>
+        /// <returns>True if Value was set to "Good", otherwise False</returns>
+        public static bool Game_Integrity_Good()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Game_Integrity == "Good";
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Game File Integrity
+        /// </summary>
+        /// <returns>True if Value was set to "Bad", otherwise False</returns>
+        public static bool Game_Integrity_Bad()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Game_Integrity == "Bad";
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Game File Integrity
+        /// </summary>
+        /// <returns>True if Value was set to "Ignore", otherwise False</returns>
+        public static bool Game_Integrity_Ignore()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Game_Integrity == "Ignore";
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Game File Integrity
+        /// </summary>
+        /// <returns>True if Value was set to "Unknown", otherwise False</returns>
+        public static bool Game_Integrity_Unknown()
+        {
+            if (Live_Data != null)
+            {
+                return Live_Data.Game_Integrity == "Unknown";
+            }
+            else
+            {
+                return false;
             }
         }
     }

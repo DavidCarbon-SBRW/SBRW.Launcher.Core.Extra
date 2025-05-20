@@ -293,6 +293,16 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 };
             }
 
+            if (SettingFile.Key_Read("LogCleanup") != Live_Data.Launcher_Log_Schedule_Mode)
+            {
+                SettingFile.Key_Write("LogCleanup", Live_Data.Launcher_Log_Schedule_Mode);
+            }
+
+            if (SettingFile.Key_Read("LogCleanupSchedule") != Live_Data.Launcher_Log_Schedule)
+            {
+                SettingFile.Key_Write("LogCleanupSchedule", Live_Data.Launcher_Log_Schedule);
+            }
+
             if (SettingFile.Key_Read("Certificate") != Live_Data.Launcher_Certificate_Mode)
             {
                 SettingFile.Key_Write("Certificate", Live_Data.Launcher_Certificate_Mode);

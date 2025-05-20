@@ -163,5 +163,13 @@
         /// User's Choice on removing the Scripts Folder during Verify Hash Scan
         /// </summary>
         public string Launcher_Verify_Script_Removal { get; set; }
+        /// <summary>
+        /// User's Choice on Log File removal
+        /// </summary>
+        public string Launcher_Log_Schedule_Mode { get; set; }
+        /// <summary>
+        /// User's Choice on Log File removal Schedule in Unix Time
+        /// </summary>
+        public string Launcher_Log_Schedule { get; set; }
     }
 }
