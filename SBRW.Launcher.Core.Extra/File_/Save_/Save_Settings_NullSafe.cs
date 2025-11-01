@@ -50,6 +50,18 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 Live_Data.Launcher_Display_Timer = SettingFile.Key_Read("LegacyTimer", Live_Data.Launcher_Display_Timer).Clamp(0, 2);
                 SettingFile.Key_Delete("LegacyTimer");
             }
+
+            if (SettingFile.Key_Exists("DisableProxy"))
+            {
+                Live_Data.Launcher_Proxy = SettingFile.Key_Read("DisableProxy", Live_Data.Launcher_Proxy);
+                SettingFile.Key_Delete("DisableProxy");
+            }
+
+            if (SettingFile.Key_Exists("DisableRPC"))
+            {
+                Live_Data.Launcher_Discord_Presence = SettingFile.Key_Read("DisableRPC", Live_Data.Launcher_Discord_Presence);
+                SettingFile.Key_Delete("DisableRPC");
+            }
             #endregion
             #region File/Folder Paths
             Live_Data.Game_Path = SettingFile.Key_Read("InstallationDirectory", Live_Data.Game_Path);
@@ -70,8 +82,8 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             #region Launcher
             Live_Data.Launcher_CDN = SettingFile.Key_Read("CDN", Live_Data.Launcher_CDN);
             Live_Data.Launcher_Language = SettingFile.Key_Read("Language", Live_Data.Launcher_Language);
-            Live_Data.Launcher_Proxy = SettingFile.Key_Read("DisableProxy", Live_Data.Launcher_Proxy);
-            Live_Data.Launcher_Discord_Presence = SettingFile.Key_Read("DisableRPC", Live_Data.Launcher_Discord_Presence);
+            Live_Data.Launcher_Proxy = SettingFile.Key_Read("LauncherProxy", Live_Data.Launcher_Proxy);
+            Live_Data.Launcher_Discord_Presence = SettingFile.Key_Read("LauncherDRPC", Live_Data.Launcher_Discord_Presence);
             Live_Data.Update_Version_Skip = SettingFile.Key_Read("IgnoreUpdateVersion", Live_Data.Update_Version_Skip);
 
             if (!Launcher_Value.System_Unix)

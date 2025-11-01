@@ -27,8 +27,8 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             WriteSetting("GameArchivePath", Live_Data.Game_Archive_Location);
             WriteSetting("CDN", Live_Data.Launcher_CDN?.TrimEnd('/'));
             WriteSetting("Language", Live_Data.Launcher_Language);
-            WriteSetting("DisableProxy", Live_Data.Launcher_Proxy, HandleProxyChange);
-            WriteSetting("DisableRPC", Live_Data.Launcher_Discord_Presence, HandleRpcChange);
+            WriteSetting("LauncherProxy", Live_Data.Launcher_Proxy, HandleProxyChange);
+            WriteSetting("LauncherDRPC", Live_Data.Launcher_Discord_Presence, HandleRpcChange);
             WriteSetting("IgnoreUpdateVersion", Live_Data.Update_Version_Skip);
             WriteSetting("FilePermission", Live_Data.Write_Permissions);
             WriteSetting("GameIntegrity", Live_Data.Game_Integrity);
