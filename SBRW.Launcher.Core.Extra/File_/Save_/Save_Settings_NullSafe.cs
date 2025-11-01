@@ -53,13 +53,13 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
 
             if (SettingFile.Key_Exists("DisableProxy"))
             {
-                Live_Data.Launcher_Proxy = SettingFile.Key_Read("DisableProxy", Live_Data.Launcher_Proxy);
+                Live_Data.Launcher_Proxy = SettingFile.Key_Read("DisableProxy", Live_Data.Launcher_Proxy) ? false : true;
                 SettingFile.Key_Delete("DisableProxy");
             }
 
             if (SettingFile.Key_Exists("DisableRPC"))
             {
-                Live_Data.Launcher_Discord_Presence = SettingFile.Key_Read("DisableRPC", Live_Data.Launcher_Discord_Presence);
+                Live_Data.Launcher_Discord_Presence = SettingFile.Key_Read("DisableRPC", Live_Data.Launcher_Discord_Presence) ? false : true;
                 SettingFile.Key_Delete("DisableRPC");
             }
             #endregion
