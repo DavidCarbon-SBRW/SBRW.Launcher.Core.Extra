@@ -17,7 +17,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != default)
             {
-                return Live_Data.Launcher_Legacy_Host_To_IP == "0";
+                return Live_Data.Launcher_Legacy_Host_To_IP == false;
             }
             else
             {
@@ -62,7 +62,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Proxy == "0";
+                return Live_Data.Launcher_Proxy == false;
             }
             else
             {
@@ -77,7 +77,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Discord_Presence == "0";
+                return Live_Data.Launcher_Discord_Presence == false;
             }
             else
             {
@@ -92,7 +92,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_JSON_Frequency_Update_Cache == "1";
+                return Live_Data.Launcher_JSON_Frequency_Update_Cache == true;
             }
             else
             {
@@ -120,20 +120,12 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Web Call Request Timeout</returns>
         public static int WebCalls_Timeout()
         {
-            int WebClient_Timeout_Convert = 0;
-            if (int.TryParse(Live_Data.Launcher_WebCall_TimeOut_Time, out WebClient_Timeout_Convert))
+            if ((Live_Data.Launcher_WebCall_TimeOut_Time < 0) || (Live_Data.Launcher_WebCall_TimeOut_Time > 179))
             {
-                if ((WebClient_Timeout_Convert < 0) || (WebClient_Timeout_Convert > 179))
-                {
-                    WebClient_Timeout_Convert = 0;
-                }
-            }
-            else
-            {
-                WebClient_Timeout_Convert = 0;
+                return 0;
             }
 
-            return WebClient_Timeout_Convert;
+            return Live_Data.Launcher_WebCall_TimeOut_Time;
         }
         /// <summary>
         /// If Preview for Insider is Enabled
@@ -143,7 +135,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Insider == "1";
+                return Live_Data.Launcher_Insider == 1;
             }
             else
             {
@@ -158,7 +150,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Insider == "2";
+                return Live_Data.Launcher_Insider == 2;
             }
             else
             {
@@ -186,8 +178,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Preview</returns>
         public static long Preview_Mode_Int()
         {
-            long.TryParse(Live_Data.Launcher_Insider ?? "0", out long Preview_Value);
-            return Preview_Value;
+            return Live_Data.Launcher_Insider;
         }
         /// <summary>
         /// If Custom Themes should be Used
@@ -197,7 +188,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Theme_Support == "1";
+                return Live_Data.Launcher_Theme_Support == true;
             }
             else
             {
@@ -212,7 +203,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Proxy_Domain == "1";
+                return Live_Data.Launcher_Proxy_Domain == true;
             }
             else
             {
@@ -229,10 +220,10 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             {
                 return Live_Data.Launcher_Proxy_Log_Mode switch
                 {
-                    "0" => Proxy.Log_.CommunicationLogRecord.None,
-                    "2" => Proxy.Log_.CommunicationLogRecord.Errors,
-                    "3" => Proxy.Log_.CommunicationLogRecord.Responses,
-                    "4" => Proxy.Log_.CommunicationLogRecord.Requests,
+                    0 => Proxy.Log_.CommunicationLogRecord.None,
+                    2 => Proxy.Log_.CommunicationLogRecord.Errors,
+                    3 => Proxy.Log_.CommunicationLogRecord.Responses,
+                    4 => Proxy.Log_.CommunicationLogRecord.Requests,
                     _ => Proxy.Log_.CommunicationLogRecord.All
                 };
             }
@@ -251,10 +242,10 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             {
                 return Live_Data.Launcher_Proxy_GZip_Version switch
                 {
-                    "1" => GzipVersion.One,
-                    "2" => GzipVersion.Two,
-                    "3" => GzipVersion.OneV2,
-                    "4" => GzipVersion.Four,
+                    1 => GzipVersion.One,
+                    2 => GzipVersion.Two,
+                    3 => GzipVersion.OneV2,
+                    4 => GzipVersion.Four,
                     _ => GzipVersion.Three
                 };
             }
@@ -269,8 +260,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Proxy Log</returns>
         public static long Proxy_Log_Mode_Int()
         {
-            long.TryParse(Live_Data.Launcher_Proxy_Log_Mode ?? "0", out long Proxy_Log_Value);
-            return Proxy_Log_Value;
+            return Live_Data.Launcher_Proxy_Log_Mode;
         }
         /// <summary>
         /// Proxy GZip Version
@@ -278,8 +268,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Proxy GZip Version</returns>
         public static long Proxy_GZip_Version_Int()
         {
-            long.TryParse(Live_Data.Launcher_Proxy_GZip_Version ?? "0", out long Proxy_Log_Value);
-            return Proxy_Log_Value;
+            return Live_Data.Launcher_Proxy_GZip_Version;
         }
         /// <summary>
         /// Proxy Port Number
@@ -288,7 +277,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         public static int Proxy_Port_Int()
         {
             int Proxy_Port_Convert = 0;
-            if (int.TryParse(Live_Data.Launcher_Proxy_Port??"0", out Proxy_Port_Convert))
+            if (int.TryParse(Live_Data.Launcher_Proxy_Port ?? "0", out Proxy_Port_Convert))
             {
                 if ((Proxy_Port_Convert < 0) || (Proxy_Port_Convert > 65353))
                 {
@@ -334,10 +323,10 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             {
                 return Live_Data.Launcher_Log_Mode switch
                 {
-                    "0" => Log_Enum.None,
-                    "2" => Log_Enum.Error,
-                    "3" => Log_Enum.Information,
-                    "4" => Log_Enum.Debug,
+                    0 => Log_Enum.None,
+                    2 => Log_Enum.Error,
+                    3 => Log_Enum.Information,
+                    4 => Log_Enum.Debug,
                     _ => Log_Enum.All
                 };
             }
@@ -352,8 +341,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Launcher Log</returns>
         public static long Log_Cleanup_Mode_Int()
         {
-            long.TryParse(Live_Data.Launcher_Log_Schedule_Mode ?? "3", out long Log_Value);
-            return Log_Value;
+            return Live_Data.Launcher_Log_Schedule_Mode;
         }
         /// <summary>
         /// Launcher Log Mode
@@ -365,9 +353,9 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             {
                 return Live_Data.Launcher_Log_Schedule_Mode switch
                 {
-                    "0" => Log_Enum_Cleanup.None,
-                    "1" => Log_Enum_Cleanup.Daily,
-                    "2" => Log_Enum_Cleanup.Weekly,
+                    0 => Log_Enum_Cleanup.None,
+                    1 => Log_Enum_Cleanup.Daily,
+                    2 => Log_Enum_Cleanup.Weekly,
                     _ => Log_Enum_Cleanup.Monthly
                 };
             }
@@ -397,8 +385,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Launcher Log</returns>
         public static long Log_Mode_Int()
         {
-            long.TryParse(Live_Data.Launcher_Log_Mode ?? "0", out long Log_Value);
-            return Log_Value;
+            return Live_Data.Launcher_Log_Mode;
         }
         /// <summary>
         /// Launcher Log Mode
@@ -410,12 +397,12 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             {
                 return Live_Data.Launcher_Verify_Log_Mode switch
                 {
-                    "0" => Log_Enum_Verify.None,
-                    "2" => Log_Enum_Verify.Error,
-                    "3" => Log_Enum_Verify.Information,
-                    "4" => Log_Enum_Verify.Replaced,
-                    "5" => Log_Enum_Verify.Hashes,
-                    "6" => Log_Enum_Verify.Validation,
+                    0 => Log_Enum_Verify.None,
+                    2 => Log_Enum_Verify.Error,
+                    3 => Log_Enum_Verify.Information,
+                    4 => Log_Enum_Verify.Replaced,
+                    5 => Log_Enum_Verify.Hashes,
+                    6 => Log_Enum_Verify.Validation,
                     _ => Log_Enum_Verify.All
                 };
             }
@@ -430,8 +417,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Launcher Verify Log</returns>
         public static long Verify_Log_Int()
         {
-            long.TryParse(Live_Data.Launcher_Verify_Log_Mode ?? "0", out long Log_Value);
-            return Log_Value;
+            return Live_Data.Launcher_Verify_Log_Mode;
         }
         /// <summary>
         /// Removal of Scripts Folder for Verify Scan
@@ -442,7 +428,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Verify_Script_Removal == "1";
+                return Live_Data.Launcher_Verify_Script_Removal == true;
             }
             else
             {
@@ -455,8 +441,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Converted String to Long</returns>
         public static long Certificate_Mode_Int()
         {
-            long.TryParse(Live_Data.Launcher_Certificate_Mode ?? "0", out long Log_Value);
-            return Log_Value;
+            return Live_Data.Launcher_Certificate_Mode ? 1 : 0;
         }
         /// <summary>
         /// User's Choice of Certificate Mode
@@ -467,7 +452,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Certificate_Mode == "1";
+                return Live_Data.Launcher_Certificate_Mode == true;
             }
             else
             {
@@ -482,7 +467,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Account_Manager == "1";
+                return Live_Data.Launcher_Account_Manager == true;
             }
             else
             {
@@ -498,7 +483,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Game_Affinity_Range_Mode == "1";
+                return Live_Data.Launcher_Game_Affinity_Range_Mode == true;
             }
             else
             {
@@ -528,7 +513,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Game_Downloader == "0";
+                return Live_Data.Launcher_Game_Downloader == 0;
             }
             else
             {
@@ -543,7 +528,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Game_Downloader == "1";
+                return Live_Data.Launcher_Game_Downloader == 1;
             }
             else
             {
@@ -558,7 +543,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Game_Downloader == "2";
+                return Live_Data.Launcher_Game_Downloader == 2;
             }
             else
             {
@@ -571,8 +556,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Game Downloader</returns>
         public static long Downloader_Game()
         {
-            long.TryParse(Live_Data.Launcher_Game_Downloader ?? "0", out long Game_Downloader_Value);
-            return Game_Downloader_Value;
+            return Live_Data.Launcher_Game_Downloader;
         }
         /// <summary>
         /// Display Timer - Static
@@ -582,7 +566,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Display_Timer == "0";
+                return Live_Data.Launcher_Display_Timer == 0;
             }
             else
             {
@@ -597,7 +581,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Display_Timer == "1";
+                return Live_Data.Launcher_Display_Timer == 1;
             }
             else
             {
@@ -612,7 +596,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Display_Timer == "2";
+                return Live_Data.Launcher_Display_Timer == 2;
             }
             else
             {
@@ -625,8 +609,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         /// <returns>Numerical Value of Display Timer</returns>
         public static long Display_Timer()
         {
-            long.TryParse(Live_Data.Launcher_Display_Timer ?? "0", out long Launcher_Display_Timer);
-            return Launcher_Display_Timer;
+            return Live_Data.Launcher_Display_Timer;
         }
         /// <summary>
         /// Displays Storage Space Alert
@@ -636,7 +619,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Alert_Storage_Space == "0";
+                return Live_Data.Alert_Storage_Space == false;
             }
             else
             {
@@ -806,7 +789,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return !string.IsNullOrWhiteSpace(Live_Data.Launcher_Time_Server_URL) && 
+                return !string.IsNullOrWhiteSpace(Live_Data.Launcher_Time_Server_URL) &&
                     (Live_Data.Launcher_Time_Server_URL != Time_Server.Static_Time_Server);
             }
             else

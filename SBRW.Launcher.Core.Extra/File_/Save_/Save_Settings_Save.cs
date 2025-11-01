@@ -1,339 +1,233 @@
 ﻿using SBRW.Launcher.Core.Cache;
-using SBRW.Launcher.Core.Extension.Logging_;
-using SBRW.Launcher.Core.Required.System.Windows_;
 using SBRW.Launcher.Core.Discord.RPC_;
-using SBRW.Launcher.Core.Proxy.Nancy_;
-using SBRW.Launcher.Core.Extra.Ini_;
+using SBRW.Launcher.Core.Downloader;
+using SBRW.Launcher.Core.Extension.Logging_;
 using SBRW.Launcher.Core.Extra.Conversion_;
+using SBRW.Launcher.Core.Extra.Ini_;
+using SBRW.Launcher.Core.Proxy.Nancy_;
+using SBRW.Launcher.Core.Recommended.Time_;
+using SBRW.Launcher.Core.Required.System.Windows_;
 
 namespace SBRW.Launcher.Core.Extra.File_.Save_
 {
     public static partial class Save_Settings
     {
-        /// <summary>Saves all Current Values</summary>
+        /// <summary>
+        /// Saves all Current Values from Live_Data to the settings file.
+        /// </summary>
         public static void Save()
         {
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
 
-            if (SettingFile.Key_Read("CDN") != Live_Data.Launcher_CDN)
+            WriteSetting("InstallationDirectory", Live_Data.Game_Path);
+            if (!Launcher_Value.System_Unix)
             {
-                if (Live_Data.Launcher_CDN.EndsWith("/"))
-                {
-                    SettingFile.Key_Write("CDN", Live_Data.Launcher_CDN.TrimEnd('/'));
-                }
-                else
-                {
-                    SettingFile.Key_Write("CDN", Live_Data.Launcher_CDN);
-                }
+                WriteSetting("OldInstallationDirectory", Live_Data.Game_Path_Old);
             }
-
-            if (SettingFile.Key_Read("Language") != Live_Data.Launcher_Language)
-            {
-                SettingFile.Key_Write("Language", Live_Data.Launcher_Language);
-            }
-
-            if (SettingFile.Key_Read("DisableProxy") != Live_Data.Launcher_Proxy)
-            {
-                SettingFile.Key_Write("DisableProxy", Live_Data.Launcher_Proxy);
-
-                if (Live_Data.Launcher_Proxy == "0")
-                {
-                    if (!Proxy_Settings.Running())
-                    {
-                        Proxy_Server.Instance.Start("SBRW.Launcher.Core.Extra [Save]");
-                    }
-                }
-                else if (Live_Data.Launcher_Proxy == "1")
-                {
-                    if (Proxy_Settings.Running())
-                    {
-                        Proxy_Server.Instance.Stop("SBRW.Launcher.Core.Extra [Save]");
-                    }
-                }
-            }
-
-            if (SettingFile.Key_Read("ProxyPort") != Live_Data.Launcher_Proxy_Port)
-            {
-                SettingFile.Key_Write("ProxyPort", Live_Data.Launcher_Proxy_Port);
-
-                Log.Function("Custom Proxy Port:".ToUpper() + " -> " + Proxy_Settings.Custom_Port(Live_Data.Launcher_Proxy_Port) + " has been Set");
-            }
-
-            if (SettingFile.Key_Read("ProxyHostDomain") != Live_Data.Launcher_Proxy_Domain)
-            {
-                SettingFile.Key_Write("ProxyHostDomain", Live_Data.Launcher_Proxy_Domain);
-
-                if (Live_Data.Launcher_Proxy.Equals("0"))
-                {
-                    if (Proxy_Settings.Running())
-                    {
-                        Proxy_Server.Instance.Stop("SBRW.Launcher.Core.Extra [Save (Domain)]");
-                    }
-
-                    Proxy_Settings.Domain = Live_Data.Launcher_Proxy_Domain.Equals("0") ? "127.0.0.1" : "localhost";
-                    Log.Function("Custom Proxy Domain:".ToUpper() + " -> " + Proxy_Settings.Domain + " has been Set");
-
-                    if (!Proxy_Settings.Running())
-                    {
-                        Proxy_Server.Instance.Start("SBRW.Launcher.Core.Extra [Save (Domain)]");
-                    }
-                }
-            }
-
-            if (SettingFile.Key_Read("DisableRPC") != Live_Data.Launcher_Discord_Presence)
-            {
-                SettingFile.Key_Write("DisableRPC", Live_Data.Launcher_Discord_Presence);
-
-                if (Live_Data.Launcher_Discord_Presence == "0")
-                {
-                    if (!Presence_Launcher.Running())
-                    {
-                        Presence_Settings.Disable_RPC_Startup = false;
-                        Presence_Launcher.Start();
-                    }
-                }
-                else if (Live_Data.Launcher_Discord_Presence == "1")
-                {
-                    if (Presence_Launcher.Running())
-                    {
-                        /* Now that Settings has been Loaded, Lets Stop RPC */
-                        Presence_Launcher.Stop("Close");
-                        Presence_Settings.Disable_RPC_Startup = true;
-                    }
-                }
-            }
-
-            if (SettingFile.Key_Read("InstallationDirectory") != Live_Data.Game_Path)
-            {
-                SettingFile.Key_Write("InstallationDirectory", Live_Data.Game_Path);
-            }
-
-            if (!Launcher_Value.System_Unix && SettingFile.Key_Read("OldInstallationDirectory") != Live_Data.Game_Path_Old)
-            {
-                SettingFile.Key_Write("OldInstallationDirectory", Live_Data.Game_Path_Old);
-            }
-
-            if (SettingFile.Key_Read("GameArchivePath") != Live_Data.Game_Archive_Location)
-            {
-                SettingFile.Key_Write("GameArchivePath", Live_Data.Game_Archive_Location);
-            }
-
-            if (SettingFile.Key_Read("IgnoreUpdateVersion") != Live_Data.Update_Version_Skip)
-            {
-                SettingFile.Key_Write("IgnoreUpdateVersion", Live_Data.Update_Version_Skip);
-            }
-
-            if (SettingFile.Key_Read("GameIntegrity") != Live_Data.Game_Integrity)
-            {
-                SettingFile.Key_Write("GameIntegrity", Live_Data.Game_Integrity);
-            }
-
-            if (SettingFile.Key_Read("WebCallMethod") != Live_Data.Launcher_WebClient_Method)
-            {
-                SettingFile.Key_Write("WebCallMethod", Live_Data.Launcher_WebClient_Method);
-            }
-
-            if (SettingFile.Key_Read("ThemeSupport") != Live_Data.Launcher_Theme_Support)
-            {
-                SettingFile.Key_Write("ThemeSupport", Live_Data.Launcher_Theme_Support);
-            }
-
-            if (SettingFile.Key_Read("Insider") != Live_Data.Launcher_Insider)
-            {
-                SettingFile.Key_Write("Insider", Live_Data.Launcher_Insider);
-
-                if ((SettingFile.Key_Read_Int("Insider") >= 0) && (SettingFile.Key_Read_Int("Insider") <= 2))
-                {
-                    if (SettingFile.Key_Read_Int("Insider") == 1)
-                    {
-                        Launcher_Value.Launcher_Insider_Dev = false;
-                        Launcher_Value.Launcher_Insider_Beta = true;
-                        Log.Core("Insider Status: ".ToUpper() + "Opted Into the Beta Preview");
-                    }
-                    else if (SettingFile.Key_Read_Int("Insider") == 2)
-                    {
-                        Launcher_Value.Launcher_Insider_Dev = true;
-                        Launcher_Value.Launcher_Insider_Beta = false;
-                        Log.Core("Insider Status: ".ToUpper() + "Opted Into the Development Preview");
-                    }
-                    else
-                    {
-                        Launcher_Value.Launcher_Insider_Dev = Launcher_Value.Launcher_Insider_Beta = false;
-                    }
-                }
-            }
-
-            if (SettingFile.Key_Read("DisplayTimer") != Live_Data.Launcher_Display_Timer)
-            {
-                SettingFile.Key_Write("DisplayTimer", Live_Data.Launcher_Display_Timer);
-            }
-
-            if (SettingFile.Key_Read("DownloaderGame") != Live_Data.Launcher_Game_Downloader)
-            {
-                SettingFile.Key_Write("DownloaderGame", Live_Data.Launcher_Game_Downloader);
-            }
-
-            if (SettingFile.Key_Read("JSONFrequencyUpdateCache") != Live_Data.Launcher_JSON_Frequency_Update_Cache)
-            {
-                SettingFile.Key_Write("JSONFrequencyUpdateCache", Live_Data.Launcher_JSON_Frequency_Update_Cache);
-            }
-
-            if (SettingFile.Key_Read("WebCallTimeOut") != Live_Data.Launcher_WebCall_TimeOut_Time)
-            {
-                SettingFile.Key_Write("WebCallTimeOut", Live_Data.Launcher_WebCall_TimeOut_Time);
-            }
+            WriteSetting("GameArchivePath", Live_Data.Game_Archive_Location);
+            WriteSetting("CDN", Live_Data.Launcher_CDN?.TrimEnd('/'));
+            WriteSetting("Language", Live_Data.Launcher_Language);
+            WriteSetting("DisableProxy", Live_Data.Launcher_Proxy, HandleProxyChange);
+            WriteSetting("DisableRPC", Live_Data.Launcher_Discord_Presence, HandleRpcChange);
+            WriteSetting("IgnoreUpdateVersion", Live_Data.Update_Version_Skip);
+            WriteSetting("FilePermission", Live_Data.Write_Permissions);
+            WriteSetting("GameIntegrity", Live_Data.Game_Integrity);
+            WriteSetting("ProxyPort", Live_Data.Launcher_Proxy_Port, (key, value) => Log.Function($"Custom Proxy Port: -> {Proxy_Settings.Custom_Port(value)} has been Set"));
+            WriteSetting("WebCallMethod", Live_Data.Launcher_WebClient_Method, HandleWebCallMethodChange);
+            WriteSetting("ThemeSupport", Live_Data.Launcher_Theme_Support);
+            WriteSetting("Insider", Live_Data.Launcher_Insider, HandleInsiderChange);
+            WriteSetting("DisplayTimer", Live_Data.Launcher_Display_Timer, HandleDisplayTimerChange);
+            WriteSetting("DownloaderGame", Live_Data.Launcher_Game_Downloader);
+            WriteSetting("JSONFrequencyUpdateCache", Live_Data.Launcher_JSON_Frequency_Update_Cache);
+            WriteSetting("WebCallTimeOut", Live_Data.Launcher_WebCall_TimeOut_Time, HandleWebCallTimeOutChange);
 
             if (!Launcher_Value.System_Unix)
             {
-                if (SettingFile.Key_Read("FilePermission") != Live_Data.Write_Permissions)
+                WriteSetting("FirewallLauncher", Live_Data.Firewall_Launcher);
+                WriteSetting("FirewallGame", Live_Data.Firewall_Game);
+
+                if (Product_Version.GetWindowsBuildNumber() >= 10.0)
                 {
-                    SettingFile.Key_Write("FilePermission", Live_Data.Write_Permissions);
+                    WriteSetting("DefenderLauncher", Live_Data.Defender_Launcher);
+                    WriteSetting("DefenderGame", Live_Data.Defender_Game);
                 }
 
-                if (SettingFile.Key_Read("FirewallLauncher") != Live_Data.Firewall_Launcher)
+                if (Product_Version.GetWindowsBuildNumber() >= 10.0)
                 {
-                    SettingFile.Key_Write("FirewallLauncher", Live_Data.Firewall_Launcher);
-                }
-
-                if (SettingFile.Key_Read("FirewallGame") != Live_Data.Firewall_Game)
-                {
-                    SettingFile.Key_Write("FirewallGame", Live_Data.Firewall_Game);
-                }
-
-                if (Product_Version.GetWindowsNumber() >= 10.0)
-                {
-                    if (SettingFile.Key_Read("DefenderLauncher") != Live_Data.Defender_Launcher)
-                    {
-                        SettingFile.Key_Write("DefenderLauncher", Live_Data.Defender_Launcher);
-                    }
-
-                    if (SettingFile.Key_Read("DefenderGame") != Live_Data.Defender_Game)
-                    {
-                        SettingFile.Key_Write("DefenderGame", Live_Data.Defender_Game);
-                    }
-                }
-
-                if ((SettingFile.Key_Read("PatchesApplied") != Live_Data.Win_7_Patches) && Product_Version.GetWindowsNumber() == 6.1)
-                {
-                    SettingFile.Key_Write("PatchesApplied", Live_Data.Win_7_Patches);
+                    WriteSetting("PatchesApplied", Live_Data.Win_7_Patches);
                 }
             }
-            else if (SettingFile.Key_Read("AlertStorageSpace") != Live_Data.Alert_Storage_Space)
+            else
             {
-                SettingFile.Key_Write("AlertStorageSpace", Live_Data.Alert_Storage_Space);
+                WriteSetting("AlertStorage", Live_Data.Alert_Storage_Space);
             }
 
-            if (SettingFile.Key_Read("LauncherEnvironment") != Live_Data.Launcher_RunTime_Environment)
-            {
-                SettingFile.Key_Write("LauncherEnvironment", Live_Data.Launcher_RunTime_Environment);
-            }
-
-            if (SettingFile.Key_Read("LegacyHost2IP") != Live_Data.Launcher_Legacy_Host_To_IP)
-            {
-                SettingFile.Key_Write("LegacyHost2IP", Live_Data.Launcher_Legacy_Host_To_IP);
-            }
-
-            if (SettingFile.Key_Read("ProxyHostDomain") != Live_Data.Launcher_Proxy_Domain)
-            {
-                SettingFile.Key_Write("ProxyHostDomain", Live_Data.Launcher_Proxy_Domain);
-                Proxy_Settings.Domain = (Live_Data.Launcher_Proxy_Domain == "0") ? "127.0.0.1" : "localhost";
-            }
-
-            if (SettingFile.Key_Read("ProxyLogMode") != Live_Data.Launcher_Proxy_Log_Mode)
-            {
-                SettingFile.Key_Write("ProxyLogMode", Live_Data.Launcher_Proxy_Log_Mode);
-                Proxy_Settings.Log_Mode = Live_Data.Launcher_Proxy_Log_Mode switch
-                {
-                    "0" => Proxy.Log_.CommunicationLogRecord.None,
-                    "2" => Proxy.Log_.CommunicationLogRecord.Errors,
-                    "3" => Proxy.Log_.CommunicationLogRecord.Responses,
-                    "4" => Proxy.Log_.CommunicationLogRecord.Requests,
-                    _ => Proxy.Log_.CommunicationLogRecord.All,
-                };
-            }
-
-            if (SettingFile.Key_Read("ProxyGZipVersion") != Live_Data.Launcher_Proxy_GZip_Version)
-            {
-                SettingFile.Key_Write("ProxyGZipVersion", Live_Data.Launcher_Proxy_GZip_Version);
-                Proxy_Settings.Gzip_Version = Live_Data.Launcher_Proxy_GZip_Version switch
-                {
-                    "1" => GzipVersion.One,
-                    "2" => GzipVersion.Two,
-                    "3" => GzipVersion.OneV2,
-                    "4" => GzipVersion.Four,
-                    _ => GzipVersion.Three,
-                };
-            }
-
-            if (SettingFile.Key_Read("LogMode") != Live_Data.Launcher_Log_Mode)
-            {
-                SettingFile.Key_Write("LogMode", Live_Data.Launcher_Log_Mode);
-                Log.Mode = Live_Data.Launcher_Log_Mode switch
-                {
-                    "0" => Log_Enum.None,
-                    "2" => Log_Enum.Error,
-                    "3" => Log_Enum.Information,
-                    "4" => Log_Enum.Debug,
-                    _ => Log_Enum.All
-                };
-            }
-
-            if (SettingFile.Key_Read("VerifyLogMode") != Live_Data.Launcher_Verify_Log_Mode)
-            {
-                SettingFile.Key_Write("VerifyLogMode", Live_Data.Launcher_Verify_Log_Mode);
-                Log_Verify.Mode = Live_Data.Launcher_Verify_Log_Mode switch
-                {
-                    "0" => Log_Enum_Verify.None,
-                    "2" => Log_Enum_Verify.Error,
-                    "3" => Log_Enum_Verify.Information,
-                    "4" => Log_Enum_Verify.Replaced,
-                    "5" => Log_Enum_Verify.Hashes,
-                    "6" => Log_Enum_Verify.Validation,
-                    _ => Log_Enum_Verify.All
-                };
-            }
-
-            if (SettingFile.Key_Read("LogCleanup") != Live_Data.Launcher_Log_Schedule_Mode)
-            {
-                SettingFile.Key_Write("LogCleanup", Live_Data.Launcher_Log_Schedule_Mode);
-            }
-
-            if (SettingFile.Key_Read("LogCleanupSchedule") != Live_Data.Launcher_Log_Schedule)
-            {
-                SettingFile.Key_Write("LogCleanupSchedule", Live_Data.Launcher_Log_Schedule);
-            }
-
-            if (SettingFile.Key_Read("Certificate") != Live_Data.Launcher_Certificate_Mode)
-            {
-                SettingFile.Key_Write("Certificate", Live_Data.Launcher_Certificate_Mode);
-            }
-
-            if (SettingFile.Key_Read("AccountManager") != Live_Data.Launcher_Account_Manager)
-            {
-                SettingFile.Key_Write("AccountManager", Live_Data.Launcher_Account_Manager);
-            }
-
-            if (SettingFile.Key_Read("GameAffinityRange").Split('-').ToIntArray() != Live_Data.Game_Affinity_Range)
-            {
-                SettingFile.Key_Write("GameAffinityRange", Live_Data.Game_Affinity_Range.ArrayToString());
-            }
-
-            if (SettingFile.Key_Read("GameAffinityRangeMode") != Live_Data.Launcher_Game_Affinity_Range_Mode)
-            {
-                SettingFile.Key_Write("GameAffinityRangeMode", Live_Data.Launcher_Game_Affinity_Range_Mode);
-            }
-
-            if (SettingFile.Key_Read("VerifyScriptRemoval") != Live_Data.Launcher_Verify_Script_Removal)
-            {
-                SettingFile.Key_Write("VerifyScriptRemoval", Live_Data.Launcher_Verify_Script_Removal);
-            }
-
-            if (SettingFile.Key_Read("TimeServerURL") != Live_Data.Launcher_Time_Server_URL)
-            {
-                SettingFile.Key_Write("TimeServerURL", Live_Data.Launcher_Time_Server_URL);
-            }
-
+            WriteSetting("LauncherEnvironment", Live_Data.Launcher_RunTime_Environment);
+            WriteSetting("LegacyHost2IP", Live_Data.Launcher_Legacy_Host_To_IP);
+            WriteSetting("ProxyHostDomain", Live_Data.Launcher_Proxy_Domain, HandleProxyDomainChange);
+            WriteSetting("ProxyLogMode", Live_Data.Launcher_Proxy_Log_Mode, HandleProxyLogModeChange);
+            WriteSetting("GameAffinityRangeMode", Live_Data.Launcher_Game_Affinity_Range_Mode);
+            WriteSetting("GameAffinityRange", Live_Data.Game_Affinity_Range.ArrayToString());
+            WriteSetting("AccountManager", Live_Data.Launcher_Account_Manager);
+            WriteSetting("ProxyGZipVersion", Live_Data.Launcher_Proxy_GZip_Version, HandleProxyGZipVersionChange);
+            WriteSetting("LogMode", Live_Data.Launcher_Log_Mode, HandleLogModeChange);
+            WriteSetting("VerifyLogMode", Live_Data.Launcher_Verify_Log_Mode, HandleVerifyLogModeChange);
+            WriteSetting("VerifyScriptRemoval", Live_Data.Launcher_Verify_Script_Removal);
+            WriteSetting("Certificate", Live_Data.Launcher_Certificate_Mode);
+            WriteSetting("LogCleanup", Live_Data.Launcher_Log_Schedule_Mode);
+            WriteSetting("LogCleanupSchedule", Live_Data.Launcher_Log_Schedule);
+            WriteSetting("TimeServerURL", Live_Data.Launcher_Time_Server_URL);
+            /* Flush Changes to Disk */
             SettingFile = new Ini_File(Ini_Location.Launcher_Settings);
+        }
+
+        private static void HandleWebCallTimeOutChange(this string key, int webCallTimeOut)
+        {
+            if (webCallTimeOut > 0)
+            {
+                Download_Settings.Launcher_WebCall_Timeout(Launcher_Value.Launcher_WebCall_Timeout(webCallTimeOut));
+                Download_Settings.Launcher_WebCall_Timeout_Enable = Launcher_Value.Launcher_WebCall_Timeout_Enable = true;
+            }
+            else
+            {
+                Download_Settings.Launcher_WebCall_Timeout_Enable = Launcher_Value.Launcher_WebCall_Timeout_Enable = false;
+            }
+        }
+
+        private static void HandleVerifyLogModeChange(this string key, long verifyLogMode)
+        {
+            Log_Verify.Mode = verifyLogMode switch
+            {
+                0 => Log_Enum_Verify.None,
+                2 => Log_Enum_Verify.Error,
+                3 => Log_Enum_Verify.Information,
+                4 => Log_Enum_Verify.Replaced,
+                5 => Log_Enum_Verify.Hashes,
+                6 => Log_Enum_Verify.Validation,
+                _ => Log_Enum_Verify.All
+            };
+        }
+
+        private static void HandleLogModeChange(this string key, long logMode)
+        {
+            Log.Mode = logMode switch
+            {
+                0 => Log_Enum.None,
+                2 => Log_Enum.Error,
+                3 => Log_Enum.Information,
+                4 => Log_Enum.Debug,
+                _ => Log_Enum.All
+            };
+        }
+
+        private static void HandleWebCallMethodChange(this string key, string webCallMethod)
+        {
+            Launcher_Value.Launcher_Alternative_Webcalls(webCallMethod == "WebClient");
+        }
+
+        private static void HandleProxyLogModeChange(this string key, long proxyLogMode)
+        {
+            Proxy_Settings.Log_Mode = proxyLogMode switch
+            {
+                0 => Proxy.Log_.CommunicationLogRecord.None,
+                2 => Proxy.Log_.CommunicationLogRecord.Errors,
+                3 => Proxy.Log_.CommunicationLogRecord.Responses,
+                4 => Proxy.Log_.CommunicationLogRecord.Requests,
+                _ => Proxy.Log_.CommunicationLogRecord.All
+            };
+        }
+
+        private static void HandleProxyGZipVersionChange(this string key, long proxyGZipVersion)
+        {
+            Proxy_Settings.Gzip_Version = proxyGZipVersion switch
+            {
+                1 => GzipVersion.One,
+                2 => GzipVersion.Two,
+                3 => GzipVersion.OneV2,
+                4 => GzipVersion.Four,
+                _ => GzipVersion.Three
+            };
+        }
+
+        // --- Handlers for settings changes ---
+
+        private static void HandleDisplayTimerChange(this string key, long displayTimer)
+        {
+            /* 0 = Static Timer, 1 = Dynamic Timer, 2 = No Timer */
+            if (displayTimer == 1)
+            {
+                Time_Window.Timer_Dynamic = true;
+                Time_Window.Timer_None = false;
+            }
+            else if (displayTimer == 2)
+            {
+                /* Notes: This actually does not Display Timers on the Title Window and 'Time_Window.Live_Stream' will be renamed in the future */
+                Time_Window.Timer_Dynamic = false;
+                Time_Window.Timer_None = true;
+            }
+            else
+            {
+                Time_Window.Timer_Dynamic = false;
+                Time_Window.Timer_None = false;
+            }
+        }
+
+        private static void HandleProxyChange(this string key, bool isDisabled)
+        {
+            if (!isDisabled && !Proxy_Settings.Running())
+            {
+                Proxy_Server.Instance.Start("SBRW.Launcher.Core.Extra [Save]");
+            }
+            else if (isDisabled && Proxy_Settings.Running())
+            {
+                Proxy_Server.Instance.Stop("SBRW.Launcher.Core.Extra [Save]");
+            }
+        }
+
+        private static void HandleProxyDomainChange(this string key, bool value)
+        {
+            if (!Live_Data.Launcher_Proxy)
+            {
+                if (Proxy_Settings.Running())
+                {
+                    Proxy_Server.Instance.Stop("SBRW.Launcher.Core.Extra [Save (Domain)]");
+                }
+                Proxy_Settings.Domain = (value == false ? "127.0.0.1" : "localhost");
+                Log.Function($"Custom Proxy Domain: -> {Proxy_Settings.Domain} has been Set");
+                if (!Proxy_Settings.Running())
+                {
+                    Proxy_Server.Instance.Start("SBRW.Launcher.Core.Extra [Save (Domain)]");
+                }
+            }
+        }
+
+        private static void HandleRpcChange(this string key, bool isDisabled)
+        {
+            if (!isDisabled && !Presence_Launcher.Running())
+            {
+                Presence_Settings.Disable_RPC_Startup = false;
+                Presence_Launcher.Start();
+            }
+            else if (isDisabled && Presence_Launcher.Running())
+            {
+                Presence_Launcher.Stop("Close");
+                Presence_Settings.Disable_RPC_Startup = true;
+            }
+        }
+
+        private static void HandleInsiderChange(this string key, int insiderValue)
+        {
+            if (insiderValue >= 0 && insiderValue <= 2)
+            {
+                Launcher_Value.Launcher_Insider_Dev = insiderValue == 2;
+                Launcher_Value.Launcher_Insider_Beta = insiderValue == 1;
+
+                if (insiderValue > 0)
+                {
+                    var status = insiderValue == 1 ? "Opted Into the Beta Preview" : "Opted Into the Development Preview";
+                    Log.Core($"Insider Status: {status.ToUpper()}");
+                }
+            }
         }
     }
 }

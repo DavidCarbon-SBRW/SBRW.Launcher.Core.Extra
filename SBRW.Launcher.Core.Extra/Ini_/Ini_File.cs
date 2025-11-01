@@ -1,6 +1,7 @@
 ﻿using SBRW.Ini.Parser;
 using SBRW.Launcher.Core.Extension.Logging_;
 using SBRW.Launcher.Core.Extension.String_;
+using SBRW.Launcher.Core.Extra.Conversion_;
 using System;
 using System.IO;
 
@@ -143,6 +144,70 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             return File_Data[Index_Header][Key_Index];
         }
         /// <summary>
+        /// Reads a string value, returning a default if the key is missing or empty.
+        /// </summary>
+        public string Key_Read(string Key_Index, string Default_Value)
+        {
+            string value = File_Data[Index_Header][Key_Index];
+            return string.IsNullOrWhiteSpace(value) ? Default_Value : value;
+        }
+        /// <summary>
+        /// Reads a boolean value. Handles "0" as false, "1" as true.
+        /// </summary>
+        public bool Key_Read(string Key_Index, bool Default_Value)
+        {
+            string value = File_Data[Index_Header][Key_Index];
+            if (value == "1") return true;
+            if (value == "0") return false;
+            return Default_Value;
+        }
+        /// <summary>
+        /// Reads an integer value.
+        /// </summary>
+        public int Key_Read(string Key_Index, int Default_Value)
+        {
+            string value = File_Data[Index_Header][Key_Index];
+            if (int.TryParse(value, out int Converted_Int))
+            {
+                return Converted_Int;
+            }
+            return Default_Value;
+        }
+        /// <summary>
+        /// Reads an integer value.
+        /// </summary>
+        /// <param name="Key_Index"></param>
+        /// <param name="Default_Value"></param>
+        /// <returns></returns>
+        public long Key_Read(string Key_Index, long Default_Value)
+        {
+            string value = File_Data[Index_Header][Key_Index];
+            if (long.TryParse(value, out long Converted_Int))
+            {
+                return Converted_Int;
+            }
+            return Default_Value;
+        }
+        /// <summary>
+        /// Reads an integer array value.
+        /// </summary>
+        /// <param name="Key_Index"></param>
+        /// <param name="Default_Value"></param>
+        /// <returns></returns>
+        public int[] Key_Read(string Key_Index, int[] Default_Value)
+        {
+            string value = File_Data[Index_Header][Key_Index];
+
+            try
+            {
+                return string.IsNullOrWhiteSpace(value) ? Default_Value : value.Split('-').ToIntArray();
+            }
+            catch
+            {
+                return Default_Value;
+            }
+        }
+        /// <summary>
         /// Creates a Key Entry inside the Ini File
         /// </summary>
         /// <param name="Key_Index">String Index Key</param>
@@ -178,6 +243,24 @@ namespace SBRW.Launcher.Core.Extra.Ini_
             {
                 Log_Detail.Full("IniFile Key Write", Error);
             }
+        }
+        /// <summary>
+        /// Writes a boolean value as "1" (true) or "0" (false).
+        /// </summary>
+        /// <param name="Key_Index">String Index Key</param>
+        /// <param name="Index_Data">String Key Data</param>
+        public void Key_Write(string Key_Index, bool Index_Data)
+        {
+            Key_Write(Key_Index, Index_Data ? "1" : "0");
+        }
+        /// <summary>
+        /// Writes an integer value.
+        /// </summary>
+        /// <param name="Key_Index">String Index Key</param>
+        /// <param name="Index_Data">String Key Data</param>
+        public void Key_Write(string Key_Index, int Index_Data)
+        {
+            Key_Write(Key_Index, Index_Data.ToString());
         }
         /// <summary>
         /// Deletes a Key Entry from the Ini File
