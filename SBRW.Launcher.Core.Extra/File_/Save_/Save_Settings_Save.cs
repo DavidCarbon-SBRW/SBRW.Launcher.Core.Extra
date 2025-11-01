@@ -52,7 +52,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                     WriteSetting("DefenderGame", Live_Data.Defender_Game);
                 }
 
-                if (Product_Version.GetWindowsBuildNumber() >= 10.0)
+                if (Product_Version.GetWindowsBuildNumber() == 6.1)
                 {
                     WriteSetting("PatchesApplied", Live_Data.Win_7_Patches);
                 }
@@ -215,7 +215,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             }
         }
 
-        private static void HandleInsiderChange(this string key, int insiderValue)
+        private static void HandleInsiderChange(this string key, long insiderValue)
         {
             if (insiderValue >= 0 && insiderValue <= 2)
             {
@@ -225,7 +225,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
                 if (insiderValue > 0)
                 {
                     var status = insiderValue == 1 ? "Opted Into the Beta Preview" : "Opted Into the Development Preview";
-                    Log.Core($"Insider Status: {status.ToUpper()}");
+                    Log.Core($"Insider Status: {status.ToUpperInvariant()}");
                 }
             }
         }

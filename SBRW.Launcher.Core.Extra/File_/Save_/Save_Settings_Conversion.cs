@@ -10,14 +10,14 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
     public static partial class Save_Settings
     {
         /// <summary>
-        /// User's Desired Host to IP conversion
+        /// User's Desired use of Host to IP conversion
         /// </summary>
         /// <returns></returns>
         public static bool Legacy_Host_To_IP()
         {
             if (Live_Data != default)
             {
-                return Live_Data.Launcher_Legacy_Host_To_IP == false;
+                return Live_Data.Launcher_Legacy_Host_To_IP == true;
             }
             else
             {
@@ -55,14 +55,14 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             }
         }
         /// <summary>
-        /// Users's Choice to Disable Launcher Proxy
+        /// Users's Choice to use Launcher Proxy
         /// </summary>
         /// <returns></returns>
         public static bool Proxy_RunTime()
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Proxy == false;
+                return Live_Data.Launcher_Proxy == true;
             }
             else
             {
@@ -70,14 +70,14 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             }
         }
         /// <summary>
-        /// Users's Choice to Disable Discord Rich Presence
+        /// Users's Choice to use Discord Rich Presence
         /// </summary>
         /// <returns></returns>
         public static bool RPC_Discord()
         {
             if (Live_Data != null)
             {
-                return Live_Data.Launcher_Discord_Presence == false;
+                return Live_Data.Launcher_Discord_Presence == true;
             }
             else
             {
@@ -85,7 +85,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
             }
         }
         /// <summary>
-        /// User's Choice to Disable the Update Cache Frequency for Launcher Related JSON Files
+        /// User's Choice to use the Update Cache Frequency for Launcher Related JSON Files
         /// </summary>
         /// <returns></returns>
         public static bool Update_Frequency_JSON()
@@ -619,7 +619,7 @@ namespace SBRW.Launcher.Core.Extra.File_.Save_
         {
             if (Live_Data != null)
             {
-                return Live_Data.Alert_Storage_Space == false;
+                return Live_Data.Alert_Storage_Space == true;
             }
             else
             {

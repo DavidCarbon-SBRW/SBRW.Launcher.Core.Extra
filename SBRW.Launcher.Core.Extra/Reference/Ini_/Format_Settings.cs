@@ -11,16 +11,16 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// Game Files Path
         /// </summary>
-        public string Game_Path { get; set; } = string.Empty;
+        public string Game_Path { get; set; }
         /// <summary>
         /// Old Game Files Path
         /// </summary>
         /// <remarks><i>Usually when User changes Path Locations</i></remarks>
-        public string Game_Path_Old { get; set; } = string.Empty;
+        public string Game_Path_Old { get; set; }
         /// <summary>
         /// Saved Game Archive Path
         /// </summary>
-        public string Game_Archive_Location { get; set; } = string.Empty;
+        public string Game_Archive_Location { get; set; }
         #endregion
         #region Launcher
         /// <summary>
@@ -33,31 +33,31 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// </summary>
         public string Launcher_Language { get; set; } = "EN";
         /// <summary>
-        /// Users's Choice to Disable Launcher Proxy
+        /// Users's Choice to use Launcher Proxy
         /// </summary>
-        /// <remarks>Default: False</remarks>
-        public bool Launcher_Proxy { get; set; } = false;
+        /// <remarks>Default: True</remarks>
+        public bool Launcher_Proxy { get; set; } = true;
         /// <summary>
         /// Users's Manual Specified Choice on a Proxy Port
         /// </summary>
         /// <remarks><i>OverRides Generated Port</i></remarks>
-        public string Launcher_Proxy_Port { get; set; } = string.Empty;
+        public string Launcher_Proxy_Port { get; set; }
         /// <summary>
         /// Users's Domain such as LocalHost
         /// </summary>
-        public bool Launcher_Proxy_Domain { get; set; } = false;
+        public bool Launcher_Proxy_Domain { get; set; }
         /// <summary>
-        /// Users's Choice to Disable Discord Rich Presence
+        /// Users's Choice to use Discord Rich Presence
         /// </summary>
-        /// <remarks>Default: False</remarks>
-        public bool Launcher_Discord_Presence { get; set; } = false;
+        /// <remarks>Default: True</remarks>
+        public bool Launcher_Discord_Presence { get; set; } = true;
         /// <summary>
         /// Users's Choice to Enable Alternative Web Calls
         /// </summary>
         /// <remarks><i>Usually WebClientWithTimeout</i></remarks>
         public string Launcher_WebClient_Method { get; set; } = "WebClient";
         /// <summary>
-        /// Users's Choice of Launcher's Custom Theme
+        /// Users's Choice of use of Launcher's Custom Theme
         /// </summary>
         /// <remarks>Default: False</remarks>
         public bool Launcher_Theme_Support { get; set; } = false;
@@ -65,7 +65,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// Users's Choice on Opting Into Insider Builds
         /// </summary>
         /// <remarks>0 = Stable (Default)<br/>1 = Beta<br/>2 = Dev<br/></remarks>
-        public int Launcher_Insider { get; set; } = 0;
+        public long Launcher_Insider { get; set; } = 0;
         /// <summary>
         /// Users's Choice of Game Downloader Method
         /// </summary>
@@ -91,10 +91,10 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <remarks>Examples: Internet Cafe, Guest, and/or Development Machine(s)</remarks>
         public long Launcher_RunTime_Environment { get; set; } = 0;
         /// <summary>
-        /// User's Desired Host to IP conversion
+        /// User's Desired use of Legacy Host to IP conversion
         /// </summary>
-        /// <remarks>Default: False</remarks>
-        public bool Launcher_Legacy_Host_To_IP { get; set; } = false;
+        /// <remarks>Default: True</remarks>
+        public bool Launcher_Legacy_Host_To_IP { get; set; } = true;
         /// <summary>
         /// User's Logging Mode Type
         /// </summary>
@@ -106,6 +106,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// User's Choice of Certificate Mode Functions
         /// </summary>
+        /// <remarks>Default: False</remarks>
         public bool Launcher_Certificate_Mode { get; set; } = false;
         /// <summary>
         /// User's Logging Mode Type
@@ -118,6 +119,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// User's Choice on removing the Scripts Folder during Verify Hash Scan
         /// </summary>
+        /// <remarks>Default: False</remarks>
         public bool Launcher_Verify_Script_Removal { get; set; } = false;
         /// <summary>
         /// User's Choice on Log File removal
@@ -134,6 +136,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// User's Choice to use the Account Manager
         /// </summary>
+        /// <remarks>Default: False</remarks>
         public bool Launcher_Account_Manager { get; set; } = false;
         #endregion
         #region Game
@@ -145,6 +148,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// User's Game Affinity Simple Mode
         /// </summary>
+        /// <remarks>Default: False</remarks>
         public bool Launcher_Game_Affinity_Range_Mode { get; set; } = false;
         /// <summary>
         /// User's Game Affinity Range "Advanced"
@@ -156,7 +160,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// Launcher Update Version Skip
         /// </summary>
         /// <remarks><i>User's Choice</i></remarks>
-        public string Update_Version_Skip { get; set; } = string.Empty;
+        public string Update_Version_Skip { get; set; }
         /// <summary>
         /// Windows Firewall Status for Launcher
         /// </summary>
@@ -181,7 +185,7 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// Windows 7 Patches
         /// </summary>
         /// <remarks><i>Is Manually Set by a Launcher Function</i></remarks>
-        public string Win_7_Patches { get; set; } = string.Empty;
+        public string Win_7_Patches { get; set; }
         /// <summary>
         /// Launcher Write Status
         /// </summary>
@@ -190,7 +194,8 @@ namespace SBRW.Launcher.Core.Extra.Reference.Ini_
         /// <summary>
         /// User's Desired Alert-Popup about Limited Storage Space
         /// </summary>
-        public bool Alert_Storage_Space { get; set; } = false;
+        /// <remarks>Default: True</remarks>
+        public bool Alert_Storage_Space { get; set; } = true;
         #endregion
     }
 }
